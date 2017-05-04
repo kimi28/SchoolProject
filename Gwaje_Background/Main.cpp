@@ -30,6 +30,10 @@ void main() {
 
 	Gdiplus::Rect rect;
 	while (true) {
+		Sleep(10);
+		// 
+	}
+	/*while (true) {
 		char key = getch();
 
 		switch (key) {
@@ -47,7 +51,7 @@ void main() {
 			break;
 
 		}
-	}
+	}*/
 	//사각형의 충돌
 	delete drawImage;
 }
