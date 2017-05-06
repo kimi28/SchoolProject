@@ -11,18 +11,18 @@ MainCharacter::MainCharacter(DrawImage* drawImage)
 	imageAddIndex = 0;
 	direction = Left;
 
-	AddImage(L"resource\\Front_1.png");//1
-	AddImage(L"resource\\Front_2.png");//2
-	AddImage(L"resource\\Front_3.png");//3
-	AddImage(L"resource\\Rear_1.png");//4
-	AddImage(L"resource\\Rear_2.png");//5
-	AddImage(L"resource\\Rear_3.png");//6
-	AddImage(L"resource\\Right_1.png");//7
-	AddImage(L"resource\\Right_2.png");//8
-	AddImage(L"resource\\Right_3.png");//9
-	AddImage(L"resource\\Left_1.png");//10
-	AddImage(L"resource\\Left_2.png");//11
-	AddImage(L"resource\\Left_3.png");//12
+	AddImage(L"resource\\Front_1.png");//0
+	AddImage(L"resource\\Front_2.png");//1
+	AddImage(L"resource\\Front_3.png");//2
+	AddImage(L"resource\\Rear_1.png");//3
+	AddImage(L"resource\\Rear_2.png");//4
+	AddImage(L"resource\\Rear_3.png");//5
+	AddImage(L"resource\\Right_1.png");//6
+	AddImage(L"resource\\Right_2.png");//7
+	AddImage(L"resource\\Right_3.png");//8
+	AddImage(L"resource\\Left_1.png");//9
+	AddImage(L"resource\\Left_2.png");//10
+	AddImage(L"resource\\Left_3.png");//11
 }
 
 MainCharacter::~MainCharacter()

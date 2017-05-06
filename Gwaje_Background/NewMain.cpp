@@ -2,7 +2,10 @@
 #include "ObjectManager.h"
 #include "WorldManager.h"
 #include "InputManager.h"
+#include "DrawImage.h"
 #include <Windows.h>
+#include <stdio.h>
+#include <conio.h>
 
 bool isRunning = true;
 
@@ -15,10 +18,30 @@ void main() {
 
 	while (isRunning) {
 		//isRunning = false;
-		worldManager->Update();
-		objectManager->Update();
-		sceneManager->Redraw();
-		Sleep(10);
+		char key = getch();
+		sceneManager->RedrawMap();
+		switch (key) {
+		case 'w':
+			//worldManager->Update();
+			//objectManager->Update();
+			break;
+		case 's':
+			//worldManager->Update();
+			//objectManager->Update();
+			break;
+		case 'a':
+			//worldManager->Update();
+			//objectManager->Update();
+			break;
+		case 'd':
+			//worldManager->Update();
+			//objectManager->Update();
+			break;
+		}
+
+
+
+
 	}
 
 

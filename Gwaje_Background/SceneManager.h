@@ -5,11 +5,12 @@
 class SceneManager
 {
 private:
-	DrawImage* drawImage;
 	ObjectManager* objectManager;
+	DrawImage* drawImage;
 public:
 	SceneManager(ObjectManager* objectManager);
 	~SceneManager();
-	void Redraw();
+	void RedrawMap();
+	void RedrwaNpc();
 };
 

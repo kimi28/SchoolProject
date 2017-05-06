@@ -63,4 +63,3 @@ public:
 	void Draw(Gdiplus::Image* image, Gdiplus::Rect rect);
 	void FlipBuffer();
 };
-
