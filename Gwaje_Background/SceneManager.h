@@ -10,7 +10,8 @@ private:
 public:
 	SceneManager(ObjectManager* objectManager);
 	~SceneManager();
+	void AddImages(int number);
 	void RedrawMap();
-	void RedrwaNpc();
+	void RedrawNpc();
 };
 

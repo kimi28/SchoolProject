@@ -20,6 +20,7 @@ void main() {
 		//isRunning = false;
 		char key = getch();
 		sceneManager->RedrawMap();
+		sceneManager->RedrawNpc();
 		switch (key) {
 		case 'w':
 			//worldManager->Update();
