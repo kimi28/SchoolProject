@@ -23,12 +23,10 @@ void main() {
 		sceneManager->RedrawNpc();
 		switch (key) {
 		case 'w':
-			sceneManager->RedrawPlayer(3, 200, 300);
 			//worldManager->Update();
 			//objectManager->Update();
 			break;
 		case 's':
-			sceneManager->RedrawPlayer(3, 200, 300);
 			//worldManager->Update();
 			//objectManager->Update();
 			break;

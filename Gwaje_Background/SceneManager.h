@@ -13,6 +13,5 @@ public:
 	void AddImages(int number);
 	void RedrawMap();
 	void RedrawNpc();
-	void RedrawPlayer(int number, int x, int y);
 };
 
