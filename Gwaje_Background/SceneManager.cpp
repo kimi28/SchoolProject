@@ -19,7 +19,15 @@ void SceneManager::AddImages(int number)
 	drawImage->AddImage(L"resource\\Front_1.png");
 	drawImage->AddImage(L"resource\\Front_2.png");
 	drawImage->AddImage(L"resource\\Front_3.png");
-
+	drawImage->AddImage(L"resource\\Rear_1.png");
+	drawImage->AddImage(L"resource\\Rear_2.png");
+	drawImage->AddImage(L"resource\\Rear_3.png");
+	drawImage->AddImage(L"resource\\Right_1.png");
+	drawImage->AddImage(L"resource\\Right_2.png");
+	drawImage->AddImage(L"resource\\Right_3.png");
+	drawImage->AddImage(L"resource\\Left_1.png");
+	drawImage->AddImage(L"resource\\Left_2.png");
+	drawImage->AddImage(L"resource\\Left_3.png");
 }
 
 void SceneManager::RedrawMap()
@@ -45,4 +53,13 @@ void SceneManager::RedrawNpc()
 	drawImage->FlipBuffer();
 
 }
+
+void SceneManager::RedrawPlayer(int number, int x, int y)
+{
+	AddImages(number);
+	drawImage->SetPosition(number, x, y);
+	drawImage->Drawing(number);
+	drawImage->FlipBuffer();
+}
+
 
