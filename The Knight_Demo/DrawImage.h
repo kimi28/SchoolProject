@@ -9,6 +9,8 @@ struct ImagePosition {
 	Gdiplus::Image* image;
 	Gdiplus::Rect rect;
 };
+
+class SceneManager;
 class DrawImage
 {
 private:
@@ -33,7 +35,7 @@ public:
 	ImagePosition GetImagePosition(int number) {
 		return imagePositions[number];
 	}
-	Gdiplus::Rect Getposition(int number) {
+	Gdiplus::Rect GetPosition(int number) {
 		return imagePositions[number].rect;
 	}
 
@@ -55,7 +57,7 @@ public:
 	void Clear(BYTE r, BYTE g, BYTE b);
 	void AddImage(WCHAR* fileName);
 	void Drawing(int number);
-	void Draw(Gdiplus::Image* image, Gdiplus::Rect rect);
+	void Drawing(int number, Gdiplus::Rect rect);
 	void FlipBuffer();
 
 };
