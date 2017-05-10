@@ -1,10 +1,10 @@
-#include "DrawImage.h"
+#include "DrawMap.h"
 #include <conio.h>
 #include <Windows.h>
 
 using namespace Gdiplus;
 
-DrawImage::DrawImage()
+DrawMap::DrawMap()
 {
 	GdiplusStartupInput gdiplusStartupInput;
 	gdiplusToken = NULL;
@@ -22,12 +22,12 @@ DrawImage::DrawImage()
 }
 
 
-DrawImage::~DrawImage()
+DrawMap::~DrawMap()
 {
 	ReleaseDC(hwnd, hdc);
 
 	for (int i = 0; i < (int)imagePositions.size(); i++) {
-		delete imagePositions[i].image;
+		delete imagePositions[i].mapImage;
 	}
 
 	delete bitmap;
@@ -36,40 +36,40 @@ DrawImage::~DrawImage()
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 }
 
-void DrawImage::Clear(BYTE r, BYTE g, BYTE b)
+void DrawMap::Clear(BYTE r, BYTE g, BYTE b)
 {
 	Color color = { r, g, b };
 	background->Clear(color);
 }
 
-void DrawImage::AddImage(WCHAR * fileName)
+void DrawMap::AddMap(WCHAR * fileName)
 {
-	Gdiplus::Image* image = new Gdiplus::Image(fileName);
+	Gdiplus::Image* mapImage = new Gdiplus::Image(fileName);
 
-	ImagePosition position;
-	position.image = image;
+	MapPosition position;
+	position.mapImage = mapImage;
 	position.rect = { 0, 0, 0, 0 };
 
-	position.rect.Width = image->GetWidth();
-	position.rect.Height = image->GetHeight();
+	position.rect.Width = mapImage->GetWidth();
+	position.rect.Height = mapImage->GetHeight();
 
 	imagePositions.push_back(position);
 }
 
-void DrawImage::Drawing(int number)
+void DrawMap::Drawing(int number)
 {
-	ImagePosition position = imagePositions[number];
-	background->DrawImage(position.image, position.rect);
+	MapPosition position = imagePositions[number];
+	background->DrawImage(position.mapImage, position.rect);
 }
 
-void DrawImage::Drawing(int number, Gdiplus::Rect rect)
+void DrawMap::Drawing(int number, Gdiplus::Rect rect)
 {
-	ImagePosition position = imagePositions[number];
+	MapPosition position = imagePositions[number];
 	position.rect = rect;
-	background->DrawImage(position.image, position.rect);
+	background->DrawImage(position.mapImage, position.rect);
 }
 
-void DrawImage::FlipBuffer()
+void DrawMap::FlipBuffer()
 {
 	foreground->DrawImage(bitmap, 0, 0);
 }

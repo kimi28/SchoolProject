@@ -5,12 +5,12 @@
 
 using namespace std;
 
-struct ImagePosition {
-	Gdiplus::Image* image;
+struct MapPosition {
+	Gdiplus::Image* mapImage;
 	Gdiplus::Rect rect;
 };
 
-class DrawImage
+class DrawMap
 {
 private:
 	Gdiplus::Graphics* foreground;
@@ -21,17 +21,17 @@ private:
 	HWND hwnd;
 	HDC hdc;
 
-	vector<ImagePosition> imagePositions;
+	vector<MapPosition> imagePositions;
 	RECT clientArea;
 
 public:
-	DrawImage();
-	~DrawImage();
+	DrawMap();
+	~DrawMap();
 
 	RECT GetClientArea() {
 		return clientArea;
 	}
-	ImagePosition GetImagePosition(int number) {
+	MapPosition GetImagePosition(int number) {
 		return imagePositions[number];
 	}
 	Gdiplus::Rect GetPosition(int number) {
@@ -54,7 +54,7 @@ public:
 		return (int)imagePositions.size();
 	}
 	void Clear(BYTE r, BYTE g, BYTE b);
-	void AddImage(WCHAR* fileName);
+	void AddMap(WCHAR* fileName);
 	void Drawing(int number);
 	void Drawing(int number, Gdiplus::Rect rect);
 	void FlipBuffer();

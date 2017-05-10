@@ -3,10 +3,18 @@
   <ItemGroup>
     <ClInclude Include="DrawImage.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrawImage.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="InputManager.cpp" />
   </ItemGroup>
 </Project>
