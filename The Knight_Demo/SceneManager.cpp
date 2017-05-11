@@ -9,93 +9,95 @@ SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::MoveUp(DrawImage * drawImage, SceneManager * sceneManager, int number)
+bool SceneManager::CheckCollision()
 {
-	if (characterY > mapY) {
+	rectNpc = { npcX, npcY, WIDTH, HEIGHT };
+	rect = { characterX, characterY, WIDTH, HEIGHT };
+
+	if (characterX <= (npcY + WIDTH)) {
+		return true;
+	}
+	return false;
+}
+
+void SceneManager::MoveUp(DrawImage * drawImage, int number)
+{
+	if (characterY > backgroudY) {
 		rect = drawImage->GetPosition(number + 6);
 		rect.X = characterX;
 		rect.Y = characterY - 20;
 		drawImage->SetPosition(number + 6, rect.X, rect.Y);
-		sceneManager->ReDraw(drawImage, number + 6);
 		characterX = rect.X;
 		characterY = rect.Y;
 	}
 	else {
 		rect = drawImage->GetPosition(number + 6);
 		drawImage->SetPosition(number + 6, characterX, characterY);
-		sceneManager->ReDraw(drawImage, number + 6);
 	}
 
 }
 
-void SceneManager::MoveDown(DrawImage * drawImage, SceneManager * sceneManager, int number)
+void SceneManager::MoveDown(DrawImage * drawImage, int number)
 {
 
-	if (characterY < (mapHeight - HEIGHT)) {
+	if (characterY < (backgroudHeight - HEIGHT)) {
 		rect = drawImage->GetPosition(number + 3);
 		rect.X = characterX;
 		rect.Y = characterY + 20;
 		drawImage->SetPosition(number + 3, rect.X, rect.Y);
-		sceneManager->ReDraw(drawImage, number + 3);
 		characterX = rect.X;
 		characterY = rect.Y;
 	}
 	else {
 		rect = drawImage->GetPosition(number + 3);
 		drawImage->SetPosition(number + 3, characterX, characterY);
-		sceneManager->ReDraw(drawImage, number + 3);
 	}
 }
 
-void SceneManager::MoveRight(DrawImage * drawImage, SceneManager * sceneManager, int number)
+void SceneManager::MoveRight(DrawImage * drawImage, int number)
 {
-	if (characterX < (mapWidth - WIDTH)) {
+	if (characterX < (backgroudWidth - WIDTH)) {
 		rect = drawImage->GetPosition(number + 9);
 		rect.X = characterX + 20;
 		rect.Y = characterY;
 		drawImage->SetPosition(number + 9, rect.X, rect.Y);
-		sceneManager->ReDraw(drawImage, number + 9);
 		characterX = rect.X;
 		characterY = rect.Y;
 	}
 	else {
 		rect = drawImage->GetPosition(number + 9);
 		drawImage->SetPosition(number + 9, characterX, characterY);
-		sceneManager->ReDraw(drawImage, number + 9);
 	}
 }
 
-void SceneManager::MoveLeft(DrawImage * drawImage, SceneManager * sceneManager, int number)
+void SceneManager::MoveLeft(DrawImage * drawImage, int number)
 {
-	if (characterX > mapX) {
+	if (characterX > backgroudX) {
 		rect = drawImage->GetPosition(number + 12);
 		rect.X = characterX - 20;
 		rect.Y = characterY;
 		drawImage->SetPosition(number + 12, rect.X, rect.Y);
-		sceneManager->ReDraw(drawImage, number + 12);
 		characterX = rect.X;
 		characterY = rect.Y;
-
 	}
 	else {
 		rect = drawImage->GetPosition(number + 12);
 		drawImage->SetPosition(number + 12, characterX, characterY);
-		sceneManager->ReDraw(drawImage, number + 12);
 	}
 }
 
 void SceneManager::SetPosition(DrawImage* drawImage)
 {
-	mapWidth = drawImage->GetClientArea().right;
-	mapHeight = drawImage->GetClientArea().bottom;
-	mapX = 0;
-	mapY = 0;
-	characterX = mapWidth / 2;
-	characterY = mapHeight / 2;
+	backgroudWidth = drawImage->GetClientArea().right;
+	backgroudHeight = drawImage->GetClientArea().bottom;
+	backgroudX = 0;
+	backgroudY = 0;
+	characterX = backgroudWidth / 2;
+	characterY = backgroudHeight / 2;
 	npcX = 100;
 	npcY = 100;
 
-	drawImage->SetPosition(0, Gdiplus::Rect(mapX, mapY, mapWidth, mapHeight));
+	drawImage->SetPosition(0, Gdiplus::Rect(backgroudX, backgroudY, backgroudWidth, backgroudHeight));
 	drawImage->SetPosition(1, npcX, npcY);
 
 	for (int i = 3; i < (int)drawImage->GetImageCount(); i++)
@@ -104,11 +106,35 @@ void SceneManager::SetPosition(DrawImage* drawImage)
 	}
 }
 
+void SceneManager::SetPositionDungeon(DrawImage * drawImage)
+{
+	backgroudWidth = drawImage->GetClientArea().right;
+	backgroudHeight = drawImage->GetClientArea().bottom;
+	backgroudX = 0;
+	backgroudY = 0;
+	characterX = backgroudWidth / 2;
+	characterY = backgroudHeight / 2;
+	npcX = 100;
+	npcY = 100;
+
+	drawImage->SetPosition(2, npcX, npcY);
+
+	for (int i = 3; i < (int)drawImage->GetImageCount(); i++)
+	{
+		drawImage->SetPosition(i, characterX, characterY);
+
+		if (i == 15) {
+
+			drawImage->SetPosition(15, Gdiplus::Rect(backgroudX, backgroudY, backgroudWidth, backgroudHeight));
+		}
+	}
+}
+
 void SceneManager::AddImage(DrawImage* drawImage)
 {
-	drawImage->AddImage(L"resource\\Background.png");//0
-	drawImage->AddImage(L"resource\\Npc.png");//1
-	drawImage->AddImage(L"resource\\Npc2.png");//2
+	drawImage->AddImage(L"resource\\Lobby_Background.png");//0
+	drawImage->AddImage(L"resource\\Npc_1.png");//1
+	drawImage->AddImage(L"resource\\Npc_2.png");//2
 
 	drawImage->AddImage(L"resource\\Front_1.png");//3
 	drawImage->AddImage(L"resource\\Front_2.png");//4
@@ -126,7 +152,7 @@ void SceneManager::AddImage(DrawImage* drawImage)
 	drawImage->AddImage(L"resource\\Left_2.png");//13
 	drawImage->AddImage(L"resource\\Left_3.png");//14
 
-	drawImage->AddImage(L"resource\\Dungeon.png");//15
+	drawImage->AddImage(L"resource\\Dungeon_Background.png");//15
 
 }
 
@@ -139,6 +165,7 @@ void SceneManager::ReDraw(DrawImage* drawImage, int number)
 
 	}
 	drawImage->Drawing(number);
+
 	drawImage->FlipBuffer();
 }
 
@@ -149,6 +176,7 @@ void SceneManager::ReDrawDungeon(DrawImage * drawImage, int number)
 	drawImage->Drawing(15);
 	drawImage->Drawing(2);
 	drawImage->Drawing(number);
+
 	drawImage->FlipBuffer();
 }
 

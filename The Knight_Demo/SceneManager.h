@@ -8,10 +8,10 @@ class DrawImage;
 class SceneManager
 {
 private:
-	int mapWidth;
-	int mapHeight;
-	int mapX;
-	int mapY;
+	int backgroudWidth;
+	int backgroudHeight;
+	int backgroudX;
+	int backgroudY;
 	int characterX;
 	int characterY;
 	int npcX;
@@ -20,14 +20,17 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	Gdiplus::Rect rectNpc = { npcX, npcY, WIDTH, HEIGHT };
-	Gdiplus::Rect rect = { characterX, characterY, WIDTH, HEIGHT };
+	Gdiplus::Rect rectNpc;
+	Gdiplus::Rect rect;
 
-	void MoveUp(DrawImage* drawImage, SceneManager* sceneManager, int number);
-	void MoveDown(DrawImage* drawImage, SceneManager* sceneManager, int number);
-	void MoveRight(DrawImage* drawImage, SceneManager* sceneManager, int number);
-	void MoveLeft(DrawImage* drawImage, SceneManager* sceneManager, int number);
+	bool CheckCollision();
+
+	void MoveUp(DrawImage* drawImage, int number);
+	void MoveDown(DrawImage* drawImage, int number);
+	void MoveRight(DrawImage* drawImage, int number);
+	void MoveLeft(DrawImage* drawImage, int number);
 	void SetPosition(DrawImage* drawImage);
+	void SetPositionDungeon(DrawImage* drawImage);
 	void AddImage(DrawImage* drawImage);
 	void ReDraw(DrawImage* drawImage, int number);
 	void ReDrawDungeon(DrawImage* drawImage, int number);
