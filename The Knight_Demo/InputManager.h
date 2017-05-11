@@ -7,6 +7,7 @@ public:
 	InputManager();
 	~InputManager();
 
-	void Input();
+	void InputLobby();
+	void InputDungeon();
 };
 

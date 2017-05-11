@@ -14,7 +14,7 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::Input()
+void InputManager::InputLobby()
 {
 	int number = 0;
 	SceneManager* sceneManager = new SceneManager();

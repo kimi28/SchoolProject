@@ -3,16 +3,6 @@
 
 SceneManager::SceneManager()
 {
-	this->width = width;
-	this->height = height;
-	this->x = x;
-	this->y = y;
-	this->posX = posX;
-	this->posY = posY;
-	this->Width = Width;
-	this->Height = Height;
-	this->Npc_posX = Npc_posX;
-	this->Npc_posY = Npc_posY;
 }
 
 SceneManager::~SceneManager()
@@ -21,18 +11,18 @@ SceneManager::~SceneManager()
 
 void SceneManager::MoveUp(DrawImage * drawImage, SceneManager * sceneManager, int number)
 {
-	if (posY > y) {
+	if (characterY > mapY) {
 		rect = drawImage->GetPosition(number + 6);
-		rect.X = posX;
-		rect.Y = posY - 20;
+		rect.X = characterX;
+		rect.Y = characterY - 20;
 		drawImage->SetPosition(number + 6, rect.X, rect.Y);
 		sceneManager->ReDraw(drawImage, number + 6);
-		posX = rect.X;
-		posY = rect.Y;
+		characterX = rect.X;
+		characterY = rect.Y;
 	}
 	else {
 		rect = drawImage->GetPosition(number + 6);
-		drawImage->SetPosition(number + 6, posX, posY);
+		drawImage->SetPosition(number + 6, characterX, characterY);
 		sceneManager->ReDraw(drawImage, number + 6);
 	}
 
@@ -41,79 +31,76 @@ void SceneManager::MoveUp(DrawImage * drawImage, SceneManager * sceneManager, in
 void SceneManager::MoveDown(DrawImage * drawImage, SceneManager * sceneManager, int number)
 {
 
-		if (posY < (height - Height)) {
-			rect = drawImage->GetPosition(number + 3);
-			rect.X = posX;
-			rect.Y = posY + 20;
-			drawImage->SetPosition(number + 3, rect.X, rect.Y);
-			sceneManager->ReDraw(drawImage, number + 3);
-			posX = rect.X;
-			posY = rect.Y;
-		}
-		else {
-			rect = drawImage->GetPosition(number + 3);
-			drawImage->SetPosition(number + 3, posX, posY);
-			sceneManager->ReDraw(drawImage, number + 3);
-		}
+	if (characterY < (mapHeight - HEIGHT)) {
+		rect = drawImage->GetPosition(number + 3);
+		rect.X = characterX;
+		rect.Y = characterY + 20;
+		drawImage->SetPosition(number + 3, rect.X, rect.Y);
+		sceneManager->ReDraw(drawImage, number + 3);
+		characterX = rect.X;
+		characterY = rect.Y;
+	}
+	else {
+		rect = drawImage->GetPosition(number + 3);
+		drawImage->SetPosition(number + 3, characterX, characterY);
+		sceneManager->ReDraw(drawImage, number + 3);
+	}
 }
 
 void SceneManager::MoveRight(DrawImage * drawImage, SceneManager * sceneManager, int number)
 {
-		if (posX < (width - Width)) {
-			rect = drawImage->GetPosition(number + 9);
-			rect.X = posX + 20;
-			rect.Y = posY;
-			drawImage->SetPosition(number + 9, rect.X, rect.Y);
-			sceneManager->ReDraw(drawImage, number + 9);
-			posX = rect.X;
-			posY = rect.Y;
-		}
-		else {
-			rect = drawImage->GetPosition(number + 9);
-			drawImage->SetPosition(number + 9, posX, posY);
-			sceneManager->ReDraw(drawImage, number + 9);
-		}
+	if (characterX < (mapWidth - WIDTH)) {
+		rect = drawImage->GetPosition(number + 9);
+		rect.X = characterX + 20;
+		rect.Y = characterY;
+		drawImage->SetPosition(number + 9, rect.X, rect.Y);
+		sceneManager->ReDraw(drawImage, number + 9);
+		characterX = rect.X;
+		characterY = rect.Y;
+	}
+	else {
+		rect = drawImage->GetPosition(number + 9);
+		drawImage->SetPosition(number + 9, characterX, characterY);
+		sceneManager->ReDraw(drawImage, number + 9);
+	}
 }
 
 void SceneManager::MoveLeft(DrawImage * drawImage, SceneManager * sceneManager, int number)
 {
-		if (posX > x) {
-			rect = drawImage->GetPosition(number + 12);
-			rect.X = posX - 20;
-			rect.Y = posY;
-			drawImage->SetPosition(number + 12, rect.X, rect.Y);
-			sceneManager->ReDraw(drawImage, number + 12);
-			posX = rect.X;
-			posY = rect.Y;
+	if (characterX > mapX) {
+		rect = drawImage->GetPosition(number + 12);
+		rect.X = characterX - 20;
+		rect.Y = characterY;
+		drawImage->SetPosition(number + 12, rect.X, rect.Y);
+		sceneManager->ReDraw(drawImage, number + 12);
+		characterX = rect.X;
+		characterY = rect.Y;
 
-		}
-		else {
-			rect = drawImage->GetPosition(number + 12);
-			drawImage->SetPosition(number + 12, posX, posY);
-			sceneManager->ReDraw(drawImage, number + 12);
-		}
+	}
+	else {
+		rect = drawImage->GetPosition(number + 12);
+		drawImage->SetPosition(number + 12, characterX, characterY);
+		sceneManager->ReDraw(drawImage, number + 12);
+	}
 }
 
 void SceneManager::SetPosition(DrawImage* drawImage)
 {
-	width = drawImage->GetClientArea().right;
-	height = drawImage->GetClientArea().bottom;
-	x = 0;
-	y = 0;
-	posX = width / 2;
-	posY = height / 2;
-	Width = 40;
-	Height = 60;
-	Npc_posX = 100;
-	Npc_posY = 100;
+	mapWidth = drawImage->GetClientArea().right;
+	mapHeight = drawImage->GetClientArea().bottom;
+	mapX = 0;
+	mapY = 0;
+	characterX = mapWidth / 2;
+	characterY = mapHeight / 2;
+	npcX = 100;
+	npcY = 100;
 
-	drawImage->SetPosition(0, Gdiplus::Rect(x, y, width, height));
-	drawImage->SetPosition(1, Npc_posX, Npc_posY);
-	drawImage->SetPosition(2, 700, 100);
+	drawImage->SetPosition(0, Gdiplus::Rect(mapX, mapY, mapWidth, mapHeight));
+	drawImage->SetPosition(1, npcX, npcY);
 
 	for (int i = 3; i < (int)drawImage->GetImageCount(); i++)
 	{
-		drawImage->SetPosition(i, posX, posY);
+		drawImage->SetPosition(i, characterX, characterY);
 	}
 }
 
@@ -139,16 +126,28 @@ void SceneManager::AddImage(DrawImage* drawImage)
 	drawImage->AddImage(L"resource\\Left_2.png");//13
 	drawImage->AddImage(L"resource\\Left_3.png");//14
 
+	drawImage->AddImage(L"resource\\Dungeon.png");//15
+
 }
 
 void SceneManager::ReDraw(DrawImage* drawImage, int number)
 {
 	drawImage->Clear(0, 0, 0);
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		drawImage->Drawing(i);
 
 	}
+	drawImage->Drawing(number);
+	drawImage->FlipBuffer();
+}
+
+void SceneManager::ReDrawDungeon(DrawImage * drawImage, int number)
+{
+	drawImage->Clear(0, 0, 0);
+
+	drawImage->Drawing(15);
+	drawImage->Drawing(2);
 	drawImage->Drawing(number);
 	drawImage->FlipBuffer();
 }

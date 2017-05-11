@@ -1,26 +1,27 @@
 #pragma once
 #include "DrawImage.h"
+#define WIDTH 40
+#define HEIGHT 60
+
 
 class DrawImage;
 class SceneManager
 {
 private:
-	int width;
-	int height;
-	int x;
-	int y;
-	int posX;
-	int posY;
-	int Width;
-	int Height;
-	int Npc_posX;
-	int Npc_posY;
+	int mapWidth;
+	int mapHeight;
+	int mapX;
+	int mapY;
+	int characterX;
+	int characterY;
+	int npcX;
+	int npcY;
 public:
 	SceneManager();
 	~SceneManager();
 
-	Gdiplus::Rect rectNpc = { Npc_posX, Npc_posY, Width, Height };
-	Gdiplus::Rect rect = { posX, posY, Width, Height };
+	Gdiplus::Rect rectNpc = { npcX, npcY, WIDTH, HEIGHT };
+	Gdiplus::Rect rect = { characterX, characterY, WIDTH, HEIGHT };
 
 	void MoveUp(DrawImage* drawImage, SceneManager* sceneManager, int number);
 	void MoveDown(DrawImage* drawImage, SceneManager* sceneManager, int number);
@@ -29,4 +30,5 @@ public:
 	void SetPosition(DrawImage* drawImage);
 	void AddImage(DrawImage* drawImage);
 	void ReDraw(DrawImage* drawImage, int number);
+	void ReDrawDungeon(DrawImage* drawImage, int number);
 };

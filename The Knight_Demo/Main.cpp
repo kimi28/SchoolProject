@@ -2,7 +2,7 @@
 
 void main() {
 	InputManager* input = new InputManager();
-	input->Input();
+	input->InputLobby();
 
 	delete input;
 }
