@@ -4,7 +4,9 @@
 void main() {
 	SceneManager* sceneManager = new SceneManager();
 	InputManager* input = new InputManager();
-		input->InputLobby(sceneManager);
+
+		input->Input(sceneManager);
+		input->InputDungeon(sceneManager);
 
 	delete input;
 	delete sceneManager;

@@ -11,7 +11,7 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::InputLobby(SceneManager* sceneManager)
+void InputManager::Input(SceneManager* sceneManager)
 {
 	int number = 0;
 	DrawImage* drawImage = new DrawImage();
@@ -69,7 +69,7 @@ void InputManager::InputLobby(SceneManager* sceneManager)
 	delete drawImage;
 }
 
-void InputManager::InputDungeon(SceneManager * sceneManager)
+void InputManager::InputDungeon(SceneManager* sceneManager)
 {
 	int number = 0;
 	DrawImage* drawImage = new DrawImage();

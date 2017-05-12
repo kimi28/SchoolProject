@@ -1,13 +1,12 @@
 #pragma once
 #include "DrawImage.h"
-#define WIDTH 40
-#define HEIGHT 60
-
 
 class DrawImage;
 class SceneManager
 {
 private:
+	Gdiplus::Rect rect;
+
 	int backgroudWidth;
 	int backgroudHeight;
 	int backgroudX;
@@ -20,10 +19,7 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	Gdiplus::Rect rectNpc;
-	Gdiplus::Rect rect;
-
-	bool CheckCollision();
+	bool isCollision();
 
 	void MoveUp(DrawImage* drawImage, int number);
 	void MoveDown(DrawImage* drawImage, int number);

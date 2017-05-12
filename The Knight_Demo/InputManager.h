@@ -8,7 +8,7 @@ public:
 	InputManager();
 	~InputManager();
 
-	void InputLobby(SceneManager* sceneManager);
+	void Input(SceneManager* sceneManager);
 	void InputDungeon(SceneManager* sceneManager);
 };
 
