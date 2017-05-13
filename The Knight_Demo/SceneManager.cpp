@@ -12,13 +12,13 @@ SceneManager::~SceneManager()
 bool SceneManager::isCollision()
 {
 	Gdiplus::Rect rectNpc;
-	int X = npcX - 20;
-	int Y = npcY - 20;
-	int Width = rectNpc.Width + 20;
-	int Height = rectNpc.Height + 20;
+	int X = npcX;
+	int Y = npcY;
+	int Width = rectNpc.Width + 40;
+	int Height = rectNpc.Height + 60;
 	rectNpc = { X, Y, Width, Height };
 
-	if (abs(characterX - X) <= Width && abs(characterY - Y) <= Height) {
+	if (abs(rect.X - X) <= Width && abs(rect.Y - Y) <= Height) {
 		return true;
 	}
 
@@ -27,20 +27,18 @@ bool SceneManager::isCollision()
 
 void SceneManager::MoveUp(DrawImage * drawImage, int number)
 {
-	if (characterY > backgroudY) {
-		if (isCollision() == true) {
-			rect = drawImage->GetPosition(number + 6);
-			drawImage->SetPosition(number + 6, rect.X, rect.Y);
-			characterX = rect.X;
-			characterY = rect.Y;
-		}
-		else {
+	if (isCollision() == false) {
+		if (characterY > backgroudY) {
 			rect = drawImage->GetPosition(number + 6);
 			rect.X = characterX;
 			rect.Y = characterY - 20;
 			drawImage->SetPosition(number + 6, rect.X, rect.Y);
 			characterX = rect.X;
 			characterY = rect.Y;
+		}
+		else {
+			rect = drawImage->GetPosition(number + 6);
+			drawImage->SetPosition(number + 6, characterX, characterY);
 		}
 	}
 	else {
@@ -52,21 +50,18 @@ void SceneManager::MoveUp(DrawImage * drawImage, int number)
 
 void SceneManager::MoveDown(DrawImage * drawImage, int number)
 {
-
-	if (characterY < (backgroudHeight - rect.Height)) {
-		if (isCollision() == true) {
-			rect = drawImage->GetPosition(number + 3);
-			drawImage->SetPosition(number + 3, rect.X, rect.Y);
-			characterX = rect.X;
-			characterY = rect.Y;
-		}
-		else {
+	if (isCollision() == false) {
+		if (characterY < (backgroudHeight - rect.Height)) {
 			rect = drawImage->GetPosition(number + 3);
 			rect.X = characterX;
 			rect.Y = characterY + 20;
 			drawImage->SetPosition(number + 3, rect.X, rect.Y);
 			characterX = rect.X;
 			characterY = rect.Y;
+		}
+		else {
+			rect = drawImage->GetPosition(number + 3);
+			drawImage->SetPosition(number + 3, characterX, characterY);
 		}
 	}
 	else {
@@ -77,20 +72,18 @@ void SceneManager::MoveDown(DrawImage * drawImage, int number)
 
 void SceneManager::MoveRight(DrawImage * drawImage, int number)
 {
-	if (characterX < (backgroudWidth - rect.Width)) {
-		if (isCollision() == true) {
-			rect = drawImage->GetPosition(number + 9);
-			drawImage->SetPosition(number + 9, rect.X, rect.Y);
-			characterX = rect.X;
-			characterY = rect.Y;
-		}
-		else {
+	if (isCollision() == false) {
+		if (characterX < (backgroudWidth - rect.Width)) {
 			rect = drawImage->GetPosition(number + 9);
 			rect.X = characterX + 20;
 			rect.Y = characterY;
 			drawImage->SetPosition(number + 9, rect.X, rect.Y);
 			characterX = rect.X;
 			characterY = rect.Y;
+		}
+		else {
+			rect = drawImage->GetPosition(number + 9);
+			drawImage->SetPosition(number + 9, characterX, characterY);
 		}
 	}
 	else {
@@ -101,20 +94,19 @@ void SceneManager::MoveRight(DrawImage * drawImage, int number)
 
 void SceneManager::MoveLeft(DrawImage * drawImage, int number)
 {
-	if (characterX > backgroudX) {
-		if (isCollision() == true) {
-			rect = drawImage->GetPosition(number + 12);
-			drawImage->SetPosition(number + 12, rect.X, rect.Y);
-			characterX = rect.X;
-			characterY = rect.Y;
-		}
-		else {
+	if (isCollision() == false) {
+		if (characterX > backgroudX) {
 			rect = drawImage->GetPosition(number + 12);
 			rect.X = characterX - 20;
 			rect.Y = characterY;
 			drawImage->SetPosition(number + 12, rect.X, rect.Y);
 			characterX = rect.X;
 			characterY = rect.Y;
+		}
+		else {
+			rect = drawImage->GetPosition(number + 12);
+			drawImage->SetPosition(number + 12, characterX, characterY);
+
 		}
 	}
 	else {
