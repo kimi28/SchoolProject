@@ -1,11 +1,16 @@
 #pragma once
 #include "DrawImage.h"
 
-class DrawImage;
 class SceneManager
 {
-private:
+protected:
+	DrawImage* drawImage;
 	Gdiplus::Rect rect;
+
+	
+public:
+	SceneManager();
+	~SceneManager();
 
 	int backgroudWidth;
 	int backgroudHeight;
@@ -15,19 +20,15 @@ private:
 	int characterY;
 	int npcX;
 	int npcY;
-public:
-	SceneManager();
-	~SceneManager();
-
 	bool isCollision();
 
-	void MoveUp(DrawImage* drawImage, int number);
-	void MoveDown(DrawImage* drawImage, int number);
-	void MoveRight(DrawImage* drawImage, int number);
-	void MoveLeft(DrawImage* drawImage, int number);
-	void SetPosition(DrawImage* drawImage);
-	void SetPositionDungeon(DrawImage* drawImage);
-	void AddImage(DrawImage* drawImage);
-	void ReDraw(DrawImage* drawImage, int number);
-	void ReDrawDungeon(DrawImage* drawImage, int number);
+	void MoveUp(int number);
+	void MoveDown(int number);
+	void MoveRight(int number);
+	void MoveLeft(int number);
+	void SetPosition();
+	void SetPositionDungeon();
+	void AddImage();
+	void ReDraw(int number);
+	void ReDrawDungeon(int number);
 };

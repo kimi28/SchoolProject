@@ -4,20 +4,18 @@
 void main() {
 	SceneManager* sceneManager = new SceneManager();
 	InputManager* input = new InputManager();
-<<<<<<< HEAD
-	if (sceneManager->isCollision() == false) {
-		input->Input(sceneManager);
-	}
-	else {
-		input->InputDungeon(sceneManager);
-=======
+
+	sceneManager->AddImage();
+
+	sceneManager->SetPosition();
+
+	sceneManager->ReDraw(4);
 	
-	input->Info(sceneManager);
+	Sleep(1000);
 
 	while (true) {
-		input->Input(sceneManager);
+		input->ImageInput(sceneManager);
 		//input->InputDungeon(sceneManager);
->>>>>>> origin/master
 	}
 
 	delete input;

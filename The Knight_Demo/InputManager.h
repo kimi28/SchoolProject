@@ -4,7 +4,6 @@
 
 class InputManager
 {
-	DrawImage* drawImage;
 	
 
 public:
@@ -13,8 +12,7 @@ public:
 
 	int number = 0;
 
-	void Info(SceneManager* sceneManager);
-	void Input(SceneManager* sceneManager);
-	void InputDungeon(SceneManager* sceneManager);
+	void ImageInput(SceneManager* sceneManager);
+	void DungeonInput(SceneManager* sceneManager);
 };
 

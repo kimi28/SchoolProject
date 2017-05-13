@@ -1,28 +1,17 @@
 #include "InputManager.h"
-#include "DrawImage.h"
+
 #include <conio.h>
 
 InputManager::InputManager()
 {
-	this->drawImage = new DrawImage();
 }
 
 
 InputManager::~InputManager()
 {
-	delete drawImage;
 }
 
-void InputManager::Info(SceneManager * sceneManager)
-{
-	sceneManager->AddImage(drawImage);
-
-	sceneManager->SetPosition(drawImage);
-
-	sceneManager->ReDraw(drawImage, 4);
-}
-
-void InputManager::Input(SceneManager* sceneManager)
+void InputManager::ImageInput(SceneManager* sceneManager)
 {	
 	char key = getch();
 
@@ -32,8 +21,8 @@ void InputManager::Input(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveUp(drawImage, number);
-		sceneManager->ReDraw(drawImage, number + 6);
+		sceneManager->MoveUp(number);
+		sceneManager->ReDraw(number + 6);
 		number++;
 		break;
 	case 's':
@@ -41,8 +30,8 @@ void InputManager::Input(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveDown(drawImage, number);
-		sceneManager->ReDraw(drawImage, number + 3);
+		sceneManager->MoveDown(number);
+		sceneManager->ReDraw(number + 3);
 		number++;
 		break;
 	case 'a':
@@ -50,8 +39,8 @@ void InputManager::Input(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveLeft(drawImage, number);
-		sceneManager->ReDraw(drawImage, number + 12);
+		sceneManager->MoveLeft(number);
+		sceneManager->ReDraw(number + 12);
 		number++;
 		break;
 	case 'd':
@@ -59,14 +48,14 @@ void InputManager::Input(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveRight(drawImage, number);
-		sceneManager->ReDraw(drawImage, number + 9);
+		sceneManager->MoveRight(number);
+		sceneManager->ReDraw(number + 9);
 		number++;
 		break;
 	}
 }
 
-void InputManager::InputDungeon(SceneManager* sceneManager)
+void InputManager::DungeonInput(SceneManager* sceneManager)
 {
 	char key = getch();
 
@@ -76,8 +65,8 @@ void InputManager::InputDungeon(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveUp(drawImage, number);
-		sceneManager->ReDrawDungeon(drawImage, number + 6);
+		sceneManager->MoveUp(number);
+		sceneManager->ReDrawDungeon(number + 6);
 		number++;
 		break;
 	case 's':
@@ -85,8 +74,8 @@ void InputManager::InputDungeon(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveDown(drawImage, number);
-		sceneManager->ReDrawDungeon(drawImage, number + 3);
+		sceneManager->MoveDown(number);
+		sceneManager->ReDrawDungeon(number + 3);
 		number++;
 		break;
 	case 'a':
@@ -94,8 +83,8 @@ void InputManager::InputDungeon(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveLeft(drawImage, number);
-		sceneManager->ReDrawDungeon(drawImage, number + 12);
+		sceneManager->MoveLeft(number);
+		sceneManager->ReDrawDungeon(number + 12);
 		number++;
 		break;
 	case 'd':
@@ -103,8 +92,8 @@ void InputManager::InputDungeon(SceneManager* sceneManager)
 		if (number > 2) {
 			number = 0;
 		}
-		sceneManager->MoveRight(drawImage, number);
-		sceneManager->ReDrawDungeon(drawImage, number + 9);
+		sceneManager->MoveRight(number);
+		sceneManager->ReDrawDungeon(number + 9);
 		number++;
 		break;
 	}
