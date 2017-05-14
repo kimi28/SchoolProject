@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="ObjectBase.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="MainCharacter.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyBackgroundTexture.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonBackgroundTexture.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="ObjectBase.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="MainCharacter.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyBackgroundTexture.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonBackgroundTexture.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object">
+      <UniqueIdentifier>{751c9a04-9e3f-4667-a9c1-392da45f52a9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,14 +1,27 @@
-#include "SceneManager.h"
+﻿#include "SceneManager.h"
 #include "Vector2D.h"
+#include <thread>
 
 SceneManager::SceneManager()
 {
 	this->drawImage = new DrawImage();
+	thread thread(&Update);
 }
 
 SceneManager::~SceneManager()
 {
 	delete drawImage;
+}
+
+void SceneManager::Update()
+{
+	while (true) {
+		Sleep(10);
+
+		// 各种运算
+		// 重绘
+		
+	}
 }
 
 bool SceneManager::isCollision(Vector2D direction) // 1->up, 2-> down, 3->left, 4->right
@@ -33,6 +46,8 @@ bool SceneManager::isCollision(Vector2D direction) // 1->up, 2-> down, 3->left, 
 
 void SceneManager::MoveUp(int number)
 {
+	// direction = Vector2D::Up
+	// speed = 100 
 	if (isCollision(Vector2D::Up) == false) {
 		if (characterY > backgroudY) {
 			rect = drawImage->GetPosition(number + 6);

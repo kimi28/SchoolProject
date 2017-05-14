@@ -32,4 +32,5 @@ public:
 	void AddImage();
 	void ReDraw(int number);
 	void ReDrawDungeon(int number);
+	void Update();
 };
