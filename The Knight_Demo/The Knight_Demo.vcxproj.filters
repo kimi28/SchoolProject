@@ -7,6 +7,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrawImage.cpp" />
@@ -16,5 +17,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
 </Project>

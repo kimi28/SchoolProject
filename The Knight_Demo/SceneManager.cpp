@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include "Vector2D.h"
 
 SceneManager::SceneManager()
 {
@@ -10,14 +11,20 @@ SceneManager::~SceneManager()
 	delete drawImage;
 }
 
-bool SceneManager::isCollision()
+bool SceneManager::isCollision(Vector2D direction) // 1->up, 2-> down, 3->left, 4->right
 {
 	Gdiplus::Rect rectNpc;
 	rectNpc = drawImage->GetPosition(1);
 
-	if (abs(rect.X - rectNpc.X) <= rectNpc.Width &&
-		abs(rect.Y - rectNpc.Y) <= rectNpc.Height) {
-		return true;
+	int deltaX = rect.X - rectNpc.X;
+	int deltaY = rect.Y - rectNpc.Y;
+	if (abs(deltaX) <= rectNpc.Width &&
+		abs(deltaY) <= rectNpc.Height) {
+		Vector2D distance(deltaX, deltaY);
+		int angle = direction.angle(distance);
+		printf("angle -> %d\n", angle);
+		if (angle < 90)
+			return true;
 	}
 
 	return false;
@@ -26,7 +33,7 @@ bool SceneManager::isCollision()
 
 void SceneManager::MoveUp(int number)
 {
-	if (isCollision() == false) {
+	if (isCollision(Vector2D::Up) == false) {
 		if (characterY > backgroudY) {
 			rect = drawImage->GetPosition(number + 6);
 			rect.X = characterX;
@@ -49,7 +56,7 @@ void SceneManager::MoveUp(int number)
 
 void SceneManager::MoveDown(int number)
 {
-	if (isCollision() == false) {
+	if (isCollision(Vector2D::Down) == false) {
 		if (characterY < (backgroudHeight - rect.Height)) {
 			rect = drawImage->GetPosition(number + 3);
 			rect.X = characterX;
@@ -71,7 +78,7 @@ void SceneManager::MoveDown(int number)
 
 void SceneManager::MoveRight(int number)
 {
-	if (isCollision() == false) {
+	if (isCollision(Vector2D::Right) == false) {
 		if (characterX < (backgroudWidth - rect.Width)) {
 			rect = drawImage->GetPosition(number + 9);
 			rect.X = characterX + 20;
@@ -93,7 +100,7 @@ void SceneManager::MoveRight(int number)
 
 void SceneManager::MoveLeft(int number)
 {
-	if (isCollision() == false) {
+	if (isCollision(Vector2D::Left) == false) {
 		if (characterX > backgroudX) {
 			rect = drawImage->GetPosition(number + 12);
 			rect.X = characterX - 20;

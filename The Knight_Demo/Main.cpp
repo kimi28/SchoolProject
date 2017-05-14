@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "Vector2D.h"
 
 void main() {
 	SceneManager* sceneManager = new SceneManager();
