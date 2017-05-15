@@ -35,7 +35,7 @@ SceneManager::SceneManager()
 	this->dungeonBackground = new DungeonBackgroundTexture();//던전 배경이미지를 동적할당으로 초기화한다.
 	this->dungeonBackground->SetSize(clientArea.right, clientArea.bottom);//던전 배경이미지의 출력사이즈를 지정한다.
 
-	this->currentBackground = lobbyBackground;//먼저그려야 할 배경이미지를 초기화한다.
+	this->currentBackground = lobbyBackground;//우선 배경이미지를 마을배경이미지로 초기화한다.
 
 	NPCObject* npc1 = new NPCObject();//NPC를 추가하고 초기화 한다.
 	npc1->SetPosition(300, 300);//해당 NPC의 이미지 좌표를 지정한다.
@@ -154,6 +154,6 @@ SceneManager::~SceneManager()
 
 	delete lobbyBackground;
 	delete dungeonBackground;
-	//위 생성한 생성자를 모두 소멸해준다.
+	//위 동적할당으로 생성된 생성자를 모두 소멸해준다.
 }
 
