@@ -31,7 +31,7 @@ MainCharacter::MainCharacter() : speed(0, 0)
 	AddImage(L"resource\\Left_1.png");// 9 
 	AddImage(L"resource\\Left_2.png");// 10 
 	AddImage(L"resource\\Left_3.png");// 11
-	this->currentImageIndex = 0;
+	this->currentImageIndex = 1;
 	this->image = imageList[currentImageIndex];
 }
 
