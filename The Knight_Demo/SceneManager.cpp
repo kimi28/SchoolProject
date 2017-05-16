@@ -5,7 +5,6 @@
 SceneManager::SceneManager()
 {
 	this->drawImage = new DrawImage();
-	thread thread(&Update);
 }
 
 SceneManager::~SceneManager()
@@ -13,21 +12,10 @@ SceneManager::~SceneManager()
 	delete drawImage;
 }
 
-void SceneManager::Update()
-{
-	while (true) {
-		Sleep(10);
-
-		// 各种运算
-		// 重绘
-		
-	}
-}
-
 bool SceneManager::isCollision(Vector2D direction) // 1->up, 2-> down, 3->left, 4->right
 {
 	Gdiplus::Rect rectNpc;
-	rectNpc = drawImage->GetPosition(1);
+	rectNpc = drawImage->GetPosition(13);
 
 	int deltaX = rect.X - rectNpc.X;
 	int deltaY = rect.Y - rectNpc.Y;
@@ -36,7 +24,7 @@ bool SceneManager::isCollision(Vector2D direction) // 1->up, 2-> down, 3->left, 
 		Vector2D distance(deltaX, deltaY);
 		int angle = direction.angle(distance);
 		printf("angle -> %d\n", angle);
-		if (angle < 90)
+		if (angle > 90)
 			return true;
 	}
 
@@ -50,32 +38,9 @@ void SceneManager::MoveUp(int number)
 	// speed = 100 
 	if (isCollision(Vector2D::Up) == false) {
 		if (characterY > backgroudY) {
-			rect = drawImage->GetPosition(number + 6);
-			rect.X = characterX;
-			rect.Y = characterY - 20;
-			drawImage->SetPosition(number + 6, rect.X, rect.Y);
-			characterX = rect.X;
-			characterY = rect.Y;
-		}
-		else {
-			rect = drawImage->GetPosition(number + 6);
-			drawImage->SetPosition(number + 6, characterX, characterY);
-		}
-	}
-	else {
-		rect = drawImage->GetPosition(number + 6);
-		drawImage->SetPosition(number + 6, characterX, characterY);
-	}
-
-}
-
-void SceneManager::MoveDown(int number)
-{
-	if (isCollision(Vector2D::Down) == false) {
-		if (characterY < (backgroudHeight - rect.Height)) {
 			rect = drawImage->GetPosition(number + 3);
 			rect.X = characterX;
-			rect.Y = characterY + 20;
+			rect.Y = characterY - 20;
 			drawImage->SetPosition(number + 3, rect.X, rect.Y);
 			characterX = rect.X;
 			characterY = rect.Y;
@@ -89,14 +54,59 @@ void SceneManager::MoveDown(int number)
 		rect = drawImage->GetPosition(number + 3);
 		drawImage->SetPosition(number + 3, characterX, characterY);
 	}
+
+}
+
+void SceneManager::MoveDown(int number)
+{
+	if (isCollision(Vector2D::Down) == false) {
+		if (characterY < (backgroudHeight - rect.Height)) {
+			rect = drawImage->GetPosition(number);
+			rect.X = characterX;
+			rect.Y = characterY + 20;
+			drawImage->SetPosition(number, rect.X, rect.Y);
+			characterX = rect.X;
+			characterY = rect.Y;
+		}
+		else {
+			rect = drawImage->GetPosition(number);
+			drawImage->SetPosition(number, characterX, characterY);
+		}
+	}
+	else {
+		rect = drawImage->GetPosition(number);
+		drawImage->SetPosition(number, characterX, characterY);
+	}
 }
 
 void SceneManager::MoveRight(int number)
 {
 	if (isCollision(Vector2D::Right) == false) {
 		if (characterX < (backgroudWidth - rect.Width)) {
-			rect = drawImage->GetPosition(number + 9);
+			rect = drawImage->GetPosition(number + 6);
 			rect.X = characterX + 20;
+			rect.Y = characterY;
+			drawImage->SetPosition(number + 6, rect.X, rect.Y);
+			characterX = rect.X;
+			characterY = rect.Y;
+		}
+		else {
+			rect = drawImage->GetPosition(number + 6);
+			drawImage->SetPosition(number + 6, characterX, characterY);
+		}
+	}
+	else {
+		rect = drawImage->GetPosition(number + 6);
+		drawImage->SetPosition(number + 6, characterX, characterY);
+	}
+}
+
+void SceneManager::MoveLeft(int number)
+{
+	if (isCollision(Vector2D::Left) == false) {
+		if (characterX > backgroudX) {
+			rect = drawImage->GetPosition(number + 9);
+			rect.X = characterX - 20;
 			rect.Y = characterY;
 			drawImage->SetPosition(number + 9, rect.X, rect.Y);
 			characterX = rect.X;
@@ -105,6 +115,7 @@ void SceneManager::MoveRight(int number)
 		else {
 			rect = drawImage->GetPosition(number + 9);
 			drawImage->SetPosition(number + 9, characterX, characterY);
+
 		}
 	}
 	else {
@@ -113,30 +124,7 @@ void SceneManager::MoveRight(int number)
 	}
 }
 
-void SceneManager::MoveLeft(int number)
-{
-	if (isCollision(Vector2D::Left) == false) {
-		if (characterX > backgroudX) {
-			rect = drawImage->GetPosition(number + 12);
-			rect.X = characterX - 20;
-			rect.Y = characterY;
-			drawImage->SetPosition(number + 12, rect.X, rect.Y);
-			characterX = rect.X;
-			characterY = rect.Y;
-		}
-		else {
-			rect = drawImage->GetPosition(number + 12);
-			drawImage->SetPosition(number + 12, characterX, characterY);
-
-		}
-	}
-	else {
-		rect = drawImage->GetPosition(number + 12);
-		drawImage->SetPosition(number + 12, characterX, characterY);
-	}
-}
-
-void SceneManager::SetPosition()
+void SceneManager::SetPositionLobby()
 {
 	backgroudWidth = drawImage->GetClientArea().right;
 	backgroudHeight = drawImage->GetClientArea().bottom;
@@ -148,11 +136,13 @@ void SceneManager::SetPosition()
 	npcY = 100;
 
 	drawImage->SetPosition(0, Gdiplus::Rect(backgroudX, backgroudY, backgroudWidth, backgroudHeight));
-	drawImage->SetPosition(1, npcX, npcY);
-
-	for (int i = 3; i < (int)drawImage->GetImageCount(); i++)
+	
+	for (int i = 1; i < (int)drawImage->GetImageCount(); i++)
 	{
 		drawImage->SetPosition(i, characterX, characterY);
+		if (i == 13) {
+			drawImage->SetPosition(13, npcX, npcY);
+		}
 	}
 }
 
@@ -167,14 +157,12 @@ void SceneManager::SetPositionDungeon()
 	npcX = 100;
 	npcY = 100;
 
-	drawImage->SetPosition(2, npcX, npcY);
-
 	for (int i = 3; i < (int)drawImage->GetImageCount(); i++)
 	{
 		drawImage->SetPosition(i, characterX, characterY);
 
-		if (i == 15) {
-
+		if (i == 13) {
+			drawImage->SetPosition(14, npcX, npcY);
 			drawImage->SetPosition(15, Gdiplus::Rect(backgroudX, backgroudY, backgroudWidth, backgroudHeight));
 		}
 	}
@@ -183,25 +171,25 @@ void SceneManager::SetPositionDungeon()
 void SceneManager::AddImage()
 {
 	drawImage->AddImage(L"resource\\Lobby_Background.png");//0
-	drawImage->AddImage(L"resource\\Npc_1.png");//1
-	drawImage->AddImage(L"resource\\Npc_2.png");//2
 
-	drawImage->AddImage(L"resource\\Front_1.png");//3
-	drawImage->AddImage(L"resource\\Front_2.png");//4
-	drawImage->AddImage(L"resource\\Front_3.png");//5
+	drawImage->AddImage(L"resource\\Front_1.png");//1
+	drawImage->AddImage(L"resource\\Front_2.png");//2
+	drawImage->AddImage(L"resource\\Front_3.png");//3
 
-	drawImage->AddImage(L"resource\\Rear_1.png");//6
-	drawImage->AddImage(L"resource\\Rear_2.png");//7
-	drawImage->AddImage(L"resource\\Rear_3.png");//8
+	drawImage->AddImage(L"resource\\Rear_1.png");//4
+	drawImage->AddImage(L"resource\\Rear_2.png");//5
+	drawImage->AddImage(L"resource\\Rear_3.png");//6
 
-	drawImage->AddImage(L"resource\\Right_1.png");//9
-	drawImage->AddImage(L"resource\\Right_2.png");//10
-	drawImage->AddImage(L"resource\\Right_3.png");//11
+	drawImage->AddImage(L"resource\\Right_1.png");//7
+	drawImage->AddImage(L"resource\\Right_2.png");//8
+	drawImage->AddImage(L"resource\\Right_3.png");//9
 
-	drawImage->AddImage(L"resource\\Left_1.png");//12
-	drawImage->AddImage(L"resource\\Left_2.png");//13
-	drawImage->AddImage(L"resource\\Left_3.png");//14
+	drawImage->AddImage(L"resource\\Left_1.png");//10
+	drawImage->AddImage(L"resource\\Left_2.png");//11
+	drawImage->AddImage(L"resource\\Left_3.png");//12
 
+	drawImage->AddImage(L"resource\\Npc_1.png");//13
+	drawImage->AddImage(L"resource\\Npc_2.png");//14
 	drawImage->AddImage(L"resource\\Dungeon_Background.png");//15
 
 }
@@ -209,13 +197,10 @@ void SceneManager::AddImage()
 void SceneManager::ReDraw(int number)
 {
 	drawImage->Clear(0, 0, 0);
-	for (int i = 0; i < 2; i++)
-	{
-		drawImage->Drawing(i);
 
-	}
+	drawImage->Drawing(0);
 	drawImage->Drawing(number);
-
+	drawImage->Drawing(13);
 	drawImage->FlipBuffer();
 }
 
@@ -224,8 +209,8 @@ void SceneManager::ReDrawDungeon(int number)
 	drawImage->Clear(0, 0, 0);
 
 	drawImage->Drawing(15);
-	drawImage->Drawing(2);
 	drawImage->Drawing(number);
+	drawImage->Drawing(14);
 
 	drawImage->FlipBuffer();
 }

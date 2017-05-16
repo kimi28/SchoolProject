@@ -27,10 +27,9 @@ public:
 	void MoveDown(int number);
 	void MoveRight(int number);
 	void MoveLeft(int number);
-	void SetPosition();
+	void SetPositionLobby();
 	void SetPositionDungeon();
 	void AddImage();
 	void ReDraw(int number);
 	void ReDrawDungeon(int number);
-	void Update();
 };

@@ -150,6 +150,7 @@
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungeonBackgroundTexture.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

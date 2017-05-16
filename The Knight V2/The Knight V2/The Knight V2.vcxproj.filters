@@ -20,6 +20,7 @@
     <ClCompile Include="NPCObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneManager.h" />
@@ -40,6 +41,7 @@
     <ClInclude Include="NPCObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">

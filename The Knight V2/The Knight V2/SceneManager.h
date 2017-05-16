@@ -4,6 +4,7 @@
 #include "ObjectBase.h"
 #include <thread>
 #include "MainCharacter.h"
+#include "NPCObject.h"
 #include "DungeonBackgroundTexture.h"
 #include "LobbyBackgroundTexture.h"
 #pragma once
@@ -27,6 +28,8 @@ private:
 	std::thread* loopThread;//이미지를 지속적으로 그리기 위해 스레드 함수 선언.
 
 	MainCharacter* mainCharacter;//메인 캐릭터 이미지를 그리기 위해 SceneManager에서 mainCharacter를 선언한다.
+	
+	//NPCObject* npc1;
 
 	LobbyBackgroundTexture* lobbyBackground;//마을 이미지를 SceneManager에서 lobbyBackground를 선언한다.
 	DungeonBackgroundTexture* dungeonBackground;//던전 이미지를 SceneManager에서 던전 배결선언한다.

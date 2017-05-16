@@ -15,30 +15,33 @@ void MainCharacter::AddImage(WCHAR * path)
 
 MainCharacter::MainCharacter() : speed(0, 0)
 {
+	AddImage(L"resource\\Front_0.png");//0
+	AddImage(L"resource\\Front_1.png"); //1
+	AddImage(L"resource\\Front_2.png");//2
+	AddImage(L"resource\\Front_3.png");//3
 
-	AddImage(L"resource\\Front_1.png"); //0
-	AddImage(L"resource\\Front_2.png");//1
-	AddImage(L"resource\\Front_3.png");//2
+	AddImage(L"resource\\Rear_0.png");//4
+	AddImage(L"resource\\Rear_1.png");//5
+	AddImage(L"resource\\Rear_2.png");//6
+	AddImage(L"resource\\Rear_3.png");//7
 
-	AddImage(L"resource\\Rear_1.png");//3
-	AddImage(L"resource\\Rear_2.png");//4
-	AddImage(L"resource\\Rear_3.png");//5
+	AddImage(L"resource\\Right_0.png");//8
+	AddImage(L"resource\\Right_1.png");//9
+	AddImage(L"resource\\Right_2.png");//10
+	AddImage(L"resource\\Right_3.png");//11
 
-	AddImage(L"resource\\Right_1.png");//6
-	AddImage(L"resource\\Right_2.png");//7
-	AddImage(L"resource\\Right_3.png");//8
-
-	AddImage(L"resource\\Left_1.png");// 9 
-	AddImage(L"resource\\Left_2.png");// 10 
-	AddImage(L"resource\\Left_3.png");// 11
-	this->currentImageIndex = 1;
+	AddImage(L"resource\\Left_0.png");//12
+	AddImage(L"resource\\Left_1.png");//13 
+	AddImage(L"resource\\Left_2.png");// 14 
+	AddImage(L"resource\\Left_3.png");// 15
+	this->currentImageIndex = 2;
 	this->image = imageList[currentImageIndex];
 }
 
 void MainCharacter::Move(Vector2D direction)
 {
 	currentWalkDistance = 0;
-	int speed = 100;
+	int speed = 150;
 	this->speed.X = direction.X * speed;
 	this->speed.Y = direction.Y * speed;
 }
@@ -53,46 +56,46 @@ void MainCharacter::Update(int deltaTime) {
 
 	if (deltaX > 0) {
 		// move right
-		if (currentImageIndex < 6 || currentImageIndex > 8) {
-			currentImageIndex = 6;
-		}
-		else {
-			currentImageIndex++;
-			if (currentImageIndex > 8)
-				currentImageIndex = 6;
-		}
-	}
-	else if (deltaX < 0) {
-		// move left
-		if (currentImageIndex < 9 || currentImageIndex > 11) {
-			currentImageIndex = 9;
+		if (currentImageIndex < 8 || currentImageIndex > 11) {
+			currentImageIndex = 8;
 		}
 		else {
 			currentImageIndex++;
 			if (currentImageIndex > 11)
-				currentImageIndex = 9;
+				currentImageIndex = 8;
+		}
+	}
+	else if (deltaX < 0) {
+		// move left
+		if (currentImageIndex < 12 || currentImageIndex > 15) {
+			currentImageIndex = 12;
+		}
+		else {
+			currentImageIndex++;
+			if (currentImageIndex > 15)
+				currentImageIndex = 12;
 		}
 	}
 	else if (deltaY > 0) {
 		// move up
-		if (currentImageIndex < 0 || currentImageIndex > 2) {
+		if (currentImageIndex < 0 || currentImageIndex > 3) {
 			currentImageIndex = 0;
 		}
 		else {
 			currentImageIndex++;
-			if (currentImageIndex > 2)
+			if (currentImageIndex > 3)
 				currentImageIndex = 0;
 		}
 	}
 	else if (deltaY < 0) {
 		// move down
-		if (currentImageIndex < 3 || currentImageIndex > 5) {
-			currentImageIndex = 3;
+		if (currentImageIndex < 4 || currentImageIndex > 7) {
+			currentImageIndex = 4;
 		}
 		else {
 			currentImageIndex++;
-			if (currentImageIndex > 5)
-				currentImageIndex = 3;
+			if (currentImageIndex > 7)
+				currentImageIndex = 4;
 		}
 	}
 

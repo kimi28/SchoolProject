@@ -8,7 +8,7 @@ void main() {
 
 	sceneManager->AddImage();
 
-	sceneManager->SetPosition();
+	sceneManager->SetPositionLobby();
 
 	sceneManager->ReDraw(4);
 	
