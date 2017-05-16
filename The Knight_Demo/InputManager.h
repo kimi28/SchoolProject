@@ -4,15 +4,13 @@
 
 class InputManager
 {
-	
+	int number = 0;
 
 public:
 	InputManager();
 	~InputManager();
 
-	int number = 1;
-
-	void ImageInput(SceneManager* sceneManager);
+	void LobbyInput(SceneManager* sceneManager);
 	void DungeonInput(SceneManager* sceneManager);
 };
 

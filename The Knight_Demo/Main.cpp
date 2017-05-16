@@ -1,6 +1,5 @@
 #include "InputManager.h"
 #include "SceneManager.h"
-#include "Vector2D.h"
 
 void main() {
 	SceneManager* sceneManager = new SceneManager();
@@ -15,8 +14,7 @@ void main() {
 	Sleep(1000);
 
 	while (true) {
-		input->ImageInput(sceneManager);
-		//input->InputDungeon(sceneManager);
+		input->DungeonInput(sceneManager);
 	}
 
 	delete input;

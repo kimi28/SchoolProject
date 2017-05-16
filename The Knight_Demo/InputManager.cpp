@@ -11,46 +11,50 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::ImageInput(SceneManager* sceneManager)
+void InputManager::LobbyInput(SceneManager* sceneManager)
 {
 	char key = getch();
 
 	switch (key) {
 	case 'w':
 	case'W':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveUp(number);
-		sceneManager->ReDraw(number + 3);
+		sceneManager->ReDraw(number + 6);
 		number++;
 		break;
 	case 's':
 	case 'S':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveDown(number);
-		sceneManager->ReDraw(number);
+		sceneManager->ReDraw(number+3);
 		number++;
 		break;
 	case 'a':
 	case 'A':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveLeft(number);
-		sceneManager->ReDraw(number + 9);
+		sceneManager->ReDraw(number + 12);
 		number++;
 		break;
 	case 'd':
 	case 'D':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveRight(number);
-		sceneManager->ReDraw(number + 6);
+		sceneManager->ReDraw(number + 9);
 		number++;
+		break;
+	case'm':
+	case'M':
+		DungeonInput(sceneManager);
 		break;
 	}
 }
@@ -62,39 +66,43 @@ void InputManager::DungeonInput(SceneManager* sceneManager)
 	switch (key) {
 	case 'w':
 	case'W':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveUp(number);
-		sceneManager->ReDrawDungeon(number + 3);
+		sceneManager->ReDrawDungeon(number + 6);
 		number++;
 		break;
 	case 's':
 	case 'S':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveDown(number);
-		sceneManager->ReDrawDungeon(number);
+		sceneManager->ReDrawDungeon(number+3);
 		number++;
 		break;
 	case 'a':
 	case 'A':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveLeft(number);
-		sceneManager->ReDrawDungeon(number + 9);
+		sceneManager->ReDrawDungeon(number + 12);
 		number++;
 		break;
 	case 'd':
 	case 'D':
-		if (number > 3) {
-			number = 1;
+		if (number > 2) {
+			number = 0;
 		}
 		sceneManager->MoveRight(number);
-		sceneManager->ReDrawDungeon(number + 6);
+		sceneManager->ReDrawDungeon(number + 9);
 		number++;
+		break;
+	case'm':
+	case'M':
+		LobbyInput(sceneManager);
 		break;
 	}
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include "DrawImage.h"
-#include "Vector2D.h"
 
 class SceneManager
 {
@@ -21,7 +20,6 @@ public:
 	int characterY;
 	int npcX;
 	int npcY;
-	bool isCollision(Vector2D direction);
 
 	void MoveUp(int number);
 	void MoveDown(int number);

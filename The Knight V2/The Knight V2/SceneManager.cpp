@@ -123,8 +123,6 @@ void SceneManager::ChangeToLobbyBackground()
 
 void SceneManager::OnKeyLeft()
 {
-	Rect rect = currentBackground->GetRect();
-	//if()
 	mainCharacter->Move(Vector2D::Left);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
 }
 
