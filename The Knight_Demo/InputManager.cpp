@@ -12,44 +12,44 @@ InputManager::~InputManager()
 }
 
 void InputManager::ImageInput(SceneManager* sceneManager)
-{	
+{
 	char key = getch();
 
 	switch (key) {
 	case 'w':
 	case'W':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveUp(number);
-		sceneManager->ReDraw(number + 6);
+		sceneManager->ReDraw(number + 3);
 		number++;
 		break;
 	case 's':
 	case 'S':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveDown(number);
-		sceneManager->ReDraw(number + 3);
+		sceneManager->ReDraw(number);
 		number++;
 		break;
 	case 'a':
 	case 'A':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveLeft(number);
-		sceneManager->ReDraw(number + 12);
+		sceneManager->ReDraw(number + 9);
 		number++;
 		break;
 	case 'd':
 	case 'D':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveRight(number);
-		sceneManager->ReDraw(number + 9);
+		sceneManager->ReDraw(number + 6);
 		number++;
 		break;
 	}
@@ -62,38 +62,38 @@ void InputManager::DungeonInput(SceneManager* sceneManager)
 	switch (key) {
 	case 'w':
 	case'W':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveUp(number);
-		sceneManager->ReDrawDungeon(number + 6);
+		sceneManager->ReDrawDungeon(number + 3);
 		number++;
 		break;
 	case 's':
 	case 'S':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveDown(number);
-		sceneManager->ReDrawDungeon(number + 3);
+		sceneManager->ReDrawDungeon(number);
 		number++;
 		break;
 	case 'a':
 	case 'A':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveLeft(number);
-		sceneManager->ReDrawDungeon(number + 12);
+		sceneManager->ReDrawDungeon(number + 9);
 		number++;
 		break;
 	case 'd':
 	case 'D':
-		if (number > 2) {
-			number = 0;
+		if (number > 3) {
+			number = 1;
 		}
 		sceneManager->MoveRight(number);
-		sceneManager->ReDrawDungeon(number + 9);
+		sceneManager->ReDrawDungeon(number + 6);
 		number++;
 		break;
 	}
