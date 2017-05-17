@@ -7,6 +7,7 @@
 #include "NPCObject.h"
 #include "DungeonBackgroundTexture.h"
 #include "LobbyBackgroundTexture.h"
+#include <time.h>
 #pragma once
 
 using namespace Gdiplus;
@@ -54,5 +55,7 @@ public:
 	void OnKeyRight();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(우)
 	void OnKeyUp();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(상)
 	void OnKeyDown();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(하)
+
+	
 };
 

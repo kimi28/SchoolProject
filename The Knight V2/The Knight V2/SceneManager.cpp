@@ -7,6 +7,7 @@
 #include "DungeonBackgroundTexture.h"
 #include "time_util.h"
 #include "NPCObject.h"
+#include "Monster.h"
 
 using namespace Gdiplus;
 
@@ -40,7 +41,14 @@ SceneManager::SceneManager()
 	NPCObject* npc1 = new NPCObject();//NPC를 추가하고 초기화 한다.
 	npc1->SetPosition(100, 200);//해당 NPC의 이미지 좌표를 지정한다.
 
+	Monster* monster = new Monster();
+	srand(time(NULL));
+	int randomX = rand() % clientArea.right + 1;
+	int randomY = rand() % clientArea.bottom + 1;
+	monster->SetPosition(randomX, randomY);
+
 	objectList.push_back((ObjectBase*)npc1);//추가된 NPC를 objectList에 push_back하여 추가한다.
+	objectList.push_back((ObjectBase*)monster);
 	objectList.push_back((ObjectBase*)this->mainCharacter);//추가된 메인캐릭터를 objectList에 push_back하여 추가한다.
 	this->loopThread = new std::thread(&SceneManager::Loop, this);//스레드 함수를 초기화 하고 루프를 시작시킨다.
 }
