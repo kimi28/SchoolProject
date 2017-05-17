@@ -1,7 +1,5 @@
 #include "Monster.h"
 
-
-
 void Monster::AddImage(WCHAR * path)
 {
 	Image* image = new Gdiplus::Image(path);
@@ -13,7 +11,8 @@ void Monster::AddImage(WCHAR * path)
 	imageList.push_back(image);
 }
 
-Monster::Monster()
+Monster::Monster(char* name, int hp, int attack, int defence, int critical, int luck)
+	:Character(name, hp, attack, defence, critical, luck)
 {
 	AddImage(L"resource\\Monster_1.png");//0
 	AddImage(L"resource\\Monster_2.png");//1

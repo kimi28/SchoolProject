@@ -1,7 +1,5 @@
 #include "DungeonBackgroundTexture.h"
 
-
-
 DungeonBackgroundTexture::DungeonBackgroundTexture()
 {
 	this->image = new Gdiplus::Image(L"resource\\Dungeon_Background.png");

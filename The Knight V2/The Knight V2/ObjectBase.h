@@ -1,10 +1,10 @@
 ﻿#include <Windows.h>
 #include <gdiplus.h>
 #include "Vector2D.h"
+#pragma once
 
 using namespace Gdiplus;
 
-#pragma once
 class ObjectBase
 {
 protected:

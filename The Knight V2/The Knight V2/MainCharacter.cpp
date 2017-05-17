@@ -2,21 +2,7 @@
 #include "Character.h"
 #include "Vector2D.h"
 
-
-
-void MainCharacter::AddImage(WCHAR * path)
-{
-	Image* image = new Gdiplus::Image(path);
-	this->rect = { 0, 0, 0, 0 };
-
-	this->rect.Width = image->GetWidth();
-	this->rect.Height = image->GetHeight();
-
-	imageList.push_back(image);
-}
-
-MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck)
-	:Character(name, hp, attack, defence, critical, luck), speed(0, 0)
+MainCharacter::MainCharacter() :speed(0, 0)
 {
 	AddImage(L"resource\\Front_0.png");//0
 	AddImage(L"resource\\Front_1.png"); //1
@@ -39,6 +25,24 @@ MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int cr
 	AddImage(L"resource\\Left_3.png");// 15
 	this->currentImageIndex = 2;
 	this->image = imageList[currentImageIndex];
+}
+
+void MainCharacter::AddImage(WCHAR * path)
+{
+	Image* image = new Gdiplus::Image(path);
+	this->rect = { 0, 0, 0, 0 };
+
+	this->rect.Width = image->GetWidth();
+	this->rect.Height = image->GetHeight();
+
+	imageList.push_back(image);
+}
+
+MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck)
+	:Character(name, hp, attack, defence, critical, luck), speed(0, 0)
+	//Character 클래스에서 상속 받으면서 Character 생성자 초기화 및 Vector2D speed 생성자 초기화 하는 방법.
+{
+	
 }
 
 void MainCharacter::Move(Vector2D direction)
@@ -122,5 +126,3 @@ void MainCharacter::Stop()
 MainCharacter::~MainCharacter()
 {
 }
-
-

@@ -1,11 +1,9 @@
 #include "ObjectBase.h"
 
-
 ObjectBase::ObjectBase() : position(0, 0)
 {
 
 }
-
 
 ObjectBase::~ObjectBase()
 {

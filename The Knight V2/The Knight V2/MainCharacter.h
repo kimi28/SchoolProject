@@ -1,7 +1,7 @@
 #include "Character.h"
 #include <vector>
-
 #pragma once
+
 class MainCharacter : public Character
 {
 private:
@@ -13,6 +13,7 @@ private:
 	int currentImageIndex;
 
 public:
+	MainCharacter();
 	MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck);
 	~MainCharacter();
 
