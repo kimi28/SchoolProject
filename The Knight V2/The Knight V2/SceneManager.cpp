@@ -98,7 +98,7 @@ void SceneManager::RedrawAll()
 
 	for (int index = 0; index < (int)objectList.size(); index++) {
 		DrawObject(objectList[index]);
-	}//오브잭트 내에 저장된 모든 이미지를 1씩 증가하며 모드 그린다.
+	}//오브잭트 리스트 내에 저장된 모든 이미지를 1씩 증가하며 모드 그린다.
 
 	FlipBuffer();
 }

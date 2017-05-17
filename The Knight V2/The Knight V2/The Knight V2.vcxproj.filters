@@ -21,6 +21,12 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="WorldManager.cpp" />
+    <ClCompile Include="Monster.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneManager.h" />
@@ -42,6 +48,12 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="WorldManager.h" />
+    <ClInclude Include="Monster.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">

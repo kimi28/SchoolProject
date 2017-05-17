@@ -1,9 +1,8 @@
-#include "ObjectBase.h"
-#include "Vector2D.h"
+#include "Character.h"
 #include <vector>
 
 #pragma once
-class MainCharacter : public ObjectBase
+class MainCharacter : public Character
 {
 private:
 	Vector2D speed;
@@ -14,7 +13,7 @@ private:
 	int currentImageIndex;
 
 public:
-	MainCharacter();
+	MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck);
 	~MainCharacter();
 
 	void Move(Vector2D direction);

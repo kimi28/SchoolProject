@@ -16,6 +16,7 @@ protected:
 		// 内存泄漏
 		this->image = image;
 	}
+
 public:
 	ObjectBase();
 	~ObjectBase();

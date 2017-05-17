@@ -1,4 +1,6 @@
 #include "MainCharacter.h"
+#include "Character.h"
+#include "Vector2D.h"
 
 
 
@@ -13,7 +15,8 @@ void MainCharacter::AddImage(WCHAR * path)
 	imageList.push_back(image);
 }
 
-MainCharacter::MainCharacter() : speed(0, 0)
+MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck) 
+	:Character(name, hp, attack, defence, critical, luck)
 {
 	AddImage(L"resource\\Front_0.png");//0
 	AddImage(L"resource\\Front_1.png"); //1

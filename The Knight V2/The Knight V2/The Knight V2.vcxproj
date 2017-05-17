@@ -141,11 +141,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="DungeonBackgroundTexture.cpp" />
     <ClCompile Include="LobbyBackgroundTexture.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NPCObject.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -153,10 +155,12 @@
     <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
     <ClInclude Include="DungeonBackgroundTexture.h" />
     <ClInclude Include="LobbyBackgroundTexture.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainCharacter.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="NPCObject.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="SceneManager.h" />
