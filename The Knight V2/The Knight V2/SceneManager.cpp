@@ -37,10 +37,10 @@ SceneManager::SceneManager()
 
 	this->currentBackground = lobbyBackground;//우선 배경이미지를 마을배경이미지로 초기화한다.
 
-	ObjectBase* npc1 = new NPCObject();//NPC를 추가하고 초기화 한다.
-	npc1->SetPosition(100, 200);//해당 NPC의 이미지 좌표를 지정한다.
+	//this->npc1 = new NPCObject();//NPC를 추가하고 초기화 한다.
+	//this->npc1->SetPosition(100, 200);//해당 NPC의 이미지 좌표를 지정한다.
 
-	objectList.push_back((ObjectBase*)npc1);//추가된 NPC를 objectList에 push_back하여 추가한다.
+	//objectList.push_back((ObjectBase*)this->npc1);//추가된 NPC를 objectList에 push_back하여 추가한다.
 	objectList.push_back((ObjectBase*)this->mainCharacter);//추가된 메인캐릭터를 objectList에 push_back하여 추가한다.
 	this->loopThread = new std::thread(&SceneManager::Loop, this);//스레드 함수를 초기화 하고 루프를 시작시킨다.
 }
