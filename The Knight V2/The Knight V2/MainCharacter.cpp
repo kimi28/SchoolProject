@@ -15,8 +15,8 @@ void MainCharacter::AddImage(WCHAR * path)
 	imageList.push_back(image);
 }
 
-MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck) 
-	:Character(name, hp, attack, defence, critical, luck)
+MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck)
+	:Character(name, hp, attack, defence, critical, luck), speed(0, 0)
 {
 	AddImage(L"resource\\Front_0.png");//0
 	AddImage(L"resource\\Front_1.png"); //1
