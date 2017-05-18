@@ -13,9 +13,8 @@ void Monster::AddImage(WCHAR * path)
 
 Monster::Monster()
 {
-	AddImage(L"resource\\Monster_1.png");//0
-	AddImage(L"resource\\Monster_2.png");//1
-	this->currentImageIndex = 1;
+	AddImage(L"resource\\Monster_2.png");//0
+	this->currentImageIndex = 0;
 	this->image = imageList[currentImageIndex];
 }
 
@@ -28,4 +27,9 @@ Monster::Monster(char* name, int hp, int attack, int defence, int critical, int 
 
 Monster::~Monster()
 {
+}
+
+void Monster::Update(int deltaTime)
+{
+
 }

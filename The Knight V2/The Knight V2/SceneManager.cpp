@@ -27,8 +27,10 @@ SceneManager::SceneManager()
 	bitmap = new Gdiplus::Bitmap(clientArea.right, clientArea.bottom);
 	background = new Gdiplus::Graphics(bitmap);
 
+	characterX = (int)(clientArea.right - clientArea.left)*0.5f;
+	characterY = (int)(clientArea.bottom - clientArea.top)*0.5f;
 	this->mainCharacter = new MainCharacter();//mainCharacter를 동적할당으로 초기화 한다.
-	this->mainCharacter->SetPosition(clientArea.right/2, clientArea.bottom/2);//mainCharacter의 이미지를 출력할 좌표위치를 지정한다.
+	this->mainCharacter->SetPosition(characterX, characterY);//mainCharacter의 이미지를 출력할 좌표위치를 지정한다.
 
 	this->lobbyBackground = new LobbyBackgroundTexture();//마을 배경이미지를 동적할당으로 초기화한다.
 	this->lobbyBackground->SetSize(clientArea.right, clientArea.bottom);//마을 배경이미지의 출력사이즈를 지정한다.
@@ -41,15 +43,15 @@ SceneManager::SceneManager()
 	NPCObject* npc1 = new NPCObject();//NPC를 추가하고 초기화 한다.
 	npc1->SetPosition(100, 200);//해당 NPC의 이미지 좌표를 지정한다.
 
-	Monster* monster = new Monster();
+	this->monster = new Monster();
 	srand(time(NULL));
-	int randomX = rand() % clientArea.right + 1;
-	int randomY = rand() % clientArea.bottom + 1;
-	monster->SetPosition(randomX, randomY);
+	monsterX = rand() % (clientArea.right - monster->GetRect().Width) + 1;
+	monsterY = rand() % (clientArea.bottom - monster->GetRect().Height) + 1;
+	this->monster->SetPosition(monsterX, monsterY);
 
 	objectList.push_back((ObjectBase*)npc1);//추가된 NPC를 objectList에 push_back하여 추가한다.
-	objectList.push_back((ObjectBase*)monster);
 	objectList.push_back((ObjectBase*)this->mainCharacter);//추가된 메인캐릭터를 objectList에 push_back하여 추가한다.
+	objectList.push_back((ObjectBase*)this->monster);
 	this->loopThread = new std::thread(&SceneManager::Loop, this);//스레드 함수를 초기화 하고 루프를 시작시킨다.
 }
 
@@ -83,7 +85,7 @@ void SceneManager::Loop()
 		long currentTime = GetCurrentTime();// 현재 시간을 정의하고 Window의 현재 시간을 정의한 변수에 대입한다.
 		deltaTime = currentTime - lastUpdateTime;//현재 시간에서 최종업데이트 시간을 감하면 그동안 액션을 취한 시간을 대입한다.
 		lastUpdateTime = currentTime;//그리고 현재시간을 최종 업데이트 시간으로 대입한다.
-				
+
 		UpdateObject(deltaTime);//업데이트할 시간내의 데이터를 업데이트 시킨다.
 		RedrawAll();//업데이트 된 데이터로 이미지를 그린다.
 
@@ -95,7 +97,7 @@ void SceneManager::UpdateObject(int deltaTime)
 {
 	for (int index = 0; index < (int)objectList.size(); index++) {
 		objectList[index]->Update(deltaTime);
-	}//오브잭트 리스트 만큼 1씩 증가하며 오브잭트 리스트 중의 내용을 업데이트 시킨다.
+	}//오브잭트 리스트를 업데이트해 준다.
 }
 
 void SceneManager::RedrawAll()
@@ -131,7 +133,12 @@ void SceneManager::ChangeToLobbyBackground()
 
 void SceneManager::OnKeyLeft()
 {
+	if (characterX > clientArea.left) {
 	mainCharacter->Move(Vector2D::Left);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
+	}
+	else {
+		mainCharacter->Stop();
+	}
 }
 
 void SceneManager::OnKeyRight()

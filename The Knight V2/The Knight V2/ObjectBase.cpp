@@ -21,4 +21,5 @@ void ObjectBase::SetPosition(int x, int y)
 
 void ObjectBase::Update(int deltaTime)
 {
+	
 }

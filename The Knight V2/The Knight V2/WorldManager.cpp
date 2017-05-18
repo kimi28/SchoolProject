@@ -5,11 +5,11 @@
 
 WorldManager::WorldManager()
 {
-	this->mainCharacter = new MainCharacter("ÆÈ¶óµò", 2000, 100, 50, 100, 1000);
-	this->monster = new Monster("ÇæÅ©", 1500, 50, 150, 100, 500);
+	this->mainCharacter = new MainCharacter();//"ÆÈ¶óµò", 2000, 100, 50, 100, 1000
+	this->monster = new Monster();//"ÇæÅ©", 1500, 50, 150, 100, 500
 }
 
-void WorldManager::PvPBattle() {
+void WorldManager::PvE() {
 	Character* character[count];
 	character[0] = mainCharacter;
 	character[1] = monster;
@@ -26,6 +26,7 @@ void WorldManager::PvPBattle() {
 		if (targetCharacter->GetDead()) {
 			Sleep(1000);
 			//Á×Àº ÀÌ¹ÌÁö »ì¾ÆÁö±â;
+
 			break;
 		}
 		else {

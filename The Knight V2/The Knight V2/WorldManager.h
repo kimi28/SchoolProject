@@ -23,6 +23,6 @@ public:
 		return currentTurn;
 	}
 
-	void PvPBattle();
+	void PvE();
 };
 

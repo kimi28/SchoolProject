@@ -16,7 +16,6 @@ Vector2D::Vector2D(int x, int y)
 	this->Y = y;
 }
 
-
 Vector2D::~Vector2D()
 {
 }

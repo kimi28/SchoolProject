@@ -7,7 +7,9 @@
 #include "NPCObject.h"
 #include "DungeonBackgroundTexture.h"
 #include "LobbyBackgroundTexture.h"
+#include <stdlib.h>
 #include <time.h>
+#include "Monster.h"
 #pragma once
 
 using namespace Gdiplus;
@@ -29,7 +31,8 @@ private:
 	std::thread* loopThread;//이미지를 지속적으로 그리기 위해 스레드 함수 선언.
 
 	MainCharacter* mainCharacter;//메인 캐릭터 이미지를 그리기 위해 SceneManager에서 mainCharacter를 선언한다.
-	
+	Monster * monster;
+
 	LobbyBackgroundTexture* lobbyBackground;//마을 이미지를 SceneManager에서 lobbyBackground를 선언한다.
 	DungeonBackgroundTexture* dungeonBackground;//던전 이미지를 SceneManager에서 던전 배결선언한다.
 
@@ -44,6 +47,8 @@ private:
 	void UpdateObject(int deltaTime);//ObjectList중 내용을 업데이트 하기위한 함수 선언.
 	void RedrawAll();//ObjectList 저장된 모든 이미지를 그리기위한 함수선언.
 	void DrawObject(ObjectBase* object);//ObjectList에 저장된 모든 이미지를 가져오기 위한 함수선언.
+	int monsterX, monsterY;
+	int characterX, characterY;
 public:
 	SceneManager();
 	~SceneManager();
@@ -56,6 +61,15 @@ public:
 	void OnKeyUp();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(상)
 	void OnKeyDown();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(하)
 
-	
+	void ChangeBackgournd() {
+		if (currentBackground == lobbyBackground) {
+			ChangeToDungeonBackground();
+		}
+		else if (currentBackground == dungeonBackground) {
+			ChangeToLobbyBackground();
+		}
+	}
+
+	bool isCollision(Vector2D direction); // 1->up, 2-> down, 3->left, 4->right
 };
 

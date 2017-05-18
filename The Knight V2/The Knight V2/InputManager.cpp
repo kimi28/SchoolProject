@@ -33,10 +33,8 @@ void InputManager::Keyboard()
 		sceneManager->OnKeyRight();
 		break;
 	case 'm':
-		sceneManager->ChangeToDungeonBackground();
-		break;
-	case 'n':
-		sceneManager->ChangeToLobbyBackground();
+	case 'M':
+		sceneManager->ChangeBackgournd();
 		break;
 	}
 }
