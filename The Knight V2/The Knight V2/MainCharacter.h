@@ -18,8 +18,7 @@ public:
 	~MainCharacter();
 
 	void Move(Vector2D direction);
-
+	bool isCollision(Vector2D direction); // 1->up, 2-> down, 3->left, 4->right
 	 void Update(int deltaTime);
 	 void Stop();
 };
-

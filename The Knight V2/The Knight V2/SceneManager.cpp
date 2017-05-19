@@ -133,12 +133,7 @@ void SceneManager::ChangeToLobbyBackground()
 
 void SceneManager::OnKeyLeft()
 {
-	if (characterX > clientArea.left) {
 	mainCharacter->Move(Vector2D::Left);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
-	}
-	else {
-		mainCharacter->Stop();
-	}
 }
 
 void SceneManager::OnKeyRight()
@@ -171,4 +166,3 @@ SceneManager::~SceneManager()
 	delete dungeonBackground;
 	//위 동적할당으로 생성된 생성자를 모두 소멸해준다.
 }
-

@@ -53,6 +53,11 @@ void MainCharacter::Move(Vector2D direction)
 	this->speed.Y = direction.Y * speed;
 }
 
+bool MainCharacter::isCollision(Vector2D direction)
+{
+	return false;
+}
+
 void MainCharacter::Update(int deltaTime) {
 
 	if (speed.X == 0 && speed.Y == 0)
