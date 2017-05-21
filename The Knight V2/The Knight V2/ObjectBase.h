@@ -38,12 +38,12 @@ public:
 	}
 
 	Vector2D GetCircles(Rect rect) {
-		this->Circles.X = rect.Width * 0.5f;
-		this->Circles.Y = rect.Height * 0.5f;
+		this->Circles.X = rect.X + rect.Width * 0.5f;
+		this->Circles.Y = rect.Y + rect.Height * 0.5f;
 		
 		return this->Circles;
 	}
-	int GetRadius(Rect rect, int radius);
+	int GetRadius(Rect rect);
 
 	void SetSize(int width, int height) {
 		this->rect.Width = width;
