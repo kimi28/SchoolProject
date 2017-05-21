@@ -49,8 +49,8 @@ bool MainCharacter::isCollision(Vector2D direction, RECT rect)
 {
 	if (direction.X > rect.left
 		&& direction.Y > rect.top
-		&& direction.X < (rect.right - GetRect().Width)
-		&& direction.Y < (rect.bottom - GetRect().Height)){
+		&& direction.X < (rect.right - MainCharacter::GetRect().Width)
+		&& direction.Y < (rect.bottom - MainCharacter::GetRect().Height)){
 		return true;
 		Move(Vector2D::Left);
 		Move(Vector2D::Up);
