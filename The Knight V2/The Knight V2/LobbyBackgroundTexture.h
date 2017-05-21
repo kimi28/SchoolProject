@@ -4,7 +4,7 @@
 class LobbyBackgroundTexture : public ObjectBase
 {
 public:
-	LobbyBackgroundTexture();
+	LobbyBackgroundTexture(SceneManager* sceneManager);
 	~LobbyBackgroundTexture();
 };
 

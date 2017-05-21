@@ -1,4 +1,4 @@
-#include "Vector2D.h"
+﻿#include "Vector2D.h"
 #include <math.h>
 
 #define PI 3.1415926
@@ -31,4 +31,18 @@ double Vector2D::angle(Vector2D v)
 double Vector2D::Length()
 {
 	return pow(pow(X, 2) + pow(Y, 2), 0.5);
+}
+
+Vector2D Vector2D::Add(Vector2D v)
+{
+	Vector2D newVector(this->X + v.X, this->Y + v.Y);
+
+	return newVector;
+}
+
+Vector2D Vector2D::Normalize() // 单位向量
+{
+	int length = this->Length();
+	Vector2D vec(this->X / length, this->Y / length);
+	return vec;
 }

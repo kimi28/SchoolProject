@@ -4,13 +4,14 @@
 #pragma once
 
 using namespace Gdiplus;
-
+class SceneManager;
 class ObjectBase
 {
 protected:
 	Image* image;
 	Rect rect;
 	Vector2D position;
+	SceneManager* sceneManager;
 
 	void SetImage(Image* image) {
 		// 内存泄漏
@@ -18,7 +19,7 @@ protected:
 	}
 
 public:
-	ObjectBase();
+	ObjectBase(SceneManager* sceneManager);
 	~ObjectBase();
 	void SetPosition(int x, int y);
 	Image* GetImage() {
@@ -29,6 +30,10 @@ public:
 		this->rect.X = position.X;
 		this->rect.Y = position.Y;
 		return this->rect;
+	}
+
+	Vector2D GetPosition() {
+		return this->position;
 	}
 
 	void SetSize(int width, int height) {

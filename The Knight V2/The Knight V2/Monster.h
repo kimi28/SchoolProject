@@ -10,8 +10,8 @@ private:
 
 	int currentImageIndex;
 public:
-	Monster();
-	Monster(char* name, int hp, int attack, int defence, int critical, int luck);
+	Monster(SceneManager * sceneManager);
+	Monster(SceneManager * sceneManager, char* name, int hp, int attack, int defence, int critical, int luck);
 	~Monster();
 
 	void Update(int deltaTime);

@@ -1,8 +1,8 @@
 #include "ObjectBase.h"
 
-ObjectBase::ObjectBase() : position(0, 0)
+ObjectBase::ObjectBase(SceneManager* sceneManager) : position(0, 0)
 {
-
+	this->sceneManager = sceneManager;
 }
 
 ObjectBase::~ObjectBase()
@@ -21,5 +21,5 @@ void ObjectBase::SetPosition(int x, int y)
 
 void ObjectBase::Update(int deltaTime)
 {
-	
+
 }

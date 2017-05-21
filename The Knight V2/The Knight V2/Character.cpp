@@ -1,10 +1,10 @@
 #include "Character.h"
 
-Character::Character()
+Character::Character(SceneManager* sceneManager) : ObjectBase(sceneManager)
 {
 }
 
-Character::Character(char* name, int hp, int attack, int defence, int critical, int luck)
+Character::Character(SceneManager* sceneManager, char* name, int hp, int attack, int defence, int critical, int luck) : ObjectBase(sceneManager)
 {
 	this->name = name;
 	this->hp = hp;

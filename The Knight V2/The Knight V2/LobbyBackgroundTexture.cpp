@@ -2,7 +2,7 @@
 
 
 
-LobbyBackgroundTexture::LobbyBackgroundTexture()
+LobbyBackgroundTexture::LobbyBackgroundTexture(SceneManager* sceneManager) : ObjectBase(sceneManager)
 {
 	this->image = new Gdiplus::Image(L"resource\\Lobby_Background.png");
 	this->rect = { 0, 0, 0, 0 };

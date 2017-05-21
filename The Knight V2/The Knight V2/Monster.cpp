@@ -11,17 +11,17 @@ void Monster::AddImage(WCHAR * path)
 	imageList.push_back(image);
 }
 
-Monster::Monster()
+Monster::Monster(SceneManager* sceneManager) : Character(sceneManager)
 {
 	AddImage(L"resource\\Monster_2.png");//0
 	this->currentImageIndex = 0;
 	this->image = imageList[currentImageIndex];
 }
 
-Monster::Monster(char* name, int hp, int attack, int defence, int critical, int luck)
-	:Character(name, hp, attack, defence, critical, luck)
+Monster::Monster(SceneManager* sceneManager, char* name, int hp, int attack, int defence, int critical, int luck)
+	: Character(sceneManager, name, hp, attack, defence, critical, luck)
 {
-	
+
 }
 
 

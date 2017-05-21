@@ -1,6 +1,7 @@
 #include "ObjectBase.h"
 #pragma once
 
+class SceneManager;
 class Character : public ObjectBase
 {
 private:
@@ -11,8 +12,8 @@ private:
 	int critical;
 	int luck;
 public:
-	Character();
-	Character(char* name, int hp, int attack, int defence, int critical, int luck);
+	Character(SceneManager* sceneManager);
+	Character(SceneManager* sceneManager, char* name, int hp, int attack, int defence, int critical, int luck);
 	~Character();
 
 	void alppyDamage(int attack);

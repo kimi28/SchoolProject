@@ -1,8 +1,9 @@
 #include "MainCharacter.h"
 #include "Character.h"
 #include "Vector2D.h"
+#include "SceneManager.h"
 
-MainCharacter::MainCharacter() :speed(0, 0)
+MainCharacter::MainCharacter(SceneManager* sceneManager) : Character(sceneManager), speed(0, 0)
 {
 	AddImage(L"resource\\Front_0.png");//0
 	AddImage(L"resource\\Front_1.png"); //1
@@ -38,11 +39,11 @@ void MainCharacter::AddImage(WCHAR * path)
 	imageList.push_back(image);
 }
 
-MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck)
-	:Character(name, hp, attack, defence, critical, luck), speed(0, 0)
+MainCharacter::MainCharacter(SceneManager* sceneManager, char* name, int hp, int attack, int defence, int critical, int luck)
+	: Character(sceneManager, name, hp, attack, defence, critical, luck), speed(0, 0)
 	//Character 클래스에서 상속 받으면서 Character 생성자 초기화 및 Vector2D speed 생성자 초기화 하는 방법.
 {
-	
+
 }
 
 bool MainCharacter::isCollision(Vector2D direction, RECT rect)
@@ -50,12 +51,8 @@ bool MainCharacter::isCollision(Vector2D direction, RECT rect)
 	if (direction.X > rect.left
 		&& direction.Y > rect.top
 		&& direction.X < (rect.right - MainCharacter::GetRect().Width)
-		&& direction.Y < (rect.bottom - MainCharacter::GetRect().Height)){
+		&& direction.Y < (rect.bottom - MainCharacter::GetRect().Height)) {
 		return true;
-		Move(Vector2D::Left);
-		Move(Vector2D::Up);
-		Move(Vector2D::Right);
-		Move(Vector2D::Down);
 	}
 	else {
 		Stop();
@@ -74,6 +71,11 @@ void MainCharacter::Move(Vector2D direction)
 void MainCharacter::Update(int deltaTime) {
 
 	if (speed.X == 0 && speed.Y == 0)
+		return;
+
+	Vector2D direction = this->speed.Normalize();
+	bool isCollision = sceneManager->CheckCollision(this, direction);
+	if (isCollision)
 		return;
 
 	int deltaX = speed.X * deltaTime / 1000;

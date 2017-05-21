@@ -13,5 +13,7 @@ public:
 	~Vector2D();
 	double angle(Vector2D v);
 	double Length();
+	Vector2D Add(Vector2D v);
+	Vector2D Normalize();
 };
 

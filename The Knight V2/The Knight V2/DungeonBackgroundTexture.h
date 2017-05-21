@@ -4,7 +4,7 @@
 class DungeonBackgroundTexture : public ObjectBase
 {
 public:
-	DungeonBackgroundTexture();
+	DungeonBackgroundTexture(SceneManager* sceneManager);
 	~DungeonBackgroundTexture();
 };
 

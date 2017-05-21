@@ -29,7 +29,7 @@ SceneManager::SceneManager()
 
 	characterX = (int)(clientArea.right - clientArea.left)*0.5f;
 	characterY = (int)(clientArea.bottom - clientArea.top)*0.5f;
-	this->mainCharacter = new MainCharacter();//mainCharacter를 동적할당으로 초기화 한다.
+	this->mainCharacter = new MainCharacter(this);//mainCharacter를 동적할당으로 초기화 한다.
 	this->mainCharacter->SetPosition(characterX, characterY);//mainCharacter의 이미지를 출력할 좌표위치를 지정한다.
 	int mainCharacterWidth = mainCharacter->GetRect().Width;
 	int mainCharacterHeight = mainCharacter->GetRect().Height;
@@ -38,18 +38,18 @@ SceneManager::SceneManager()
 	mainCharacterArea.right = mainCharacterWidth + characterX;
 	mainCharacterArea.bottom = mainCharacterHeight + characterY;
 
-	this->lobbyBackground = new LobbyBackgroundTexture();//마을 배경이미지를 동적할당으로 초기화한다.
+	this->lobbyBackground = new LobbyBackgroundTexture(this);//마을 배경이미지를 동적할당으로 초기화한다.
 	this->lobbyBackground->SetSize(clientArea.right, clientArea.bottom);//마을 배경이미지의 출력사이즈를 지정한다.
 
-	this->dungeonBackground = new DungeonBackgroundTexture();//던전 배경이미지를 동적할당으로 초기화한다.
+	this->dungeonBackground = new DungeonBackgroundTexture(this);//던전 배경이미지를 동적할당으로 초기화한다.
 	this->dungeonBackground->SetSize(clientArea.right, clientArea.bottom);//던전 배경이미지의 출력사이즈를 지정한다.
 
 	this->currentBackground = lobbyBackground;//우선 배경이미지를 마을배경이미지로 초기화한다.
 
-	NPCObject* npc1 = new NPCObject();//NPC를 추가하고 초기화 한다.
+	NPCObject* npc1 = new NPCObject(this);//NPC를 추가하고 초기화 한다.
 	npc1->SetPosition(100, 200);//해당 NPC의 이미지 좌표를 지정한다.
 
-	this->monster = new Monster();
+	this->monster = new Monster(this);
 	srand(time(NULL));
 	monsterX = rand() % (clientArea.right - monster->GetRect().Width) + 1;
 	monsterY = rand() % (clientArea.bottom - monster->GetRect().Height) + 1;
@@ -129,26 +129,41 @@ void SceneManager::DrawObject(ObjectBase* object)
 
 void SceneManager::OnKeyLeft()
 {
-		mainCharacter->Move(Vector2D::Left);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
+
+	Vector2D direction = Vector2D::Left;
+
+	bool isCollision = CheckCollision(mainCharacter, direction);
+
+	if (isCollision == false)
+		mainCharacter->Move(direction);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
+
 }
 
 void SceneManager::OnKeyRight()
 {
-	if (characterY > clientArea.top) {
+	Vector2D direction = Vector2D::Right;
+	bool isCollision = CheckCollision(mainCharacter, direction);
 
-		mainCharacter->Move(Vector2D::Right);//키보드가 입력이 되면 메인 케릴터를 우로 이동한다.
-
-	}
+	if (isCollision == false)
+		mainCharacter->Move(direction);//키보드가 입력이 되면 메인 케릴터를 우로 이동한다.
 }
 
 void SceneManager::OnKeyUp()
 {
-	mainCharacter->Move(Vector2D::Up);//키보드가 입력이 되면 메인 케릴터를 상으로 이동한다.
+	Vector2D direction = Vector2D::Up;
+	bool isCollision = CheckCollision(mainCharacter, direction);
+
+	if (isCollision == false)
+		mainCharacter->Move(direction);//키보드가 입력이 되면 메인 케릴터를 상으로 이동한다.
 }
 
 void SceneManager::OnKeyDown()
 {
-	mainCharacter->Move(Vector2D::Down);//키보드가 입력이 되면 메인 케릴터를 하로 이동한다.
+	Vector2D direction = Vector2D::Down;
+	bool isCollision = CheckCollision(mainCharacter, direction);
+
+	if (isCollision == false)
+		mainCharacter->Move(direction);//키보드가 입력이 되면 메인 케릴터를 하로 이동한다.
 }
 
 void SceneManager::ChangeBackgournd()
@@ -162,9 +177,33 @@ void SceneManager::ChangeBackgournd()
 
 }
 
-bool SceneManager::isCollision(RECT rect1, RECT rect2)
+bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
 {
+	Vector2D position = obj->GetPosition();
+	Vector2D nextPosition = direction.Add(position);
+	Rect nextRect = { (int)nextPosition.X, (int)nextPosition.Y, (int)obj->GetRect().Width, (int)obj->GetRect().Height };
+	for (int index = 0; index < objectList.size(); index++) {
+		ObjectBase* loopObj = objectList[index];
+		if (obj == loopObj)
+			continue;
+		Rect rect = loopObj->GetRect();
+
+		if (nextRect.Intersect(rect)) {
+			return true;
+		}
+	}
 	return false;
+
+	/*int deltaX = rect.X - rectNpc.X;
+	int deltaY = rect.Y - rectNpc.Y;
+	if (abs(deltaX) <= rectNpc.Width &&
+		abs(deltaY) <= rectNpc.Height) {
+		Vector2D distance(deltaX, deltaY);
+		int angle = direction.angle(distance);
+		printf("angle -> %d\n", angle);
+		if (angle < 90)
+			return true;
+	}*/
 }
 
 SceneManager::~SceneManager()

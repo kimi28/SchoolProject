@@ -4,7 +4,7 @@
 class NPCObject : public ObjectBase
 {
 public:
-	NPCObject();
+	NPCObject(SceneManager * sceneManager);
 	~NPCObject();
 };
 

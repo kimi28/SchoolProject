@@ -61,5 +61,5 @@ public:
 	void OnKeyDown();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(하)
 
 	void ChangeBackgournd();
-	bool isCollision(RECT rect1, RECT rect2);
+	bool CheckCollision(ObjectBase* obj, Vector2D direction);
 };
