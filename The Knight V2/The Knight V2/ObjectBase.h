@@ -11,6 +11,7 @@ protected:
 	Image* image;
 	Rect rect;
 	Vector2D position;
+	Vector2D Circles;
 	SceneManager* sceneManager;
 
 	void SetImage(Image* image) {
@@ -36,11 +37,18 @@ public:
 		return this->position;
 	}
 
+	Vector2D GetCircles(Rect rect) {
+		this->Circles.X = rect.Width * 0.5f;
+		this->Circles.Y = rect.Height * 0.5f;
+		
+		return this->Circles;
+	}
+	int GetRadius(Rect rect, int radius);
+
 	void SetSize(int width, int height) {
 		this->rect.Width = width;
 		this->rect.Height = height;
 	}
-
 	virtual void Update(int deltaTime);
 };
 
