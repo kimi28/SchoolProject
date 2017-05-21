@@ -31,6 +31,12 @@ SceneManager::SceneManager()
 	characterY = (int)(clientArea.bottom - clientArea.top)*0.5f;
 	this->mainCharacter = new MainCharacter();//mainCharacter를 동적할당으로 초기화 한다.
 	this->mainCharacter->SetPosition(characterX, characterY);//mainCharacter의 이미지를 출력할 좌표위치를 지정한다.
+	int mainCharacterWidth = mainCharacter->GetRect().Width;
+	int mainCharacterHeight = mainCharacter->GetRect().Height;
+	mainCharacterArea.left = characterX;
+	mainCharacterArea.top = characterY;
+	mainCharacterArea.right = mainCharacterWidth + characterX;
+	mainCharacterArea.bottom = mainCharacterHeight + characterY;
 
 	this->lobbyBackground = new LobbyBackgroundTexture();//마을 배경이미지를 동적할당으로 초기화한다.
 	this->lobbyBackground->SetSize(clientArea.right, clientArea.bottom);//마을 배경이미지의 출력사이즈를 지정한다.
@@ -121,24 +127,18 @@ void SceneManager::DrawObject(ObjectBase* object)
 	DrawImage(image, rect);//대입한 이미지와 좌표를 그린다.
 }
 
-void SceneManager::ChangeToDungeonBackground()
-{
-	currentBackground = dungeonBackground;//던전 배경이미지로 변경하고자 하면 던전이미지가 저당된 변수를 currentBackground에 대입한다.
-}
-
-void SceneManager::ChangeToLobbyBackground()
-{
-	currentBackground = lobbyBackground;//마을 배경이미지로 변경하고자 하면 마을이미지가 저당된 변수를 currentBackground에 대입한다.
-}
-
 void SceneManager::OnKeyLeft()
 {
-	mainCharacter->Move(Vector2D::Left);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
+		mainCharacter->Move(Vector2D::Left);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
 }
 
 void SceneManager::OnKeyRight()
 {
-	mainCharacter->Move(Vector2D::Right);//키보드가 입력이 되면 메인 케릴터를 우로 이동한다.
+	if (characterY > clientArea.top) {
+
+		mainCharacter->Move(Vector2D::Right);//키보드가 입력이 되면 메인 케릴터를 우로 이동한다.
+
+	}
 }
 
 void SceneManager::OnKeyUp()
@@ -149,6 +149,22 @@ void SceneManager::OnKeyUp()
 void SceneManager::OnKeyDown()
 {
 	mainCharacter->Move(Vector2D::Down);//키보드가 입력이 되면 메인 케릴터를 하로 이동한다.
+}
+
+void SceneManager::ChangeBackgournd()
+{
+	if (currentBackground == lobbyBackground) {
+		currentBackground = dungeonBackground;
+	}
+	else if (currentBackground == dungeonBackground) {
+		currentBackground = lobbyBackground;
+	}
+
+}
+
+bool SceneManager::isCollision(RECT rect1, RECT rect2)
+{
+	return false;
 }
 
 SceneManager::~SceneManager()

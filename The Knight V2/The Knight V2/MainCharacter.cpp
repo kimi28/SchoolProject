@@ -45,17 +45,30 @@ MainCharacter::MainCharacter(char* name, int hp, int attack, int defence, int cr
 	
 }
 
+bool MainCharacter::isCollision(Vector2D direction, RECT rect)
+{
+	if (direction.X > rect.left
+		&& direction.Y > rect.top
+		&& direction.X < (rect.right - GetRect().Width)
+		&& direction.Y < (rect.bottom - GetRect().Height)){
+		return true;
+		Move(Vector2D::Left);
+		Move(Vector2D::Up);
+		Move(Vector2D::Right);
+		Move(Vector2D::Down);
+	}
+	else {
+		Stop();
+	}
+	return false;
+}
+
 void MainCharacter::Move(Vector2D direction)
 {
 	currentWalkDistance = 0;
 	int speed = 150;
 	this->speed.X = direction.X * speed;
 	this->speed.Y = direction.Y * speed;
-}
-
-bool MainCharacter::isCollision(Vector2D direction)
-{
-	return false;
 }
 
 void MainCharacter::Update(int deltaTime) {

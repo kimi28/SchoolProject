@@ -17,8 +17,9 @@ public:
 	MainCharacter(char* name, int hp, int attack, int defence, int critical, int luck);
 	~MainCharacter();
 
+	bool isCollision(Vector2D direction, RECT rect);
 	void Move(Vector2D direction);
-	bool isCollision(Vector2D direction); // 1->up, 2-> down, 3->left, 4->right
-	 void Update(int deltaTime);
-	 void Stop();
+	void Update(int deltaTime);
+	void Stop();
+
 };

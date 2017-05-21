@@ -40,6 +40,8 @@ private:
 
 	RECT clientArea;
 
+	RECT mainCharacterArea;
+
 	void Clear();//이미지 다시그리기 위해 기존 그린 이미지를 블랙으로 Clear하기.
 	void FlipBuffer();//
 	void DrawImage(Image* image, Rect rect);//이미지를 그리는 함수 선언.
@@ -53,20 +55,11 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	void ChangeToDungeonBackground();//배경이 마을이라면 던전으로 교체를 위한 배경이미지 교체 함수.
-	void ChangeToLobbyBackground();//배경이 던전이라면 마을으로 교체를 위한 배경이미지 교체 함수.
-
 	void OnKeyLeft();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(좌)
 	void OnKeyRight();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(우)
 	void OnKeyUp();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(상)
 	void OnKeyDown();//메인 캐릭터가 키보드입력이 있을 때 이동방향 함수 선언.(하)
 
-	void ChangeBackgournd() {
-		if (currentBackground == lobbyBackground) {
-			ChangeToDungeonBackground();
-		}
-		else if (currentBackground == dungeonBackground) {
-			ChangeToLobbyBackground();
-		}
-	}
+	void ChangeBackgournd();
+	bool isCollision(RECT rect1, RECT rect2);
 };
