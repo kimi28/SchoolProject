@@ -37,13 +37,17 @@ public:
 		return this->position;
 	}
 
-	Vector2D GetCircles(Rect rect) {
-		this->Circles.X = rect.X + rect.Width * 0.5f;
-		this->Circles.Y = rect.Y + rect.Height * 0.5f;
-		
+	Vector2D GetCircles() {
+		this->Circles.X = this->rect.X + this->rect.Width * 0.5f;
+		this->Circles.Y = this->rect.Y + this->rect.Height * 0.5f;
+
 		return this->Circles;
 	}
-	int GetRadius(Rect rect);
+
+	int GetRadius() {
+		int radius = (int)(this->rect.Height * 0.5f);
+		return radius;
+	}
 
 	void SetSize(int width, int height) {
 		this->rect.Width = width;

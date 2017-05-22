@@ -179,31 +179,28 @@ void SceneManager::ChangeBackgournd()
 
 bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
 {
-	Vector2D position = obj->GetPosition();
-	Vector2D nextPosition = direction.Add(position);
-	Rect nextRect = { (int)nextPosition.X, (int)nextPosition.Y, (int)obj->GetRect().Width, (int)obj->GetRect().Height };
+	Vector2D circles = obj->GetCircles();
+	int radius = obj->GetRadius();
 	for (int index = 0; index < objectList.size(); index++) {
 		ObjectBase* loopObj = objectList[index];
 		if (obj == loopObj)
 			continue;
-		Rect rect = loopObj->GetRect();
 
-		if (nextRect.Intersect(rect)) {
-			return true;
+		Vector2D aiCircles = loopObj->GetCircles();
+		int aiRadius = loopObj->GetRadius();
+
+		int deltaX = circles.X - aiCircles.X;
+		int deltaY = circles.Y - aiCircles.Y;
+		if (abs(deltaX) <= (radius + aiRadius)
+			&& abs(deltaY) <= (radius + aiRadius)) {
+			Vector2D distance(deltaX, deltaY);
+			int angle = direction.angle(distance);
+			printf("angle -> %d\n", angle);
+			if (angle < 90)
+				return true;
 		}
 	}
 	return false;
-
-	/*int deltaX = rect.X - rectNpc.X;
-	int deltaY = rect.Y - rectNpc.Y;
-	if (abs(deltaX) <= rectNpc.Width &&
-		abs(deltaY) <= rectNpc.Height) {
-		Vector2D distance(deltaX, deltaY);
-		int angle = direction.angle(distance);
-		printf("angle -> %d\n", angle);
-		if (angle < 90)
-			return true;
-	}*/
 }
 
 SceneManager::~SceneManager()
