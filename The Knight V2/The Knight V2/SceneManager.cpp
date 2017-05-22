@@ -196,7 +196,6 @@ bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
 
 		if (distance <= radius + aiRadius) {
 			int angle = direction.angle(distanceVector);
-			printf("angle -> %d\n", angle);
 			if (angle < 90)
 				return true;
 		}
