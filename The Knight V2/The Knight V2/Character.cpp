@@ -1,9 +1,5 @@
 #include "Character.h"
 
-Character::Character(SceneManager* sceneManager) : ObjectBase(sceneManager)
-{
-}
-
 Character::Character(SceneManager* sceneManager, char* name, int hp, int attack, int defence, int critical, int luck) : ObjectBase(sceneManager)
 {
 	this->name = name;

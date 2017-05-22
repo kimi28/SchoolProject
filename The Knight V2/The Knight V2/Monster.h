@@ -10,7 +10,6 @@ private:
 
 	int currentImageIndex;
 public:
-	Monster(SceneManager * sceneManager);
 	Monster(SceneManager * sceneManager, char* name, int hp, int attack, int defence, int critical, int luck);
 	~Monster();
 

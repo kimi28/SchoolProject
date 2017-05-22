@@ -45,7 +45,7 @@ public:
 	}
 
 	int GetRadius() {
-		int radius = (int)(this->rect.Height * 0.5f);
+		int radius = (int)(this->rect.Width * 0.5f);
 		return radius;
 	}
 

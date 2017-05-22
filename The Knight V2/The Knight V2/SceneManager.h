@@ -14,6 +14,7 @@
 
 using namespace Gdiplus;
 
+class WorldManager;
 class SceneManager
 {
 private:
@@ -40,7 +41,7 @@ private:
 
 	RECT clientArea;
 
-	RECT mainCharacterArea;
+	WorldManager* worldManager;
 
 	void Clear();//이미지 다시그리기 위해 기존 그린 이미지를 블랙으로 Clear하기.
 	void FlipBuffer();//
@@ -51,6 +52,7 @@ private:
 	void DrawObject(ObjectBase* object);//ObjectList에 저장된 모든 이미지를 가져오기 위한 함수선언.
 	int monsterX, monsterY;
 	int characterX, characterY;
+	bool isCollision;
 public:
 	SceneManager();
 	~SceneManager();
@@ -62,4 +64,5 @@ public:
 
 	void ChangeBackgournd();
 	bool CheckCollision(ObjectBase* obj, Vector2D direction);
+	void CheckBettle(MainCharacter * mainCharacter);
 };

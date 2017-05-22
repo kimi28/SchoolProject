@@ -13,7 +13,6 @@ private:
 	int currentImageIndex;
 
 public:
-	MainCharacter(SceneManager* sceneManager);
 	MainCharacter(SceneManager* sceneManager, char* name, int hp, int attack, int defence, int critical, int luck);
 	~MainCharacter();
 

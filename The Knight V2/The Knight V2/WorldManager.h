@@ -8,8 +8,6 @@ const int count = 2;
 class WorldManager
 {
 private:
-	MainCharacter* mainCharacter;
-	Monster* monster;
 
 public:
 	WorldManager();
@@ -22,7 +20,5 @@ public:
 		}
 		return currentTurn;
 	}
-
-	void PvE();
+	void Attack(MainCharacter* mainCharacter, Monster* monster);
 };
-

@@ -8,6 +8,7 @@
 #include "time_util.h"
 #include "NPCObject.h"
 #include "Monster.h"
+#include "WorldManager.h"
 
 using namespace Gdiplus;
 
@@ -29,14 +30,8 @@ SceneManager::SceneManager()
 
 	characterX = (int)(clientArea.right - clientArea.left)*0.5f;
 	characterY = (int)(clientArea.bottom - clientArea.top)*0.5f;
-	this->mainCharacter = new MainCharacter(this);//mainCharacter를 동적할당으로 초기화 한다.
+	this->mainCharacter = new MainCharacter(this, "팔라딘", 500, 90, 100, 100, 100);//mainCharacter를 동적할당으로 초기화 한다.
 	this->mainCharacter->SetPosition(characterX, characterY);//mainCharacter의 이미지를 출력할 좌표위치를 지정한다.
-	int mainCharacterWidth = mainCharacter->GetRect().Width;
-	int mainCharacterHeight = mainCharacter->GetRect().Height;
-	mainCharacterArea.left = characterX;
-	mainCharacterArea.top = characterY;
-	mainCharacterArea.right = mainCharacterWidth + characterX;
-	mainCharacterArea.bottom = mainCharacterHeight + characterY;
 
 	this->lobbyBackground = new LobbyBackgroundTexture(this);//마을 배경이미지를 동적할당으로 초기화한다.
 	this->lobbyBackground->SetSize(clientArea.right, clientArea.bottom);//마을 배경이미지의 출력사이즈를 지정한다.
@@ -49,11 +44,13 @@ SceneManager::SceneManager()
 	NPCObject* npc1 = new NPCObject(this);//NPC를 추가하고 초기화 한다.
 	npc1->SetPosition(100, 200);//해당 NPC의 이미지 좌표를 지정한다.
 
-	this->monster = new Monster(this);
+	this->monster = new Monster(this, "헐크", 400, 50, 80, 100, 100);
 	srand(time(NULL));
 	monsterX = rand() % (clientArea.right - monster->GetRect().Width) + 1;
 	monsterY = rand() % (clientArea.bottom - monster->GetRect().Height) + 1;
 	this->monster->SetPosition(monsterX, monsterY);
+
+	this->worldManager = new WorldManager();
 
 	objectList.push_back((ObjectBase*)npc1);//추가된 NPC를 objectList에 push_back하여 추가한다.
 	objectList.push_back((ObjectBase*)this->mainCharacter);//추가된 메인캐릭터를 objectList에 push_back하여 추가한다.
@@ -103,6 +100,7 @@ void SceneManager::UpdateObject(int deltaTime)
 {
 	for (int index = 0; index < (int)objectList.size(); index++) {
 		objectList[index]->Update(deltaTime);
+
 	}//오브잭트 리스트를 업데이트해 준다.
 }
 
@@ -129,14 +127,11 @@ void SceneManager::DrawObject(ObjectBase* object)
 
 void SceneManager::OnKeyLeft()
 {
-
 	Vector2D direction = Vector2D::Left;
-
-	bool isCollision = CheckCollision(mainCharacter, direction);
+	isCollision = CheckCollision(mainCharacter, direction);
 
 	if (isCollision == false)
 		mainCharacter->Move(direction);//키보드가 입력이 되면 메인 케릴터를 좌로 이동한다.
-
 }
 
 void SceneManager::OnKeyRight()
@@ -168,13 +163,8 @@ void SceneManager::OnKeyDown()
 
 void SceneManager::ChangeBackgournd()
 {
-	if (currentBackground == lobbyBackground) {
-		currentBackground = dungeonBackground;
-	}
-	else if (currentBackground == dungeonBackground) {
+	if (currentBackground == dungeonBackground)
 		currentBackground = lobbyBackground;
-	}
-
 }
 
 bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
@@ -203,6 +193,14 @@ bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
 	return false;
 }
 
+void SceneManager::CheckBettle(MainCharacter * mainCharacter)
+{
+	for (int index = 0; index < objectList.size(); index++) {
+		if (monster == objectList[index])
+			worldManager->Attack(mainCharacter, monster);
+	}
+}
+
 SceneManager::~SceneManager()
 {
 	delete foreground;
@@ -213,7 +211,7 @@ SceneManager::~SceneManager()
 	for (int index = 0; index < (int)objectList.size(); index++) {
 		delete objectList[index];
 	}
-
+	delete worldManager;
 	delete lobbyBackground;
 	delete dungeonBackground;
 	//위 동적할당으로 생성된 생성자를 모두 소멸해준다.
