@@ -189,12 +189,13 @@ bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
 		Vector2D aiCircles = loopObj->GetCircles();
 		int aiRadius = loopObj->GetRadius();
 
-		int deltaX = circles.X - aiCircles.X;
-		int deltaY = circles.Y - aiCircles.Y;
-		if (abs(deltaX) <= (radius + aiRadius)
-			&& abs(deltaY) <= (radius + aiRadius)) {
-			Vector2D distance(deltaX, deltaY);
-			int angle = direction.angle(distance);
+		int deltaX = aiCircles.X - circles.X;
+		int deltaY = aiCircles.Y - circles.Y;
+		Vector2D distanceVector(deltaX, deltaY);
+		double distance = distanceVector.Length();
+
+		if (distance <= radius + aiRadius) {
+			int angle = direction.angle(distanceVector);
 			printf("angle -> %d\n", angle);
 			if (angle < 90)
 				return true;
