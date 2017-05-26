@@ -41,8 +41,6 @@ private:
 
 	RECT clientArea;
 
-	WorldManager* worldManager;
-
 	void Clear();//이미지 다시그리기 위해 기존 그린 이미지를 블랙으로 Clear하기.
 	void FlipBuffer();//
 	void DrawImage(Image* image, Rect rect);//이미지를 그리는 함수 선언.
@@ -64,5 +62,4 @@ public:
 
 	void ChangeBackgournd();
 	bool CheckCollision(ObjectBase* obj, Vector2D direction);
-	void CheckBettle(MainCharacter * mainCharacter);
 };

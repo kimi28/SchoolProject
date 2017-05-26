@@ -50,11 +50,8 @@ SceneManager::SceneManager()
 	monsterY = rand() % (clientArea.bottom - monster->GetRect().Height) + 1;
 	this->monster->SetPosition(monsterX, monsterY);
 
-	this->worldManager = new WorldManager();
-
 	objectList.push_back((ObjectBase*)npc1);//추가된 NPC를 objectList에 push_back하여 추가한다.
 	objectList.push_back((ObjectBase*)this->mainCharacter);//추가된 메인캐릭터를 objectList에 push_back하여 추가한다.
-	objectList.push_back((ObjectBase*)this->monster);
 	this->loopThread = new std::thread(&SceneManager::Loop, this);//스레드 함수를 초기화 하고 루프를 시작시킨다.
 }
 
@@ -92,14 +89,14 @@ void SceneManager::Loop()
 		UpdateObject(deltaTime);//업데이트할 시간내의 데이터를 업데이트 시킨다.
 		RedrawAll();//업데이트 된 데이터로 이미지를 그린다.
 
-		Sleep(20);//0.02초 단위로 반복 루프하며 데이터를 업데이트 하고 이미지를 다시 출력한다.
+		Sleep(12);//0.02초 단위로 반복 루프하며 데이터를 업데이트 하고 이미지를 다시 출력한다.
 	}
 }
 
 void SceneManager::UpdateObject(int deltaTime)
 {
 	for (int index = 0; index < (int)objectList.size(); index++) {
-		objectList[index]->Update(deltaTime);
+			objectList[index]->Update(deltaTime);
 
 	}//오브잭트 리스트를 업데이트해 준다.
 }
@@ -193,14 +190,6 @@ bool SceneManager::CheckCollision(ObjectBase* obj, Vector2D direction)
 	return false;
 }
 
-void SceneManager::CheckBettle(MainCharacter * mainCharacter)
-{
-	for (int index = 0; index < objectList.size(); index++) {
-		if (monster == objectList[index])
-			worldManager->Attack(mainCharacter, monster);
-	}
-}
-
 SceneManager::~SceneManager()
 {
 	delete foreground;
@@ -211,7 +200,7 @@ SceneManager::~SceneManager()
 	for (int index = 0; index < (int)objectList.size(); index++) {
 		delete objectList[index];
 	}
-	delete worldManager;
+
 	delete lobbyBackground;
 	delete dungeonBackground;
 	//위 동적할당으로 생성된 생성자를 모두 소멸해준다.
