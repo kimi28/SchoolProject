@@ -2,7 +2,7 @@
 #include "GameMain.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "TestMouse.h"
+
 
 GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow)
 	: DxWindow(hInstance, className, lpCmdLine, nCmdShow)
@@ -16,12 +16,12 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	testMouse = new TestMouse(device);
+	
 }
 
 void GameMain::Destroy()
 {
-	SAFE_DELETE(testMouse);
+
 
 	Keyboard::DeleteInstance();
 	Mouse::DeleteInstance();
@@ -42,7 +42,7 @@ void GameMain::Render()
 
 	device->BeginScene();
 
-	testMouse->Render();
+
 
 	device->EndScene();
 	device->Present(0, 0, 0, 0);
