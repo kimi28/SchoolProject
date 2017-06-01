@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "DxWindow.h"
 #include "GameMain.h"
-#include "Mouse.h"
 
 DxWindow* DxWindow::dxWindow = NULL;
 

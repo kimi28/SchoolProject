@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "GameMain.h"
-#include "Keyboard.h"
-#include "Mouse.h"
 
 
 GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow)
