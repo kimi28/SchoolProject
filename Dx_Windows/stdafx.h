@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <assert.h>
 #include <stdio.h>
+#include <vector>
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -12,6 +13,7 @@
 
 #pragma warning( disable : 4996 )
 
+using namespace std;
 
 #define SAFE_RELEASE(p) { if ( (p) ) { (p)->Release(); (p) = NULL; } }
 #define SAFE_DELETE(a) if( (a) != NULL ) delete (a); (a) = NULL;
