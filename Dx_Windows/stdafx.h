@@ -1,9 +1,12 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 #include <windows.h>
 #include <assert.h>
 #include <stdio.h>
 #include <vector>
+#include <math.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -15,6 +18,9 @@
 #pragma warning( disable : 4996 )
 
 using namespace std;
+
+#include "Keyboard.h"
+#include "Mouse.h"
 
 #define SAFE_RELEASE(p) { if ( (p) ) { (p)->Release(); (p) = NULL; } }
 #define SAFE_DELETE(a) if( (a) != NULL ) delete (a); (a) = NULL;
