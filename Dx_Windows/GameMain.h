@@ -4,9 +4,6 @@
 class TestMouse;
 class GameMain : public DxWindow
 {
-private:
-	
-
 public:
 	GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow);
 	~GameMain();
@@ -15,5 +12,8 @@ public:
 	void Destroy();
 	void Update();
 	void Render();
+	
+private:
+
 };
 
