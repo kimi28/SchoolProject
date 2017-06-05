@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DxWindow.cpp" />
+    <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="DrawRect.cpp" />
+    <ClCompile Include="Intersect.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DxWindow.h" />
+    <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="DrawRect.h" />
+    <ClInclude Include="Intersect.h" />
+  </ItemGroup>
+</Project>
