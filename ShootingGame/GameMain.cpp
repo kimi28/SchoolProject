@@ -46,8 +46,6 @@ void GameMain::Initialize()
 	POINT bsize = { 10 ,10 };
 	bullet = new DrawRect(device, bCoord, bsize);
 	bullet->Initialize();
-
-	bulletList.push_back(bullet);
 }
 
 void GameMain::Destroy()
@@ -161,7 +159,7 @@ void GameMain::Update()
 		monsterRect[3]->SetCoord(coord4);
 	}
 
-	if (Keyboard::GetInstance()->KeyPress(VK_SPACE)) {
+	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
 		DWORD curTime1 = timeGetTime();
 		if (prevTime2 == 0 || curTime - prevTime2 > 2)
 		{
