@@ -51,10 +51,66 @@ bool Intersect::IsContainRect(RECT * rect, DrawRect * comp1, DrawRect * comp2)
 
 bool Intersect::IsPointInCircle(const POINT * point1, const POINT * point2, const float distance)
 {
-	return false;
+	D3DXVECTOR2 delta;
+	delta.x = abs(point1->x - point2->x);
+	delta.y = abs(point1->y - point2->y);
+
+	float length = sqrt(delta.x * delta.x + delta.y * delta.y);
+
+	if (length > distance)
+		return false;
+
+	return true;
 }
 
-bool Intersect::IsCricleInRect(const POINT * circle, float radius, const RECT * rect)
+bool Intersect::IsCircleInRect(const POINT * circle, float radius, const RECT * rect)
 {
+	bool isCheck = true;
+	isCheck &= rect->left <= circle->x;
+	isCheck &= rect->right >= circle->x;
+	isCheck |= rect->top <= circle->y;
+	isCheck &= rect->bottom >= circle->y;
+
+	//if ((rect->left <= circle->x &&rect->right >= circle->x)||
+	//    (rect->top <= circle->y && rect->bottom >= circle->y)){
+	if(isCheck == true){
+		RECT temp = {
+		rect->left - radius,
+		rect->top - radius,
+		rect->right + radius,
+		rect->bottom + radius,
+		};
+
+		isCheck = true;
+		isCheck &= temp.left < circle->x;
+		isCheck &= temp.right > circle->x;
+		isCheck &= temp.top < circle->y;
+		isCheck &= temp.bottom > circle->y;
+
+		return isCheck;
+	}
+	else {
+		POINT temp;
+		temp = { rect->left, rect->top };
+		if (IsPointInCircle(circle, &temp, radius)) {
+			return true;
+		}
+
+		temp = { rect->left, rect->bottom };
+		if (IsPointInCircle(circle, &temp, radius)) {
+			return true;
+		}
+
+		temp = { rect->right, rect->top };
+		if (IsPointInCircle(circle, &temp, radius)) {
+			return true;
+		}
+
+		temp = { rect->right, rect->bottom };
+		if (IsPointInCircle(circle, &temp, radius)) {
+			return true;
+		}
+	}
+
 	return false;
 }

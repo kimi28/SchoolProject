@@ -2,6 +2,7 @@
 #include "GameMain.h"
 #include "DrawCircle.h"
 #include "DrawRect.h"
+#include "Intersect.h"
 
 
 GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow)
@@ -16,12 +17,12 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	POINT rCoord = { 200, 200 };
-	POINT size = { 100, 100 };
+	POINT rCoord = { 0,  600 };
+	POINT size = { winSize.x, winSize.y };
 	rect = new DrawRect(device, rCoord, size);
 	rect->Initialize();
 
-	POINT cCoord = { 600, 600 };
+	POINT cCoord = { 550, 550 };
 	float radius = 50.0f;
 	circle = new DrawCircle(device, cCoord, radius);
 	circle->Initalize();
@@ -40,22 +41,20 @@ void GameMain::Destroy()
 
 void GameMain::Update()
 {
-	POINT moveCoord = circle->GetCoord();
-	if (Keyboard::GetInstance()->KeyPress(VK_UP)) {
-		moveCoord.y -= 20;
+	if (Intersect::IsCircleInRect(
+		&circle->GetCoord(), circle->GetRadius(),
+		&rect->GetRect())) {
+		circle->SetColor(0xFFFF0000);
+		rect->SetColor(0xFF00FF00);
 	}
-	else if (Keyboard::GetInstance()->KeyPress(VK_DOWN)) {
-		moveCoord.y += 20;
-	}
-
-	if (Keyboard::GetInstance()->KeyPress(VK_LEFT)) {
-		moveCoord.x -= 20;
-	}
-	else if (Keyboard::GetInstance()->KeyPress(VK_RIGHT)) {
-		moveCoord.x += 20;
+	else {
+		circle->SetColor(0xFF000000);
+		rect->SetColor(0xFF000000);
 	}
 
-	circle->SetCoord(moveCoord);
+
+
+
 
 	Keyboard::GetInstance()->Update();
 	Mouse::GetInstance()->Update();

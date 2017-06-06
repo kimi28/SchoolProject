@@ -2,25 +2,6 @@
 
 class DxWindow
 {
-protected:
-	static DxWindow* dxWindow;
-
-	HINSTANCE instance;
-	LPWSTR className;
-	LPSTR commandLine;
-	int commandShow;
-
-	HWND handle;
-
-	POINT winSize = { 1024, 768 };
-	DWORD winStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
-
-	BOOL isWindow = TRUE;
-	BOOL isShowCursor = TRUE;
-
-	LPDIRECT3D9	d3d = NULL;
-	LPDIRECT3DDEVICE9 device = NULL;
-
 public:
 	// 객체 생성자
 	DxWindow(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow);
@@ -41,4 +22,24 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void Destroy() = 0;
+
+protected:
+	static DxWindow* dxWindow;
+
+	HINSTANCE instance;
+	LPWSTR className;
+	LPSTR commandLine;
+	int commandShow;
+
+	HWND handle;
+
+	POINT winSize = { 1024, 768 };
+	DWORD winStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
+
+	BOOL isWindow = TRUE;
+	BOOL isShowCursor = TRUE;
+
+	LPDIRECT3D9	d3d = NULL;
+	LPDIRECT3DDEVICE9 device = NULL;
+
 };

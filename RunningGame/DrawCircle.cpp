@@ -29,7 +29,7 @@ void DrawCircle::SetCoord(POINT coord)
 void DrawCircle::SetRadius(float radius)
 {
 	this->radius = radius;
-
+	
 	AdjustDrawVec();
 }
 
@@ -39,9 +39,10 @@ void DrawCircle::Initalize()
 	hr = D3DXCreateLine(device, &line);
 	assert(SUCCEEDED(hr));
 
+	AdjustDrawVec();
+
 	line->SetAntialias(TRUE);
 
-	AdjustDrawVec();
 }
 
 void DrawCircle::Destroy()
@@ -62,6 +63,7 @@ void DrawCircle::Render()
 
 void DrawCircle::AdjustDrawVec()
 {
+	drawCount = 0;
 	float step = PI * 2.0f / side;
 	for (float i = 0; i < PI * 2.0f; i += step) {
 		D3DXVECTOR2 v1;
@@ -69,6 +71,7 @@ void DrawCircle::AdjustDrawVec()
 
 		v1.x = radius * cos(i) + coord.x;
 		v1.y = radius * sin(i) + coord.y;
+
 		v2.x = radius * cos(i + step) + coord.x;
 		v2.y = radius * sin(i + step) + coord.y;
 
