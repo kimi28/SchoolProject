@@ -16,7 +16,12 @@ public:
 	
 private:
 	DrawCircle* circle;
-	DrawRect* rect;
+	
+	vector <DrawRect*> rectList;
+
+
+	DWORD prevTime1;
+	DWORD prevTime2;
 
 };
 

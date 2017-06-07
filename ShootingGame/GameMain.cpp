@@ -41,11 +41,6 @@ void GameMain::Initialize()
 		monsterRect[i] = new DrawRect(device, moveCoord, moveSize);
 		monsterRect[i]->Initialize();
 	}
-
-	POINT bCoord = { mainRect->GetCoord().x + 20 ,mainRect->GetCoord().y - 20 };
-	POINT bsize = { 10 ,10 };
-	bullet = new DrawRect(device, bCoord, bsize);
-	bullet->Initialize();
 }
 
 void GameMain::Destroy()
@@ -54,11 +49,9 @@ void GameMain::Destroy()
 	SAFE_DELETE(winRect);
 	mainRect->Destroy();
 	SAFE_DELETE(mainRect);
-	bullet->Destroy();
-	SAFE_DELETE(bullet);
 	for (int i = 0; i < (int)bulletList.size(); i++) {
 		bulletList[i]->Destroy();
-		SAFE_DELETE_ARRAY(bulletList[i]);
+		bulletList.clear();
 	}
 	for (int i = 0; i < 10; i++) {
 		wellRect[i]->Destroy();
@@ -159,38 +152,46 @@ void GameMain::Update()
 		monsterRect[3]->SetCoord(coord4);
 	}
 
-	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
-		DWORD curTime1 = timeGetTime();
-		if (prevTime2 == 0 || curTime - prevTime2 > 2)
-		{
-			for (int i = 0; i < (int)bulletList.size(); i++)
-			{
-				POINT coord = bulletList[i]->GetCoord();
-				coord.y -= 10;
 
-				for (int x = 0; x < 10; x++)
+	DWORD curTime1 = timeGetTime();
+	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
+		DrawRect* bullet;
+		POINT bCoord = { mainRect->GetCoord().x + 20 ,mainRect->GetCoord().y};
+		POINT bsize = { 10 ,10 };
+		bullet = new DrawRect(device, bCoord, bsize);
+		bullet->Initialize();
+		bulletList.push_back(bullet);
+	}
+	if (prevTime2 == 0 || curTime - prevTime2 > 2)
+	{
+
+		for (int i = 0; i < (int)bulletList.size(); i++)
+		{
+			POINT coord = bulletList[i]->GetCoord();
+			coord.y -= 10;
+
+			for (int x = 0; x < 10; x++)
+			{
+				if (Intersect::IsContainRect(NULL, bulletList[i], wellRect[x]) == true) //충돌시 화면 밖으로 날림
 				{
-					if (Intersect::IsContainRect(NULL, bulletList[i], wellRect[x]) == true) //충돌시 화면 밖으로 날림
-					{
-						bulletList[i]->GetSize() = { 0 };
-						//coord.x = 2500;
-						//prevTimeBar[x] = timeGetTime();
-						//arrInterBar[x] = true;
-					}
+					bulletList[i]->GetSize() = { 0 };
+					//coord.x = 2500;
+					//prevTimeBar[x] = timeGetTime();
+					//arrInterBar[x] = true;
 				}
-				for (int x = 0; x < 4; x++) {
-					if (Intersect::IsContainRect(NULL, bulletList[i], monsterRect[x]) == true)
-					{
-						bulletList[i]->GetSize() = { 0 };
-						//coord.x = 2500;
-						//prevTimeEne[x] = timeGetTime();
-						//arrInterEne[x] = true;
-					}
-				}
-				bulletList[i]->SetCoord(coord);
 			}
-			prevTime2 = curTime1;
+			for (int x = 0; x < 4; x++) {
+				if (Intersect::IsContainRect(NULL, bulletList[i], monsterRect[x]) == true)
+				{
+					bulletList[i]->GetSize() = { 0 };
+					//coord.x = 2500;
+					//prevTimeEne[x] = timeGetTime();
+					//arrInterEne[x] = true;
+				}
+			}
+			bulletList[i]->SetCoord(coord);
 		}
+		prevTime2 = curTime1;
 	}
 
 

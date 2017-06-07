@@ -18,7 +18,6 @@ private:
 	DrawRect* mainRect;
 	DrawRect* wellRect[10];
 	DrawRect* monsterRect[4];
-	DrawRect* bullet;
 	vector <DrawRect*> bulletList;
 
 	DWORD prevTime1;
