@@ -26,7 +26,7 @@ void GameMain::Initialize()
 	
 	DrawRect* rect2;
 	POINT rCoord1 = { rect1->GetSize().x + 100,  500 };
-	POINT size1 = { 500, 600 };
+	POINT size1 = { winSize.x, winSize.y - 500 };
 	rect2 = new DrawRect(device, rCoord1, size1);
 	rect2->Initialize();
 
@@ -68,9 +68,8 @@ void GameMain::Update()
 
 		POINT mCoord = rectList[i]->GetCoord();
 		mCoord.x -= 10;
-		float width = rectList[i]->GetRect().right - rectList[i]->GetRect().left;
-		if (rectList[i]->GetRect().right <= 0)
-			mCoord = { winSize.x+ i*100, rectList[i]->GetCoord().y };
+		if (rectList[i]->GetRect().right < 0)
+			mCoord = { rectList[i]->GetSize().x + 100, rectList[i]->GetCoord().y };
 
 
 		rectList[i]->SetCoord(mCoord);
