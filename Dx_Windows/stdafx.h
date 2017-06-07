@@ -22,6 +22,8 @@ using namespace std;
 #include "Keyboard.h"
 #include "Mouse.h"
 
+#define PI 3.14159265f
+
 #define SAFE_RELEASE(p) { if ( (p) ) { (p)->Release(); (p) = NULL; } }
 #define SAFE_DELETE(a) if( (a) != NULL ) delete (a); (a) = NULL;
 #define SAFE_DELETE_ARRAY(a) if( (a) != NULL ) delete [] (a); (a) = NULL;
