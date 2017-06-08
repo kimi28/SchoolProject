@@ -8,6 +8,7 @@ GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int
 	: DxWindow(hInstance, className, lpCmdLine, nCmdShow)
 	, prevTime1(0)
 	, prevTime2(0)
+	, prevTime3(0)
 {
 }
 
@@ -47,21 +48,24 @@ void GameMain::Destroy()
 {
 	winRect->Destroy();
 	SAFE_DELETE(winRect);
+
 	mainRect->Destroy();
 	SAFE_DELETE(mainRect);
+
 	for (int i = 0; i < (int)bulletList.size(); i++) {
 		bulletList[i]->Destroy();
 		bulletList.clear();
 	}
+
 	for (int i = 0; i < 10; i++) {
 		wellRect[i]->Destroy();
 		SAFE_DELETE(wellRect[i]);
 	}
+
 	for (int i = 0; i < 4; i++) {
 		monsterRect[i]->Destroy();
 		SAFE_DELETE(monsterRect[i]);
 	}
-
 
 	Keyboard::DeleteInstance();
 	Mouse::DeleteInstance();
@@ -156,7 +160,7 @@ void GameMain::Update()
 	DWORD curTime1 = timeGetTime();
 	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
 		DrawRect* bullet;
-		POINT bCoord = { mainRect->GetCoord().x + 20 ,mainRect->GetCoord().y};
+		POINT bCoord = { mainRect->GetCoord().x + 20 ,mainRect->GetCoord().y };
 		POINT bsize = { 10 ,10 };
 		bullet = new DrawRect(device, bCoord, bsize);
 		bullet->Initialize();
@@ -174,11 +178,17 @@ void GameMain::Update()
 			{
 				if (Intersect::IsContainRect(NULL, bulletList[i], wellRect[x]) == true) //충돌시 화면 밖으로 날림
 				{
-					bulletList[i]->GetSize() = { 0 };
-					//coord.x = 2500;
-					//prevTimeBar[x] = timeGetTime();
-					//arrInterBar[x] = true;
+					DWORD curTime2 = timeGetTime();
+					if (prevTime3 == 0 || (prevTime3 - curTime2) > 1000) {
+						prevTime3 = timeGetTime();
+
+						DWORD color = wellRect[x]->GetColor();
+						color = (color != 0xFF000000) ? 0xFF000000 : 0xFF0000FF;
+						wellRect[x]->SetColor(color);
+					}
+					bulletList[i]->SetSize({ 0,0 });
 				}
+
 			}
 			for (int x = 0; x < 4; x++) {
 				if (Intersect::IsContainRect(NULL, bulletList[i], monsterRect[x]) == true)
@@ -194,10 +204,9 @@ void GameMain::Update()
 		prevTime2 = curTime1;
 	}
 
-
-
 	winRect->Update();
 	mainRect->Update();
+
 	for (int i = 0; i < 10; i++) {
 		wellRect[i]->Update();
 	}

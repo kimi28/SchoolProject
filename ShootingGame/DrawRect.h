@@ -12,6 +12,7 @@ public:
 
 	void SetCoord(POINT coord);
 	void SetColor(DWORD color) { lineColor = color; }
+	void SetSize(POINT size) {this->size = size; }
 	
 	void Initialize();
 	void Destroy();

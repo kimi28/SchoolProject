@@ -22,6 +22,8 @@ private:
 
 	DWORD prevTime1;
 	DWORD prevTime2;
+	DWORD prevTime3;
+
 
 };
 
