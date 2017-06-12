@@ -92,12 +92,12 @@ void GameMain::Update()
 		mainRect->SetCoord(coord);
 	}
 
-	DWORD curTime1 = timeGetTime();
+	DWORD curTime = timeGetTime();
 	POINT coord1 = monsterRect[0]->GetCoord();
 	POINT coord2 = monsterRect[1]->GetCoord();
 	POINT coord3 = monsterRect[2]->GetCoord();
 	POINT coord4 = monsterRect[3]->GetCoord();
-	if (prevTime1 == 0 || (curTime1 - prevTime1) > 200) {
+	if (prevTime1 == 0 || (curTime - prevTime1) > 200) {
 		if (coord1.x > winRect->GetCoord().x && coord1.x < winRect->GetSize().x - monsterRect[0]->GetSize().x) {
 			static int count1 = 0;
 			if (count1 == 0) {
@@ -165,8 +165,7 @@ void GameMain::Update()
 		bulletList.push_back(bullet);
 	}
 
-	DWORD curTime2 = timeGetTime();
-	if (prevTime2 == 0 || (curTime2 - prevTime2) > 2)
+	if (prevTime2 == 0 || (curTime - prevTime2) > 2)
 	{
 		for (int i = 0; i < (int)bulletList.size(); i++)
 		{
@@ -177,9 +176,21 @@ void GameMain::Update()
 			{
 				if (Intersect::IsContainRect(NULL, bulletList[i], wellRect[x]) == true) //충돌시 화면 밖으로 날림
 				{
-					bulletList[i]->SetCoord(coord);
+					
 					bulletList[i]->SetSize({ 0,0 });
 					wellRect[x]->SetColor(0xFFFF0000);
+				}
+
+				if (prevTime3 == 0 || (curTime - prevTime3) > 1000)
+				{
+					for (int x = 0; x < 10; x++)
+					{
+						DWORD color = wellRect[x]->GetColor();
+
+						color = (color != 0xFF000000) ? 0xFF000000 : 0xFFFF0000;
+					}
+
+					prevTime3 = curTime;
 				}
 			}
 
@@ -197,20 +208,7 @@ void GameMain::Update()
 			}
 			bulletList[i]->SetCoord(coord);
 		}
-		prevTime2 = curTime2;
-	}
-
-	DWORD curTime3 = timeGetTime();
-	if (prevTime3 == 0 || (curTime3 - prevTime3) > 1000)
-	{
-		for (int x = 0; x < 10; x++)
-		{
-			DWORD color = wellRect[x]->GetColor();
-
-			color = (color != 0xFF000000) ? 0xFF000000 : 0xFFFF0000;
-		}
-			
-		prevTime3 = curTime3;
+		prevTime2 = curTime;
 	}
 
 	winRect->Update();
