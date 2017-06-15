@@ -17,6 +17,10 @@ public:
 	void Render();
 	
 private:
+	Rect* rect;
+	Rect* rect1;
+	vector<Rect*> vecRect;
+
 
 };
 
