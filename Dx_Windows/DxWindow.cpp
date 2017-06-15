@@ -100,8 +100,6 @@ void DxWindow::Create(LPCWSTR title)
 		, NULL
 	);
 	assert(handle != NULL);
-
-	Mouse::GetInstance()->SetHandle(handle);
 }
 
 void DxWindow::CreateDevice()
@@ -141,6 +139,9 @@ WPARAM DxWindow::Run()
 {
 	MSG message;
 	ZeroMemory(&message, sizeof(message));
+	
+	Mouse::GetInstance()->SetHandle(handle);
+	
 
 	Initialize();
 
@@ -153,12 +154,27 @@ WPARAM DxWindow::Run()
 		}
 		else
 		{
+			Keyboard::GetInstance()->Update();
+	        Mouse::GetInstance()->Update();
+			
 			Update();
+
+	device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(1, 1, 1, 1), 1.0f, 0);
+
+	device->BeginScene();
+	{
+		
 			Render();
+	}
+		device->EndScene();
+	device->Present(0, 0, 0, 0);
 		}
 	}
 	
 	Destroy();
+	
+	Keyboard::DeleteInstance();
+	Mouse::DeleteInstance();
 
 	UnregisterClass(className, instance);
 	return message.wParam;

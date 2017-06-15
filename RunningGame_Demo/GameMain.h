@@ -1,7 +1,10 @@
 #pragma once
 #include "DxWindow.h"
 
-class TestMouse;
+class Circle;
+class Rect;
+class Sprite;
+
 class GameMain : public DxWindow
 {
 public:

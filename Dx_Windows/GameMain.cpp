@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "GameMain.h"
+#include "Circle.h"
+#include "Rect.h"
+#include "Sprite"
 
 
 GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow)
@@ -19,29 +22,12 @@ void GameMain::Initialize()
 
 void GameMain::Destroy()
 {
-
-
-	Keyboard::DeleteInstance();
-	Mouse::DeleteInstance();
 }
 
 void GameMain::Update()
 {
-	Keyboard::GetInstance()->Update();
-	Mouse::GetInstance()->Update();
 }
 
 void GameMain::Render()
 {
-	if (device == NULL)
-		return;
-
-	device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(1, 1, 1, 1), 1.0f, 0);
-
-	device->BeginScene();
-
-
-
-	device->EndScene();
-	device->Present(0, 0, 0, 0);
 }

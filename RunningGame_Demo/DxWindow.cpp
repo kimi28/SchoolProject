@@ -19,10 +19,10 @@ DxWindow::DxWindow(HINSTANCE hInstance, LPCWSTR lpClassName, LPCSTR lpszCmdParam
 	instance = hInstance;
 	handle = NULL;
 
-	if (lpClassName != NULL) 
+	if (lpClassName != NULL)
 	{
 		int length = wcslen(lpClassName) + 1;
-		
+
 		className = new WCHAR[length];
 		wcscpy_s(className, length, lpClassName);
 	}
@@ -30,11 +30,11 @@ DxWindow::DxWindow(HINSTANCE hInstance, LPCWSTR lpClassName, LPCSTR lpszCmdParam
 	{
 		className = NULL;
 	}
-		
+
 	if (lpszCmdParam != NULL)
 	{
 		int length = strlen(lpszCmdParam) + 1;
-		
+
 		commandLine = new char[length];
 		strcpy_s(commandLine, length, lpszCmdParam);
 	}
@@ -49,7 +49,7 @@ DxWindow::~DxWindow()
 	SAFE_RELEASE(device);
 	SAFE_RELEASE(d3d);
 
-	if (handle != NULL) 
+	if (handle != NULL)
 		DestroyWindow(handle);
 
 
@@ -153,12 +153,26 @@ WPARAM DxWindow::Run()
 		}
 		else
 		{
+			Keyboard::GetInstance()->Update();
+			Mouse::GetInstance()->Update();
+
 			Update();
-			Render();
+
+			device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(1, 1, 1, 1), 1.0f, 0);
+
+			device->BeginScene();
+			{
+				Render();
+			}
+			device->EndScene();
+			device->Present(0, 0, 0, 0);
 		}
 	}
-	
+
 	Destroy();
+
+	Keyboard::DeleteInstance();
+	Mouse::DeleteInstance();
 
 	UnregisterClass(className, instance);
 	return message.wParam;
@@ -168,20 +182,20 @@ LRESULT DxWindow::MessageLoop(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 {
 	switch (message)
 	{
-		case WM_KEYDOWN:
+	case WM_KEYDOWN:
+	{
+		if (wParam == VK_ESCAPE)
 		{
-			if (wParam == VK_ESCAPE)
-			{
-				SendMessage(hwnd, WM_DESTROY, 0, 0);
-				break;
-			}
-
-			return 0;
+			SendMessage(hwnd, WM_DESTROY, 0, 0);
+			break;
 		}
 
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			return 0;
+		return 0;
+	}
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
 	}
 
 	return DefWindowProc(hwnd, message, wParam, lParam);
