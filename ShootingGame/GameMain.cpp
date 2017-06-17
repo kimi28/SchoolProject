@@ -73,6 +73,9 @@ void GameMain::Destroy()
 
 void GameMain::Update()
 {
+	winRect->Update();
+	mainRect->Update();
+
 	if (mainRect->GetCoord().x > winRect->GetCoord().x && mainRect->GetCoord().x < winRect->GetSize().x - mainRect->GetSize().x) {
 		POINT coord = mainRect->GetCoord();
 		if (Keyboard::GetInstance()->KeyPress(VK_RIGHT)) {
@@ -176,7 +179,8 @@ void GameMain::Update()
 			{
 				if (Intersect::IsContainRect(NULL, bulletList[i], wellRect[x]) == true) //충돌시 화면 밖으로 날림
 				{
-					
+
+					coord = { 0,0 };
 					bulletList[i]->SetSize({ 0,0 });
 					wellRect[x]->SetColor(0xFFFF0000);
 				}
@@ -195,24 +199,18 @@ void GameMain::Update()
 			}
 
 			for (int x = 0; x < 4; x++) {
+				POINT size = monsterRect[x]->GetSize();
 				if (Intersect::IsContainRect(NULL, bulletList[i], monsterRect[x]) == true)
 				{
-					bulletList[i]->SetCoord(coord);
+					coord = { 0,0 };
 					bulletList[i]->SetSize({ 0,0 });
 					monsterRect[x]->SetColor(0xFFFF0000);
-					monsterRect[x]->SetSize({ 0,0 });
-					//coord.x = 2500;
-					//prevTimeEne[x] = timeGetTime();
-					//arrInterEne[x] = true;
 				}
 			}
 			bulletList[i]->SetCoord(coord);
 		}
 		prevTime2 = curTime;
 	}
-
-	winRect->Update();
-	mainRect->Update();
 
 	for (int i = 0; i < 10; i++) {
 		wellRect[i]->Update();
