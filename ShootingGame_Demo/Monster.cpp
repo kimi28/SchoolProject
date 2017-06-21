@@ -4,7 +4,7 @@
 
 
 
-Monster::Monster(LPDIRECT3DDEVICE9 device)
+Monster::Monster(LPDIRECT3DDEVICE9 device, POINT coord)
 	: device(device)
 	, coord(coord)
 {
@@ -21,6 +21,8 @@ void Monster::Initialize()
 {
 	rect = new Rect(device, coord, { 40,40 }, 0xFF00FF00);
 	rect->Initialize();
+
+	rectList.push_back(rect);
 }
 
 void Monster::Destroy()
@@ -31,6 +33,12 @@ void Monster::Destroy()
 
 void Monster::Update()
 {
+	if (rectList.size() != NULL) {
+		rectList.push_back(rect);
+	}
+
+
+
 }
 
 void Monster::Render()

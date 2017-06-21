@@ -6,7 +6,7 @@ class Bullet;
 class Monster
 {
 public:
-	Monster(LPDIRECT3DDEVICE9 device);
+	Monster(LPDIRECT3DDEVICE9 device, POINT coord);
 	~Monster();
 
 	void SetCoord(POINT coord) { this->coord = coord; }
@@ -22,5 +22,7 @@ private:
 	LONG moveSpeed;
 	POINT coord;
 	Rect* rect;
+
+	vector<Rect *> rectList;
 
 };

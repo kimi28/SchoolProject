@@ -24,6 +24,6 @@ private:
 	DWORD prevTime2;
 	DWORD prevTime3;
 
-
+	DWORD color;
 };
 
