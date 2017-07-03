@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="DebugGrid.cpp" />
+    <ClCompile Include="DxWindow.cpp" />
+    <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Intersect.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PrintText.cpp" />
+    <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="DebugGrid.h" />
+    <ClInclude Include="DxWindow.h" />
+    <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Intersect.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PrintText.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Shooter.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
+  </ItemGroup>
+</Project>
