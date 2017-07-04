@@ -17,6 +17,8 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -36,5 +38,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="BulletManager.h" />
   </ItemGroup>
 </Project>

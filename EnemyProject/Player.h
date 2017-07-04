@@ -25,12 +25,10 @@ public:
 
 	void Collison();
 
-	void ReMove(Bullet* bullet);
-	void ReMove(Enemy* enemy);
+	void Remove(Bullet* bullet);
+	void Remove(Enemy* enemy);
 
 private:
-	void Add(D3DXVECTOR2 coord);
-	void Remove(Bullet* bullet);
 
 	LPDIRECT3DDEVICE9 device;
 	Sprite* sprite;

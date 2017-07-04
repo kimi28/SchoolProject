@@ -144,6 +144,7 @@ WPARAM DxWindow::Run()
 	DebugGrid::GetInstance()->SetDevice(device);
 	PrintText::GetInstance()->SetDevice(device);
 
+
 	Initialize();
 
 	while (message.message != WM_QUIT)
@@ -157,6 +158,7 @@ WPARAM DxWindow::Run()
 		{
 			Keyboard::GetInstance()->Update();
 			Mouse::GetInstance()->Update();
+			
 
 			Update();
 
@@ -165,6 +167,7 @@ WPARAM DxWindow::Run()
 			device->BeginScene();
 			{
 				DebugGrid::GetInstance()->Render(true);
+
 
 				Render();
 

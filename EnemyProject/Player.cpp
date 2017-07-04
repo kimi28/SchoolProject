@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Sprite.h"
 #include "Bullet.h"
+#include "BulletManager.h"
 #include "Rect.h"
 #include "Enemy.h"
 #include "Intersect.h"
@@ -63,6 +64,7 @@ void Player::Update()
 
 	sprite->SetCoord(coord);
 	rect->SetCoord(coord);
+	BulletManager::GetInstance()->SetAngle(angle);
 	Collison();
 
 	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
@@ -70,14 +72,14 @@ void Player::Update()
 		point1.x += 40;
 		point1.y += 40;
 
-		Add(point1);
+		BulletManager::GetInstance()->Add(point1);
 
 
 		D3DXVECTOR2 point2 = coord;
 		point2.x += 40;
 		point2.y += 15;
 
-		Add(point2);
+		BulletManager::GetInstance()->Add(point2);
 	}
 
 
@@ -91,9 +93,7 @@ void Player::Update()
 
 void Player::Render()
 {
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		bulletList[i]->Render();
-	}
+
 	sprite->Render();
 }
 
@@ -101,18 +101,18 @@ void Player::Collison()
 {
 	for (size_t i = 0; i < bulletList.size(); i++) {
 		if (Intersect::IsContainRect(NULL, bulletList[i]->GetRect(), enemyMemoryLink->GetRect())) {
-			ReMove(bulletList[i]);
-			ReMove(enemyMemoryLink);
+			Remove(bulletList[i]);
+			Remove(enemyMemoryLink);
 		}
 	}
 }
 
-void Player::ReMove(Enemy * enemy)
+void Player::Remove(Enemy * enemy)
 {
-	enemy->Initialize();
+
 }
 
-void Player::ReMove(Bullet * bullet)
+void Player::Remove(Bullet * bullet)
 {
 	auto iter = bulletList.begin();
 	for (iter; iter != bulletList.end();) {
@@ -124,43 +124,4 @@ void Player::ReMove(Bullet * bullet)
 			iter++;
 		}
 	}
-
-
 }
-
-void Player::Add(D3DXVECTOR2 coord)
-{
-	int number = -1;
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		if (bulletList[i]->GetIsOn() == false) {
-			number = (int)i;
-			break;
-		}
-	}
-
-	if (number > -1) {
-		bulletList[number]->SetOn();
-		bulletList[number]->SetCoord(coord);
-		bulletList[number]->SetRotate(angle);
-	}
-	else {
-		Bullet* bullet = new Bullet(device, coord, angle);
-		bullet->SetOn();
-		bulletList.push_back(bullet);
-	}
-}
-
-void Player::Remove(Bullet * bullet)
-{
-	for (vector<Bullet*>::iterator iter = bulletList.begin();
-		iter != bulletList.end();) {
-		if ((*iter) == bullet) {
-			SAFE_DELETE(bullet);
-			iter = bulletList.erase(iter);
-		}
-		else {
-			iter++;
-		}
-	}
-}
-
