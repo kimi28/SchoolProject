@@ -35,6 +35,8 @@ void Player::Initialize()
 
 	rect = new Rect(device, D3DXVECTOR2(30, halfY - spriteHalfY), sprite->GetSize());
 	rect->Initialize();
+
+	time = timeGetTime();
 }
 
 void Player::Destroy()
@@ -84,6 +86,7 @@ void Player::Update()
 		bulletList[i]->Update();
 	}
 
+
 }
 
 void Player::Render()
@@ -106,6 +109,7 @@ void Player::Collison()
 
 void Player::ReMove(Enemy * enemy)
 {
+	enemy->Initialize();
 }
 
 void Player::ReMove(Bullet * bullet)
@@ -121,7 +125,7 @@ void Player::ReMove(Bullet * bullet)
 		}
 	}
 
-	
+
 }
 
 void Player::Add(D3DXVECTOR2 coord)

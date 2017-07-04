@@ -30,7 +30,7 @@ void Enemy::Initialize()
 
 	float halfY = viewport.Height * 0.5f;
 	float spriteHalfY = sprite->GetRealSize().y * 0.5f;
-	coord = D3DXVECTOR2(950, halfY - spriteHalfY);
+	coord = D3DXVECTOR2(1000, halfY - spriteHalfY);
 	sprite->SetCoord(coord);
 
 	sprite->SetRotate(180);

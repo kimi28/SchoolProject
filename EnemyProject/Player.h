@@ -41,6 +41,7 @@ private:
 	float angle;
 
 	Rect* rect;
+	DWORD time;
 
 	Enemy* enemyMemoryLink;
 };

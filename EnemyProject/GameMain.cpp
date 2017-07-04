@@ -22,7 +22,7 @@ void GameMain::Initialize()
 	player = new Player(device);
 	player->Initialize();
 
-	enemy = new Enemy(device, { 900, 350 });
+	enemy = new Enemy(device, D3DXVECTOR2(900, 350));
 	enemy->Initialize();
 
 	player->EnemyMemoryLink(enemy);

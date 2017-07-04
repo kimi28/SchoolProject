@@ -11,6 +11,8 @@ public:
 	~Enemy();
 
 	void SetCoord(D3DXVECTOR2 coord) { this->coord = coord; }
+	D3DXVECTOR2 GetCoord() { return coord; }
+
 	Rect* GetRect() { return rect; }
 
 	void Initialize();
