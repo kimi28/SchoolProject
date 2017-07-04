@@ -1,11 +1,14 @@
 #pragma once
 
 class Sprite;
+class Rect;
 class Bullet
 {
 public:
 	Bullet(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle = 0, float speed= 10);
 	~Bullet();
+
+	Rect* GetRect() { return rect; }
 
 	bool GetIsOn() { return isOn; }
 	void SetOn() {
@@ -44,5 +47,7 @@ private:
 
 	float halfY;
 	float spriteHalfY;
+
+	Rect* rect;
 };
 

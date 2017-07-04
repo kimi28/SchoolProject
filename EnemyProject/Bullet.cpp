@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Rect.h"
 
 Bullet::Bullet(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle, float speed)
 	: device(device)
@@ -35,10 +36,16 @@ void Bullet::Initialize()
 {
 	sprite = new Sprite(device, L"Textures/eplasma2.tga", coord);
 	sprite->Initialize();
+
+	rect = new Rect(device, coord, sprite->GetSize());
+	rect->Initialize();
 }
 
 void Bullet::Destroy()
 {
+	rect->Destroy();
+	SAFE_DELETE(rect);
+
 	sprite->Destroy();
 	SAFE_DELETE(sprite);
 }
@@ -49,6 +56,7 @@ void Bullet::Update()
 	coord.y += (int)velocity.y;
 
 	sprite->SetCoord(coord);
+	rect->SetCoord(coord);
 
 	D3DVIEWPORT9 viewport;
 	device->GetViewport(&viewport);

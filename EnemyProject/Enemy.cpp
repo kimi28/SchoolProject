@@ -2,11 +2,14 @@
 #include "Enemy.h"
 #include "Sprite.h"
 #include "Bullet.h"
+#include "Rect.h"
+#include "Player.h"
+#include "Intersect.h"
 
 Enemy::Enemy(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord)
 	: device(device)
 	, coord(coord)
-	, moveSpeed(5)
+	, moveSpeed(2)
 	, angle(0)
 {
 	Initialize();
@@ -33,6 +36,9 @@ void Enemy::Initialize()
 	sprite->SetRotate(180);
 
 	time = timeGetTime();
+
+	rect = new Rect(device, coord, sprite->GetSize());
+	rect->Initialize();
 }
 
 void Enemy::Destroy()
@@ -40,6 +46,9 @@ void Enemy::Destroy()
 	for (size_t i = 0; i < bulletList.size(); i++) {
 		SAFE_DELETE(bulletList[i]);
 	}
+
+	rect->Destroy();
+	SAFE_DELETE(rect);
 
 	sprite->Destroy();
 	SAFE_DELETE(sprite);
@@ -49,7 +58,10 @@ void Enemy::Destroy()
 void Enemy::Update()
 {
 	coord.x -= moveSpeed;
+
 	sprite->SetCoord(coord);
+	rect->SetCoord(coord);
+	Collison();
 
 	DWORD currentTime = timeGetTime();
 	int random = 500 + rand() % 5 * 100;
@@ -85,6 +97,29 @@ void Enemy::Render()
 		bulletList[i]->Render();
 	}
 	sprite->Render();
+}
+
+void Enemy::Collison()
+{
+	for (size_t i = 0; i < bulletList.size(); i++) {
+		if (Intersect::IsContainRect(NULL, bulletList[i]->GetRect(), playerMemoryLink->GetRect())) {
+			ReMove(bulletList[i]);
+		}
+	}
+}
+
+void Enemy::ReMove(Bullet * bullet)
+{
+	auto iter = bulletList.begin();
+	for (iter; iter != bulletList.end();) {
+		if ((*iter) == bullet) {
+			SAFE_DELETE(bullet);
+			iter = bulletList.erase(iter);
+		}
+		else {
+			iter++;
+		}
+	}
 }
 
 void Enemy::Add(D3DXVECTOR2 coord)

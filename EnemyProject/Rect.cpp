@@ -3,8 +3,8 @@
 
 
 
-Rect::Rect(LPDIRECT3DDEVICE9 device, POINT coord, 
-	POINT size, DWORD color)
+Rect::Rect(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord,
+	D3DXVECTOR2 size, DWORD color)
 	: device(device)
 	, lineColor(color)
 	, coord(coord)
@@ -27,7 +27,7 @@ RECT Rect::GetRect()
 	return rect;
 }
 
-void Rect::SetCoord(POINT coord)
+void Rect::SetCoord(D3DXVECTOR2 coord)
 {
 	this->coord = coord;
 

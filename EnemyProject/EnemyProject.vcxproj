@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Program Files %28x86%29\DirectX SDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Program Files %28x86%29\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Program Files %28x86%29\DirectX SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\Program Files %28x86%29\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -147,7 +147,6 @@
     <ClCompile Include="DebugGrid.cpp" />
     <ClCompile Include="DxWindow.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Intersect.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -168,7 +167,6 @@
     <ClInclude Include="DebugGrid.h" />
     <ClInclude Include="DxWindow.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Intersect.h" />
     <ClInclude Include="Keyboard.h" />

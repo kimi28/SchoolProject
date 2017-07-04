@@ -2,6 +2,9 @@
 #include "Player.h"
 #include "Sprite.h"
 #include "Bullet.h"
+#include "Rect.h"
+#include "Enemy.h"
+#include "Intersect.h"
 
 Player::Player(LPDIRECT3DDEVICE9 device)
 	: device(device)
@@ -29,6 +32,9 @@ void Player::Initialize()
 	float spriteHalfY = sprite->GetRealSize().y * 0.5f;
 	coord = D3DXVECTOR2(30, halfY - spriteHalfY);
 	sprite->SetCoord(coord);
+
+	rect = new Rect(device, D3DXVECTOR2(30, halfY - spriteHalfY), sprite->GetSize());
+	rect->Initialize();
 }
 
 void Player::Destroy()
@@ -36,6 +42,9 @@ void Player::Destroy()
 	for (size_t i = 0; i < bulletList.size(); i++) {
 		SAFE_DELETE(bulletList[i]);
 	}
+	rect->Destroy();
+	SAFE_DELETE(rect);
+
 	sprite->Destroy();
 	SAFE_DELETE(sprite);
 
@@ -46,10 +55,13 @@ void Player::Update()
 	if (Keyboard::GetInstance()->KeyPress(VK_UP)) {
 		coord.y -= moveSpeed;
 	}
-	else if(Keyboard::GetInstance()->KeyPress(VK_DOWN)){
+	else if (Keyboard::GetInstance()->KeyPress(VK_DOWN)) {
 		coord.y += moveSpeed;
 	}
+
 	sprite->SetCoord(coord);
+	rect->SetCoord(coord);
+	Collison();
 
 	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
 		D3DXVECTOR2 point1 = coord;
@@ -66,6 +78,8 @@ void Player::Update()
 		Add(point2);
 	}
 
+
+
 	for (size_t i = 0; i < bulletList.size(); i++) {
 		bulletList[i]->Update();
 	}
@@ -78,6 +92,36 @@ void Player::Render()
 		bulletList[i]->Render();
 	}
 	sprite->Render();
+}
+
+void Player::Collison()
+{
+	for (size_t i = 0; i < bulletList.size(); i++) {
+		if (Intersect::IsContainRect(NULL, bulletList[i]->GetRect(), enemyMemoryLink->GetRect())) {
+			ReMove(bulletList[i]);
+			ReMove(enemyMemoryLink);
+		}
+	}
+}
+
+void Player::ReMove(Enemy * enemy)
+{
+}
+
+void Player::ReMove(Bullet * bullet)
+{
+	auto iter = bulletList.begin();
+	for (iter; iter != bulletList.end();) {
+		if ((*iter) == bullet) {
+			SAFE_DELETE(bullet);
+			iter = bulletList.erase(iter);
+		}
+		else {
+			iter++;
+		}
+	}
+
+	
 }
 
 void Player::Add(D3DXVECTOR2 coord)
