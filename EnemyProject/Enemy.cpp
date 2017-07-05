@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Sprite.h"
 #include "Bullet.h"
+#include "BulletManager.h"
 #include "Rect.h"
 #include "Player.h"
 #include "Intersect.h"
@@ -11,6 +12,7 @@ Enemy::Enemy(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord)
 	, coord(coord)
 	, moveSpeed(2)
 	, angle(0)
+	, bulletSpeed(-10.0f)
 {
 	Initialize();
 }
@@ -30,7 +32,7 @@ void Enemy::Initialize()
 
 	float halfY = viewport.Height * 0.5f;
 	float spriteHalfY = sprite->GetRealSize().y * 0.5f;
-	coord = D3DXVECTOR2(1000, halfY - spriteHalfY);
+	coord = D3DXVECTOR2(900, halfY - spriteHalfY);
 	sprite->SetCoord(coord);
 
 	sprite->SetRotate(180);
@@ -43,16 +45,11 @@ void Enemy::Initialize()
 
 void Enemy::Destroy()
 {
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		SAFE_DELETE(bulletList[i]);
-	}
-
 	rect->Destroy();
 	SAFE_DELETE(rect);
 
 	sprite->Destroy();
 	SAFE_DELETE(sprite);
-
 }
 
 void Enemy::Update()
@@ -61,99 +58,50 @@ void Enemy::Update()
 
 	sprite->SetCoord(coord);
 	rect->SetCoord(coord);
-	Collison();
+	BulletManager::GetInstance()->SetAngle(angle);
+	BulletManager::GetInstance()->SetSpeed(bulletSpeed);
 
 	DWORD currentTime = timeGetTime();
 	int random = 500 + rand() % 5 * 100;
 
 	if (currentTime - time > random)
 	{
-
 		D3DXVECTOR2 point1 = coord;
 		point1.x += 40;
 		point1.y += 40;
 
-		Add(point1);
-
+		BulletManager::GetInstance()->Add(point1);
 
 		D3DXVECTOR2 point2 = coord;
 		point2.x += 40;
 		point2.y += 15;
 
-		Add(point2);
-
+		BulletManager::GetInstance()->Add(point2);
 
 		time = timeGetTime();
 	}
 
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		bulletList[i]->Update();
-	}
 }
 
 void Enemy::Render()
 {
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		bulletList[i]->Render();
-	}
 	sprite->Render();
 }
 
 void Enemy::Collison()
 {
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		if (Intersect::IsContainRect(NULL, bulletList[i]->GetRect(), playerMemoryLink->GetRect())) {
-			ReMove(bulletList[i]);
-		}
-	}
-}
-
-void Enemy::ReMove(Bullet * bullet)
-{
-	auto iter = bulletList.begin();
-	for (iter; iter != bulletList.end();) {
-		if ((*iter) == bullet) {
-			SAFE_DELETE(bullet);
-			iter = bulletList.erase(iter);
-		}
-		else {
-			iter++;
-		}
-	}
-}
-
-void Enemy::Add(D3DXVECTOR2 coord)
-{
-	int number = -1;
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		if (bulletList[i]->GetIsOn() == false) {
-			number = (int)i;
-			break;
-		}
-	}
-
-	if (number > -1) {
-		bulletList[number]->SetOn();
-		bulletList[number]->SetCoord(coord);
-		bulletList[number]->SetRotate(angle);
-	}
-	else {
-		Bullet* bullet = new Bullet(device, coord, angle, -10.0f);
-		bullet->SetOn();
-		bulletList.push_back(bullet);
-	}
 }
 
 void Enemy::Remove(Bullet * bullet)
 {
-	for (vector<Bullet*>::iterator iter = bulletList.begin();
-		iter != bulletList.end();) {
-		if ((*iter) == bullet) {
-			SAFE_DELETE(bullet);
-			iter = bulletList.erase(iter);
-		}
-		else {
-			iter++;
-		}
-	}
+	//auto iter = bulletList.begin();
+	//for (iter; iter != bulletList.end();) {
+	//	if ((*iter) == bullet) {
+	//		SAFE_DELETE(bullet);
+	//		iter = bulletList.erase(iter);
+	//	}
+	//	else {
+	//		iter++;
+	//	}
+	//}
 }

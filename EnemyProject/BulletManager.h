@@ -1,6 +1,8 @@
 #pragma once
 
 class Bullet;
+class Player;
+class Enemy;
 class BulletManager
 {
 public:
@@ -9,6 +11,7 @@ public:
 
 	void SetDevice(LPDIRECT3DDEVICE9 device);
 	void SetAngle(float angle) { this->angle = angle; }
+	void SetSpeed(float speed) { this->speed = speed; }
 	
 	void Add(D3DXVECTOR2 coord);
 	void Remove(Bullet* bullet);
@@ -23,9 +26,8 @@ private:
 	static BulletManager* instance;
 
 	LPDIRECT3DDEVICE9 device;
-
 	vector<Bullet*> bulletList;
-
 	float angle;
+	float speed;
 };
 

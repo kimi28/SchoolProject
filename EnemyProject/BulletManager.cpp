@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "BulletManager.h"
 #include "Bullet.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "Intersect.h"
 
 BulletManager* BulletManager::instance = NULL;
 
@@ -48,10 +51,11 @@ void BulletManager::Add(D3DXVECTOR2 coord)
 	if (number > -1) {
 		bulletList[number]->SetOn();
 		bulletList[number]->SetCoord(coord);
+		bulletList[number]->SetSpeed(speed);
 		bulletList[number]->SetRotate(angle);
 	}
 	else {
-		Bullet* bullet = new Bullet(device, coord, angle);
+		Bullet* bullet = new Bullet(device, coord, angle, speed);
 		bullet->SetOn();
 		bulletList.push_back(bullet);
 	}

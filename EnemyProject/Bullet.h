@@ -5,7 +5,7 @@ class Rect;
 class Bullet
 {
 public:
-	Bullet(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle = 0, float speed= 10);
+	Bullet(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle = 0, float speed= 10, float removeSec = 2);
 	~Bullet();
 
 	Rect* GetRect() { return rect; }
@@ -26,6 +26,7 @@ public:
 	}
 
 	void SetCoord(D3DXVECTOR2 coord) { this->coord = coord; }
+	void SetSpeed(float speed) { this->speed = speed; }
 	void SetRotate(float angle);
 
 	void Initialize();
@@ -44,6 +45,7 @@ private:
 	D3DXVECTOR2 velocity;
 	float rotation;
 	float speed;
+	float removeSec;
 
 	float halfY;
 	float spriteHalfY;

@@ -26,20 +26,15 @@ public:
 
 	void Collison();
 
-	void ReMove(Bullet* bullet);
-
-private:
-	void Add(D3DXVECTOR2 coord);
 	void Remove(Bullet* bullet);
 
+private:
 	LPDIRECT3DDEVICE9 device;
 	Sprite* sprite;
-	vector<Bullet*> bulletList;
-
-
 	LONG moveSpeed;
 	D3DXVECTOR2 coord;
 	float angle;
+	float bulletSpeed;
 
 	DWORD time;
 

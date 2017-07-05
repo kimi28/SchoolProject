@@ -12,11 +12,14 @@ Player::Player(LPDIRECT3DDEVICE9 device)
 	, coord(0, 0)
 	, moveSpeed(5)
 	, angle(0)
+	, bulletSpeed(10.0f)
 {
+	Initialize();
 }
 
 Player::~Player()
 {
+	Destroy();
 }
 
 void Player::Initialize()
@@ -42,9 +45,6 @@ void Player::Initialize()
 
 void Player::Destroy()
 {
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		SAFE_DELETE(bulletList[i]);
-	}
 	rect->Destroy();
 	SAFE_DELETE(rect);
 
@@ -65,7 +65,8 @@ void Player::Update()
 	sprite->SetCoord(coord);
 	rect->SetCoord(coord);
 	BulletManager::GetInstance()->SetAngle(angle);
-	Collison();
+	BulletManager::GetInstance()->SetSpeed(bulletSpeed);
+
 
 	if (Keyboard::GetInstance()->KeyDown(VK_SPACE)) {
 		D3DXVECTOR2 point1 = coord;
@@ -81,47 +82,14 @@ void Player::Update()
 
 		BulletManager::GetInstance()->Add(point2);
 	}
-
-
-
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		bulletList[i]->Update();
-	}
-
-
+	
 }
 
 void Player::Render()
 {
-
 	sprite->Render();
 }
 
 void Player::Collison()
 {
-	for (size_t i = 0; i < bulletList.size(); i++) {
-		if (Intersect::IsContainRect(NULL, bulletList[i]->GetRect(), enemyMemoryLink->GetRect())) {
-			Remove(bulletList[i]);
-			Remove(enemyMemoryLink);
-		}
-	}
-}
-
-void Player::Remove(Enemy * enemy)
-{
-
-}
-
-void Player::Remove(Bullet * bullet)
-{
-	auto iter = bulletList.begin();
-	for (iter; iter != bulletList.end();) {
-		if ((*iter) == bullet) {
-			SAFE_DELETE(bullet);
-			iter = bulletList.erase(iter);
-		}
-		else {
-			iter++;
-		}
-	}
 }

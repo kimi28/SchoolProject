@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "Bullet.h"
 #include "Sprite.h"
+#include "BulletManager.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Rect.h"
 
-Bullet::Bullet(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle, float speed)
+Bullet::Bullet(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle, float speed, float removeSec)
 	: device(device)
 	, coord(coord)
 	, isOn(false)
 	, rotation(angle)
 	, speed(speed)
+	, removeSec(removeSec)
 {
 	Initialize();
 
@@ -58,20 +60,21 @@ void Bullet::Update()
 	sprite->SetCoord(coord);
 	rect->SetCoord(coord);
 
+	sprite->Update();
+
 	D3DVIEWPORT9 viewport;
 	device->GetViewport(&viewport);
 
-	if ((coord.x > viewport.Width && isOn == true)  || (coord.x < 0 && isOn == true))
+	if ((coord.x > viewport.Width && isOn == true)
+		|| (coord.x < 0 && isOn == true))
 	{
-
-		//isOn = false;
 		SetOff();
-
 	}
 
 	DWORD currentTime = timeGetTime();
-	if ((currentTime - time) > 5000) {
-
+	if ((currentTime - time) > (removeSec* 1000) 
+		&& isOn == false) {
+		BulletManager::GetInstance()->Remove(this);
 	}
 }
 

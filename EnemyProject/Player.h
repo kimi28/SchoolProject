@@ -25,18 +25,14 @@ public:
 
 	void Collison();
 
-	void Remove(Bullet* bullet);
-	void Remove(Enemy* enemy);
-
 private:
 
 	LPDIRECT3DDEVICE9 device;
 	Sprite* sprite;
 	LONG moveSpeed;
 	D3DXVECTOR2 coord;
-	vector<Bullet*> bulletList;
-
 	float angle;
+	float bulletSpeed;
 
 	Rect* rect;
 	DWORD time;
