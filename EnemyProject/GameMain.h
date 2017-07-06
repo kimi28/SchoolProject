@@ -4,6 +4,7 @@
 class Background;
 class Player;
 class Enemy;
+class Animation;
 class GameMain : public DxWindow
 {
 public:
@@ -20,4 +21,8 @@ private:
 	Background* background;
 	Player* player;
 	Enemy* enemy;
+	Animation* animation;
+	DWORD time;
+
+	POINT frame;
 };
