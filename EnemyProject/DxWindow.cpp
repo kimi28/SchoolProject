@@ -145,6 +145,7 @@ WPARAM DxWindow::Run()
 	PrintText::GetInstance()->SetDevice(device);
 
 
+
 	Initialize();
 
 	while (message.message != WM_QUIT)
@@ -158,7 +159,7 @@ WPARAM DxWindow::Run()
 		{
 			Keyboard::GetInstance()->Update();
 			Mouse::GetInstance()->Update();
-			
+			Timer::GetInstance()->Tick(60.f);
 
 			Update();
 
@@ -171,6 +172,7 @@ WPARAM DxWindow::Run()
 
 				Render();
 
+				Timer::GetInstance()->Render();
 				PrintText::GetInstance()->Render();
 			}
 			device->EndScene();
@@ -184,6 +186,7 @@ WPARAM DxWindow::Run()
 	DebugGrid::DeleteInstance();
 	Keyboard::DeleteInstance();
 	Mouse::DeleteInstance();
+	Timer::DeleteInstance();
 
 	UnregisterClass(className, instance);
 	return message.wParam;

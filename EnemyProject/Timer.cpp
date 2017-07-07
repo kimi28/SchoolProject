@@ -84,7 +84,6 @@ Timer::Timer()
 
 }
 
-
 Timer::~Timer()
 {
 }

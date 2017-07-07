@@ -8,6 +8,7 @@
 #include <vector>
 #include <math.h>
 #include <string>
+#include <map>
 
 #include <d3d9.h>
 #include <d3dx9.h>
