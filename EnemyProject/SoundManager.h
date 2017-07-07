@@ -1,9 +1,14 @@
 #pragma once
 
 #include "inc/fmod.hpp"
-#pragma comment(lib, "lib/fmodex_vc.lib")\
+#pragma comment(lib, "lib/fmodex_vc.lib")
 
 using namespace FMOD;
+
+#define EXTRACHANNELBUFFER 5
+#define SOUNDBUFFER 20
+
+#define TOTALSOUNDBUFFER EXTRACHANNELBUFFER + SOUNDBUFFER
 
 class SoundManager
 {
@@ -16,7 +21,7 @@ public:
 	void Update();
 	void Render();
 
-	void AddSound(char* keyName, char* soundName, bool bgm = FALSE, bool loof = FALSE);
+	void AddSound(char* keyName, char* soundName, bool bgm = FALSE, bool loop = FALSE);
 
 	void Play(char* keyName, float volum = 1.0f);
 	void Stop(char* keyName);
@@ -36,7 +41,10 @@ private:
 
 	System* system;
 	Sound** sound;
-	Channel* channel;
+	Channel** channel;
+
+	bool isPlay;
+	bool isPause;
 	
 };
 

@@ -26,6 +26,7 @@ using namespace std;
 #include "DebugGrid.h"
 #include "PrintText.h"
 #include "Timer.h"
+#include "SoundManager.h"
 
 #define PI 3.14159265f
 

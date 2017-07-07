@@ -18,6 +18,9 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
+	SoundManager::GetInstance()->AddSound("배경", "Sounds/Airport.mp3", true, true);
+	SoundManager::GetInstance()->Play("배경");
+
 	animation = new Animation(device, L"Textures/cat.png", { 4,2 }, { 150, 100 });
 	animation->Initialize();
 
@@ -41,6 +44,7 @@ void GameMain::Initialize()
 
 void GameMain::Destroy()
 {
+
 	SAFE_DELETE(animation);
 	//BulletManager::DeleteInstance();
 

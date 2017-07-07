@@ -143,6 +143,7 @@ WPARAM DxWindow::Run()
 	Mouse::GetInstance()->SetHandle(handle);
 	DebugGrid::GetInstance()->SetDevice(device);
 	PrintText::GetInstance()->SetDevice(device);
+	SoundManager::GetInstance()->Initialize();
 
 
 
@@ -159,7 +160,8 @@ WPARAM DxWindow::Run()
 		{
 			Keyboard::GetInstance()->Update();
 			Mouse::GetInstance()->Update();
-			Timer::GetInstance()->Tick(60.f);
+			//Timer::GetInstance()->Tick(60.f);
+			SoundManager::GetInstance()->Update();
 
 			Update();
 
@@ -172,7 +174,7 @@ WPARAM DxWindow::Run()
 
 				Render();
 
-				Timer::GetInstance()->Render();
+				//Timer::GetInstance()->Render();
 				PrintText::GetInstance()->Render();
 			}
 			device->EndScene();
@@ -186,7 +188,8 @@ WPARAM DxWindow::Run()
 	DebugGrid::DeleteInstance();
 	Keyboard::DeleteInstance();
 	Mouse::DeleteInstance();
-	Timer::DeleteInstance();
+	//Timer::DeleteInstance();
+	SoundManager::DeleteInstance();
 
 	UnregisterClass(className, instance);
 	return message.wParam;
