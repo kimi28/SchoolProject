@@ -151,6 +151,7 @@
     <ClCompile Include="DebugGrid.cpp" />
     <ClCompile Include="DxWindow.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Intersect.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="DebugGrid.h" />
     <ClInclude Include="DxWindow.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Intersect.h" />
     <ClInclude Include="Keyboard.h" />

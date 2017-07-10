@@ -21,6 +21,7 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -44,5 +45,6 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="EnemyManager.h" />
   </ItemGroup>
 </Project>

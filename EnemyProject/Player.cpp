@@ -12,7 +12,7 @@ Player::Player(LPDIRECT3DDEVICE9 device)
 	, coord(0, 0)
 	, moveSpeed(5)
 	, angle(0)
-	, bulletSpeed(10.0f)
+	, bulletSpeed(5.0f)
 {
 	Initialize();
 }
@@ -40,11 +40,16 @@ void Player::Initialize()
 	rect = new Rect(device, D3DXVECTOR2(30, halfY - spriteHalfY), sprite->GetSize());
 	rect->Initialize();
 
+	BulletManager::GetInstance()->SetDevice(device);
+
 	time = timeGetTime();
+
 }
 
 void Player::Destroy()
 {
+	BulletManager::DeleteInstance();
+
 	rect->Destroy();
 	SAFE_DELETE(rect);
 
@@ -82,12 +87,13 @@ void Player::Update()
 
 		BulletManager::GetInstance()->Add(point2);
 	}
-	
+	BulletManager::GetInstance()->Update();
 }
 
 void Player::Render()
 {
 	sprite->Render();
+	BulletManager::GetInstance()->Render();
 }
 
 void Player::Collison()

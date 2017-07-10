@@ -18,7 +18,6 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	BulletManager::GetInstance()->SetDevice(device);
 	SoundManager::GetInstance()->AddSound("배경", "Sounds/Airport.mp3", true, true);
 	SoundManager::GetInstance()->Play("배경");
 
@@ -46,7 +45,7 @@ void GameMain::Destroy()
 {
 
 	//SAFE_DELETE(animation);
-	BulletManager::DeleteInstance();
+
 
 	background->Destroy();
 	SAFE_DELETE(background);
@@ -74,7 +73,7 @@ void GameMain::Update()
 	//	time = timeGetTime();
 	//}
 	background->Update();
-	BulletManager::GetInstance()->Update();
+	
 	player->Update();
 	enemy->Update();
 }
@@ -83,7 +82,7 @@ void GameMain::Render()
 {
 	//animation->Render();
 	background->Render();
-	BulletManager::GetInstance()->Render();
+	
 	player->Render();
 	enemy->Render();
 }

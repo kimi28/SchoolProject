@@ -3,16 +3,19 @@
 #include "Sprite.h"
 #include "Bullet.h"
 #include "BulletManager.h"
+#include "EnemyManager.h"
 #include "Rect.h"
 #include "Player.h"
 #include "Intersect.h"
 
-Enemy::Enemy(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord)
+Enemy::Enemy(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, float angle, float moveSpeed, float removeSec)
 	: device(device)
 	, coord(coord)
-	, moveSpeed(2)
-	, angle(0)
-	, bulletSpeed(-10.0f)
+	, moveSpeed(moveSpeed)
+	, angle(angle)
+	, removeSec(removeSec)
+	, isOn(false)
+	, bulletSpeed(-5.0f)
 {
 	Initialize();
 }
@@ -39,12 +42,16 @@ void Enemy::Initialize()
 
 	time = timeGetTime();
 
+	BulletManager::GetInstance()->SetDevice(device);
+
 	rect = new Rect(device, coord, sprite->GetSize());
 	rect->Initialize();
 }
 
 void Enemy::Destroy()
 {
+	BulletManager::DeleteInstance();
+
 	rect->Destroy();
 	SAFE_DELETE(rect);
 
@@ -81,11 +88,29 @@ void Enemy::Update()
 		time = timeGetTime();
 	}
 
+	D3DVIEWPORT9 viewport;
+	device->GetViewport(&viewport);
+
+	if ((coord.x > viewport.Width && isOn == true)
+		|| (coord.x < 0 && isOn == true))
+	{
+		SetOff();
+	}
+
+	DWORD currentTime1 = timeGetTime();
+	if ((currentTime1 - time) >(removeSec * 1000)
+		&& isOn == false) {
+		EnemyManager::GetInstance()->Remove(this);
+	}
+
+	BulletManager::GetInstance()->Update();
+
 }
 
 void Enemy::Render()
 {
 	sprite->Render();
+	BulletManager::GetInstance()->Render();
 }
 
 void Enemy::Collison()
