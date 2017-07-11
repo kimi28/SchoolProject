@@ -2,7 +2,7 @@
 class Scene
 {
 public:
-	Scene(LPDIRECT3DDEVICE9 device);
+	Scene();
 	~Scene();
 
 	virtual void Initialize() = 0;

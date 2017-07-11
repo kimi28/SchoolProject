@@ -67,7 +67,7 @@ void SceneManager::ChangeScene(char * sceneName)
 	assert(find != mSceneList.end());
 	assert(find->second != currentScene);
 
-	find->second->Initaialize();
+	find->second->Initialize();
 
 	if (currentScene) currentScene->Destroy();
 	currentScene = find->second;

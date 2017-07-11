@@ -2,12 +2,9 @@
 #include "Intersect.h"
 #include "Rect.h"
 
-
-
 Intersect::Intersect()
 {
 }
-
 
 Intersect::~Intersect()
 {
@@ -67,6 +64,29 @@ bool Intersect::IsContainRect(RECT* rect, Rect* comp1, Rect* comp2)
 	return false;
 }
 
+bool Intersect::IsPointInRect(const POINT * point, Rect * comp)
+{
+	bool isVertical = false;
+	bool isHorizontal = false;
+
+	RECT* rect = &comp->GetRect();
+
+	if (rect->left <= point->x && rect->right >= point->x)
+	{
+		isHorizontal = true;
+	}
+
+	if (rect->top <= point->y && rect->bottom >= point->y)
+	{
+		isVertical = true;
+	}
+
+	if (isVertical == true && isHorizontal == true)
+		return true;
+
+	return false;
+}
+
 bool Intersect::IsCricleInRect(const POINT * circle, float radius, const RECT * rect)
 {
 	bool isCheck = true;
@@ -110,7 +130,6 @@ bool Intersect::IsCricleInRect(const POINT * circle, float radius, const RECT * 
 			return true;
 		}
 	}
-
 
 	return false;
 }

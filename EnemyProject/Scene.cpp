@@ -3,9 +3,9 @@
 
 
 
-Scene::Scene(LPDIRECT3DDEVICE9 device)
+Scene::Scene()
 {
-	this->device = device;
+
 }
 
 

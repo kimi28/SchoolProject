@@ -1,10 +1,8 @@
 #include "stdafx.h"
 #include "Scene_01.h"
-#include "Scene.h"
 
 
 Scene_01::Scene_01(LPDIRECT3DDEVICE9 device)
-	: Scene(device)
 {
 	Scene::device = device;
 	this->Initialize();
@@ -32,7 +30,7 @@ void Scene_01::Update()
 	GetLocalTime(&time);
 
 	for (int i = 0; i < 360; i++) {
-		posY = 300.0f - tan(i*PI / 180) * 100;
+		posY = 300.0f - cos(i*PI / 180) * 100;
 		lineVector[i] = { 50.0f + i, posY, 0.0f };
 	}
 

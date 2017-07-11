@@ -26,6 +26,7 @@ using namespace std;
 #include "DebugGrid.h"
 #include "PrintText.h"
 #include "Timer.h"
+#include "Scene.h"
 #include "SoundManager.h"
 #include "SceneManager.h"
 

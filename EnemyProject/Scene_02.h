@@ -1,5 +1,4 @@
 #pragma once
-#include "Scene.h"
 
 class Scene_02 : public Scene
 {
@@ -11,5 +10,14 @@ public:
 	void Destroy() override;
 	void Update() override;
 	void Render() override;
+
+private:
+	LPD3DXLINE line;
+	float posY;
+	D3DXVECTOR3 lineVector[360];
+
+	D3DXMATRIX world;
+
+	SYSTEMTIME time;
 };
 
