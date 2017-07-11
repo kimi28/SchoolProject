@@ -17,12 +17,12 @@ public:
 	void Render();
 
 private:
-	
-	Background* background;
-	Player* player;
-	Enemy* enemy;
-	Animation* animation;
-	DWORD time;
 
-	POINT frame;
+	//Background* background;
+	//Player* player;
+	//Enemy* enemy;
+	//Animation* animation;
+	//DWORD time;
+	//POINT frame;
+
 };

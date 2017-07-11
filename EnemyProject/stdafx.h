@@ -27,6 +27,7 @@ using namespace std;
 #include "PrintText.h"
 #include "Timer.h"
 #include "SoundManager.h"
+#include "SceneManager.h"
 
 #define PI 3.14159265f
 

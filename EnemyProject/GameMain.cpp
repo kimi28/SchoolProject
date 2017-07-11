@@ -5,6 +5,8 @@
 #include "Enemy.h"
 #include "BulletManager.h"
 #include "Animation.h"
+#include "Scene_01.h"
+#include "Scene_02.h"
 
 
 GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow)
@@ -18,8 +20,13 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	SoundManager::GetInstance()->AddSound("배경", "Sounds/Airport.mp3", true, true);
-	SoundManager::GetInstance()->Play("배경");
+	SceneManager::GetInstance()->AddScene("Scene01", new Scene_01(device));
+	SceneManager::GetInstance()->AddScene("Scene02", new Scene_02(device));
+
+	SceneManager::GetInstance()->ChangeScene("Scene01");
+
+	//SoundManager::GetInstance()->AddSound("배경", "Sounds/Airport.mp3", true, true);
+	//SoundManager::GetInstance()->Play("배경");
 
 	//animation = new Animation(device, L"Textures/cat.png", { 4,2 }, { 150, 100 });
 	//animation->Initialize();
@@ -28,37 +35,44 @@ void GameMain::Initialize()
 
 	//time = timeGetTime();
 
-	background = new Background(device);
-	background->Initialize();
+	//background = new Background(device);
+	//background->Initialize();
 
-	player = new Player(device);
-	player->Initialize();
+	//player = new Player(device);
+	//player->Initialize();
 
-	enemy = new Enemy(device, D3DXVECTOR2(900, 350));
-	enemy->Initialize();
+	//enemy = new Enemy(device, D3DXVECTOR2(900, 350));
+	//enemy->Initialize();
 
 	//player->EnemyMemoryLink(enemy);
 	//enemy->PlayerMemoryLink(player);
+
+
+
 }
 
 void GameMain::Destroy()
 {
+	
 
 	//SAFE_DELETE(animation);
 
 
-	background->Destroy();
-	SAFE_DELETE(background);
+	//background->Destroy();
+	//SAFE_DELETE(background);
 
-	player->Destroy();
-	SAFE_DELETE(player);
+	//player->Destroy();
+	//SAFE_DELETE(player);
 
-	enemy->Destroy();
-	SAFE_DELETE(enemy);
+	//enemy->Destroy();
+	//SAFE_DELETE(enemy);
 }
 
 void GameMain::Update()
 {
+
+	SceneManager::GetInstance()->Update();
+	
 	//DWORD currentTime = timeGetTime();
 	//if (currentTime - time > 100) {
 	//	animation->Update(frame);
@@ -72,17 +86,19 @@ void GameMain::Update()
 	//	}
 	//	time = timeGetTime();
 	//}
-	background->Update();
-	
-	player->Update();
-	enemy->Update();
+	//background->Update();
+	//
+	//player->Update();
+	//enemy->Update();
 }
 
 void GameMain::Render()
 {
+	SceneManager::GetInstance()->Render();
+
 	//animation->Render();
-	background->Render();
-	
-	player->Render();
-	enemy->Render();
+	//background->Render();
+	//
+	//player->Render();
+	//enemy->Render();
 }

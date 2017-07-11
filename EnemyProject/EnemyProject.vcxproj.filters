@@ -22,6 +22,10 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene_01.cpp" />
+    <ClCompile Include="Scene_02.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -46,5 +50,9 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene_01.h" />
+    <ClInclude Include="Scene_02.h" />
   </ItemGroup>
 </Project>

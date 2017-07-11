@@ -159,6 +159,10 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PrintText.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene_01.cpp" />
+    <ClCompile Include="Scene_02.cpp" />
     <ClCompile Include="Shooter.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -184,6 +188,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PrintText.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene_01.h" />
+    <ClInclude Include="Scene_02.h" />
     <ClInclude Include="Shooter.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
