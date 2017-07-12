@@ -1,4 +1,5 @@
 #pragma once
+
 class Texture;
 class Sprite
 {
@@ -24,8 +25,6 @@ public:
 	void Update();
 	void Render();
 
-	
-
 private:
 	void AdjustTransform();
 
@@ -41,4 +40,3 @@ private:
 
 	D3DXMATRIX world;
 };
-

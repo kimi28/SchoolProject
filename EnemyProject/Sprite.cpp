@@ -113,7 +113,11 @@ void Sprite::Render()
 	sprite->SetTransform(&world);
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-	sprite->Draw(texture->GetTexture(), &texture->GetRect(), NULL, NULL, 0xFFFFFFFF);
+	sprite->Draw(texture->GetTexture()
+		, &texture->GetRect()
+		, NULL
+		, NULL
+		, 0xFFFFFFFF);
 
 	sprite->End();
 }
@@ -140,13 +144,20 @@ void Sprite::AdjustTransform()
 	D3DXVECTOR2 center;
 	center.x = size.x*0.5f;
 	center.y = size.y* 0.5f;
-	D3DXMatrixTranslation(&rotationInverseCenter, -center.x, -center.y, 0);
+	D3DXMatrixTranslation(&rotationInverseCenter
+		, -center.x
+		, -center.y
+		, 0);
 	{
 		D3DXMatrixRotationZ(&rotation, -angle);
 	}
 	D3DXMatrixTranslation(&rotationCenter, center.x, center.y, 0);
 
-	D3DXMatrixTranslation(&translate, FLOAT(coord.x), FLOAT(coord.y), 0);
+	D3DXMatrixTranslation(&translate
+		, FLOAT(coord.x)
+		, FLOAT(coord.y)
+		, 0);
 
-	world = scale * rotationInverseCenter * rotation * rotationCenter * translate;
+	world = scale * rotationInverseCenter 
+		* rotation * rotationCenter * translate;
 }
