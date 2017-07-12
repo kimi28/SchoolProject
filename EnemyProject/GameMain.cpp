@@ -1,12 +1,8 @@
 #include "stdafx.h"
 #include "GameMain.h"
-#include "Background.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "BulletManager.h"
+#include "Sprite.h"
 #include "Animation.h"
-#include "Scene_01.h"
-#include "Scene_02.h"
+#include "Rect.h"
 
 
 GameMain::GameMain(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow)
@@ -20,85 +16,67 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	SceneManager::GetInstance()->AddScene("Scene01", new Scene_01(device));
-	SceneManager::GetInstance()->AddScene("Scene02", new Scene_02(device));
+	currentTile.x = 2;
+	currentTile.y = 0;
+	device->GetViewport(&viewport);
 
-	SceneManager::GetInstance()->ChangeScene("Scene01");
+	sprite = new Sprite(device, L"Textures/tilemap.bmp", { (FLOAT)viewport.Width - (FLOAT)TILESIZE, 0 });
+	sprite->Initialize();
 
-	//SoundManager::GetInstance()->AddSound("배경", "Sounds/Airport.mp3", true, true);
-	//SoundManager::GetInstance()->Play("배경");
+	for (int i = 0; i < TILEX * TILEY; i++) {
+		tiles[i].animation = new Animation(device, L"Textures/tilemap.bmp", { 20, 8 },
+		{ (FLOAT)(i / TILEX * TILESIZE), (FLOAT)(i %TILEY * TILESIZE) });
 
-	//animation = new Animation(device, L"Textures/cat.png", { 4,2 }, { 150, 100 });
-	//animation->Initialize();
-
-	//frame = { 0,0 };
-
-	//time = timeGetTime();
-
-	//background = new Background(device);
-	//background->Initialize();
-
-	//player = new Player(device);
-	//player->Initialize();
-
-	//enemy = new Enemy(device, D3DXVECTOR2(900, 350));
-	//enemy->Initialize();
-
-	//player->EnemyMemoryLink(enemy);
-	//enemy->PlayerMemoryLink(player);
-
-
-
+		MapToolSetup();
+	}
 }
 
 void GameMain::Destroy()
 {
-	
-
-	//SAFE_DELETE(animation);
-
-
-	//background->Destroy();
-	//SAFE_DELETE(background);
-
-	//player->Destroy();
-	//SAFE_DELETE(player);
-
-	//enemy->Destroy();
-	//SAFE_DELETE(enemy);
+	for (int i = 0; i < TILEX* TILEY; i++) {
+		SAFE_DELETE(tiles[i].animation);
+		SAFE_DELETE(tiles[i].rect);
+	}
+	for (int i = 0; i < SAMPLETILEX * SAMPLETILEY; i++) {
+		SAFE_DELETE(sampleTiles[i].rcTile);
+	}
 }
 
 void GameMain::Update()
 {
-
-	SceneManager::GetInstance()->Update();
-	
-	//DWORD currentTime = timeGetTime();
-	//if (currentTime - time > 100) {
-	//	animation->Update(frame);
-	//	frame.x++;
-	//	if (frame.x == 3) {
-	//		frame.x = 0;
-	//		if (frame.y == 0)
-	//			frame.y++;
-	//		else
-	//			frame.y--;
-	//	}
-	//	time = timeGetTime();
-	//}
-	//background->Update();
-	//
-	//player->Update();
-	//enemy->Update();
+	SetMap();
 }
 
 void GameMain::Render()
 {
-	SceneManager::GetInstance()->Render();
+	sprite->Render();
+	for (int i = 0; i < TILEX* TILEY; i++) {
+		tiles[i].animation->Render();
+	}
+}
 
-	//animation->Render();
-	//background->Render();
-	//
-	//player->Render();
-	//enemy->Render();
+void GameMain::MapToolSetup()
+{
+}
+
+void GameMain::SetMap()
+{
+}
+
+void GameMain::Save()
+{
+}
+
+void GameMain::Load()
+{
+}
+
+TERRAIN GameMain::terrainSelect(int frameX, int frameY)
+{
+	return TERRAIN();
+}
+
+OBJECT GameMain::ObjSelect(int frameX, int frameY)
+{
+	return OBJECT();
 }
