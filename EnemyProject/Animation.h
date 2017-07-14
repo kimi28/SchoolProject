@@ -9,6 +9,8 @@ public:
 		D3DXVECTOR2 scale = D3DXVECTOR2(1,1));
 	~Animation();
 
+	Rect* GetRect() { return rect; }
+
 	void Initialize();
 	void Destroy();
 	void Update(POINT currentFrame);
@@ -17,7 +19,6 @@ public:
 	void AdjustTransform();
 
 private:
-
 	LPDIRECT3DDEVICE9 device;
 	LPD3DXSPRITE sprite;
 	Texture* texture;
@@ -30,7 +31,6 @@ private:
 	D3DXVECTOR2 scale;
 
 	POINT drawSize;
-
 	float angle;
 	RECT drawRect;
 

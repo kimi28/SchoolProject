@@ -38,11 +38,15 @@ void Animation::Initialize()
 	drawSize.x = size.x / maxFrame.x;
 	drawSize.y = size.y / maxFrame.y;
 
+	rect = new Rect(device, coord, D3DXVECTOR2(drawSize.x, drawSize.y));
+
 	AdjustTransform();
 }
 
 void Animation::Destroy()
 {
+	SAFE_DELETE(rect);
+
 	SAFE_DELETE(texture);
 }
 
@@ -66,6 +70,8 @@ void Animation::Update(POINT currentFrame)
 	drawEnd.y = drawSize.y * currentFrame.y + drawSize.y;
 
 	drawRect = { drawStart.x, drawStart.y, drawEnd.x , drawEnd.y };
+
+	rect->SetCoord(coord);
 }
 
 void Animation::Render()

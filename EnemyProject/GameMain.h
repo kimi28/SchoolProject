@@ -53,10 +53,9 @@ enum POS {
 
 struct tagTile
 {
-	Animation *animation;
+	Animation* animation;
 	TERRAIN terrain;
 	OBJECT obj;
-	Rect* rect;
 
 	int terrainFrameX;
 	int terrainFrameY;
@@ -94,7 +93,7 @@ public:
 	void Save();
 	void Load();
 
-	TERRAIN terrainSelect(int frameX, int frameY);
+	TERRAIN TerrainSelect(int frameX, int frameY);
 	OBJECT ObjSelect(int frameX, int frameY);
 
 private:
