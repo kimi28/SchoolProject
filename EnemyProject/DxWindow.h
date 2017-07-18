@@ -12,7 +12,7 @@ protected:
 
 	HWND handle;
 
-	POINT winSize = { 1024 + 160, 768 };
+	POINT winSize = { 1024 + 300, 768 };
 	//POINT winSize = { 1280, 720 };
 	DWORD winStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
 

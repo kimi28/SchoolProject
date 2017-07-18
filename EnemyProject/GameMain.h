@@ -5,17 +5,6 @@ class Sprite;
 class Rect;
 class Animation;
 
-enum CTRL {
-	CTRL_SAVE,
-	CTRL_LOAD,
-	CTRL_TERRAINDRAW,
-	CTRL_OBJDRAW,
-	CTRL_ERASER,
-	CTRL_MAP1,
-	CTRL_MAP2,
-	CTRL_END
-};
-
 #define	TILESIZE 32
 #define TILEX 20
 #define TILEY 20
@@ -95,6 +84,8 @@ public:
 
 	TERRAIN TerrainSelect(int frameX, int frameY);
 	OBJECT ObjSelect(int frameX, int frameY);
+
+	void SetCtrSelect(int num) { ctrSelect = num; }
 
 private:
 	Sprite* sprite;

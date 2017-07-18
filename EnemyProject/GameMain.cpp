@@ -26,9 +26,9 @@ void GameMain::Initialize()
 
 	for (int i = 0; i < TILEX * TILEY; i++) {
 		tiles[i].animation = new Animation(device, L"Textures/tilemap.bmp", { 20, 8 },
-		{ (FLOAT)(i / TILEX * TILESIZE), (FLOAT)(i % TILEY * TILESIZE) });
+		{ (FLOAT)((i / TILEX) * TILESIZE), (FLOAT)((i % TILEY) * TILESIZE) });
 	}
-		MapToolSetup();
+	MapToolSetup();
 }
 
 void GameMain::Destroy()
@@ -36,8 +36,10 @@ void GameMain::Destroy()
 	for (int i = 0; i < TILEX* TILEY; i++) {
 		SAFE_DELETE(tiles[i].animation);
 	}
-	for (int i = 0; i < SAMPLETILEX * SAMPLETILEY; i++) {
-		SAFE_DELETE(sampleTiles[i].rcTile);
+	for (int i = 0; i < SAMPLETILEY; i++) {
+		for (int j = 0; i < SAMPLETILEX; j++) {
+			SAFE_DELETE(sampleTiles[i].rcTile);
+		}
 	}
 }
 
@@ -66,7 +68,7 @@ void GameMain::MapToolSetup()
 			sampleTiles[i*SAMPLETILEX + j].terrainFrameY = i;
 
 			sampleTiles[i*SAMPLETILEX + j].rcTile = new Rect(device,
-			{ (FLOAT)(viewport.Width - TILEX*TILESIZE) + TILESIZE* j, (FLOAT)(TILESIZE* i) },
+			{ (FLOAT)(viewport.Width - SAMPLETILEX * TILESIZE) + j * TILESIZE, (FLOAT)(TILESIZE* i) },
 			{ (FLOAT)TILESIZE, (FLOAT)TILESIZE });
 		}
 	}
@@ -86,10 +88,11 @@ void GameMain::SetMap()
 {
 	for (int i = 0; i < SAMPLETILEX* SAMPLETILEY; i++) {
 		if (Intersect::IsPointInRect(&Mouse::GetInstance()->GetPosition(), sampleTiles[i].rcTile)) {
-			if(Mouse::GetInstance()->ButtonDown(0))
-			currentTile.x = sampleTiles[i].terrainFrameX;
-			currentTile.y = sampleTiles[i].terrainFrameY;
-			break;
+			if (Mouse::GetInstance()->ButtonDown(0)) {
+				currentTile.x = sampleTiles[i].terrainFrameX;
+				currentTile.y = sampleTiles[i].terrainFrameY;
+				break;
+			}
 		}
 	}
 	for (int i = 0; i < TILEX* TILEY; i++) {

@@ -29,6 +29,7 @@ using namespace std;
 #include "Scene.h"
 #include "SoundManager.h"
 #include "SceneManager.h"
+#include "resource.h"
 
 #define PI 3.14159265f
 
@@ -128,3 +129,14 @@ using namespace std;
 
 #define VK_OEM4 0xDB //[
 #define VK_OEM6 0xDD //]
+
+enum CTRL {
+	CTRL_SAVE,
+	CTRL_LOAD,
+	CTRL_TERRAINDRAW,
+	CTRL_OBJDRAW,
+	CTRL_ERASER,
+	CTRL_MAP1,
+	CTRL_MAP2,
+	CTRL_END
+};

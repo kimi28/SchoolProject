@@ -4,6 +4,8 @@
 
 DxWindow* DxWindow::dxWindow = NULL;
 
+GameMain* main;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	Mouse::GetInstance()->InputProc(uMsg, wParam, lParam);
@@ -46,6 +48,7 @@ DxWindow::DxWindow(HINSTANCE hInstance, LPCWSTR lpClassName, LPCSTR lpszCmdParam
 
 DxWindow::~DxWindow()
 {
+	SAFE_DELETE(main);
 	SAFE_RELEASE(device);
 	SAFE_RELEASE(d3d);
 
@@ -56,8 +59,6 @@ DxWindow::~DxWindow()
 	SAFE_DELETE_ARRAY(className);
 	SAFE_DELETE_ARRAY(commandLine);
 }
-
-
 
 void DxWindow::Create(LPCWSTR title)
 {
@@ -71,7 +72,7 @@ void DxWindow::Create(LPCWSTR title)
 	wndClass.hInstance = instance;
 	wndClass.lpfnWndProc = WndProc;
 	wndClass.lpszClassName = className;
-	wndClass.lpszMenuName = NULL;
+	wndClass.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
 	wndClass.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 
 	ATOM result = RegisterClass(&wndClass);
@@ -199,6 +200,31 @@ LRESULT DxWindow::MessageLoop(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 {
 	switch (message)
 	{
+	case WM_COMMAND:
+	{
+		switch (LOWORD(wParam))
+		{
+		case ID_FILE_SAVE:
+			MessageBox(hwnd, TEXT("Save하였습니다."), TEXT("Save"), MB_OK);
+			main->Save();
+			break;
+		case ID_FILE_LOAD:
+			MessageBox(hwnd, TEXT("Load하였습니다."), TEXT("Load"), MB_OK);
+			main->Load();
+			break;
+		case ID_TILE_OBJECT:
+			MessageBox(hwnd, TEXT("Object를 선택하였습니다."), TEXT("Object"), MB_OK);
+			main->SetCtrSelect(CTRL_OBJDRAW);
+			break;
+		case ID_TILE_TERRAIN:
+			MessageBox(hwnd, TEXT("Terrain를 선택하였습니다."), TEXT("Terrain"), MB_OK);
+			main->SetCtrSelect(CTRL_TERRAINDRAW);
+			break;
+		case ID_FILE_EXIT:
+			PostQuitMessage(0);
+			break;
+		}
+	}
 	case WM_KEYDOWN:
 	{
 		if (wParam == VK_ESCAPE)
@@ -220,9 +246,9 @@ LRESULT DxWindow::MessageLoop(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
-	GameMain main(hInstance, L"DxClass", lpszCmdParam, nCmdShow);
-	main.Create(L"DirectX");
-	main.CreateDevice();
+	 main = new GameMain(hInstance, L"DxClass", lpszCmdParam, nCmdShow);
+	main->Create(L"DirectX");
+	main->CreateDevice();
 
-	return main.Run();
+	return main->Run();
 }

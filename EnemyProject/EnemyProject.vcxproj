@@ -188,6 +188,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PrintText.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene_01.h" />
@@ -200,6 +201,9 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Menu.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

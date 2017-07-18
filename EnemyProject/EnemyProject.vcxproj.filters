@@ -54,5 +54,9 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene_01.h" />
     <ClInclude Include="Scene_02.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Menu.rc" />
   </ItemGroup>
 </Project>
