@@ -126,12 +126,52 @@ void GameMain::SetMap()
 
 void GameMain::Save()
 {
-
+	HANDLE file;
+	DWORD wirte;
+	file = CreateFile(L"tileMap.map",
+		GENERIC_WRITE,
+		0,
+		NULL,
+		CREATE_ALWAYS,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+	WriteFile(file, tiles, sizeof(tagTile)* TILEX* TILEY, &wirte, NULL);
+	WriteFile(file, pos, sizeof(int) * 2, &wirte, NULL);
+	CloseHandle(file);
 }
 
 void GameMain::Load()
 {
+	HANDLE file;
+	DWORD read;
+	tagTile saveTile[TILEX* TILEY];
 
+	file = CreateFile(L"tileMap.map",
+		GENERIC_READ,
+		0,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+	ReadFile(file, saveTile, sizeof(tagTile)*TILEX* TILEY, &read, NULL);
+	ReadFile(file, pos, sizeof(int) * 2, &read, NULL);
+	CloseHandle(file);
+
+	for (int i = 0; i < TILEX*TILEY; i++) {
+		tiles[i].obj = saveTile[i].obj;
+		tiles[i].objFrameX = saveTile[i].objFrameX;
+		tiles[i].objFrameY = saveTile[i].objFrameY;
+		tiles[i].terrain = saveTile[i].terrain;
+		tiles[i].terrainFrameX = saveTile[i].terrainFrameX;
+		tiles[i].terrainFrameY = saveTile[i].terrainFrameY;
+		
+		if (tiles[i].obj = OBJ_NONE) {
+			tiles[i].animation->Update({ tiles[i].terrainFrameX, tiles[i].terrainFrameY });
+		}
+		else {
+			tiles[i].animation->Update({ tiles[i].objFrameX, tiles[i].objFrameY });
+		}
+	}
 }
 
 TERRAIN GameMain::TerrainSelect(int frameX, int frameY)
