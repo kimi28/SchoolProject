@@ -26,6 +26,9 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scene_01.cpp" />
     <ClCompile Include="Scene_02.cpp" />
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TankGameScene.cpp" />
+    <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -55,6 +58,10 @@
     <ClInclude Include="Scene_01.h" />
     <ClInclude Include="Scene_02.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="TileLoad.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TankGameScene.h" />
+    <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Menu.rc" />

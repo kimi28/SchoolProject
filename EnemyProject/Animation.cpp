@@ -83,6 +83,12 @@ void Animation::Render()
 	sprite->End();
 }
 
+void Animation::SetCoord(D3DXVECTOR2 coord)
+{
+	this->coord = coord;
+	AdjustTransform();
+}
+
 void Animation::AdjustTransform()
 {
 	D3DXMatrixIdentity(&world);

@@ -16,6 +16,7 @@ public:
 	void Update(POINT currentFrame);
 	void Render();
 
+	void SetCoord(D3DXVECTOR2 coord);
 	void AdjustTransform();
 
 private:
