@@ -47,9 +47,9 @@ enum POS {
 
 struct tagTile
 {
-	Animation* animation;
 	TERRAIN terrain;
 	OBJECT obj;
+	Rect* rect;
 
 	int terrainFrameX;
 	int terrainFrameY;

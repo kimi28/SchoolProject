@@ -19,6 +19,7 @@ void PrintText::DeleteInstance()
 void PrintText::SetDevice(LPDIRECT3DDEVICE9 device)
 {
 	this->device = device;
+	rect = { 5,5,0,0 };
 
 	HRESULT hr = D3DXCreateFont(device,
 		12, 0, 0, 1,
@@ -39,12 +40,16 @@ void PrintText::AddText(wstring value)
 	data += value + L"\n";
 }
 
+void PrintText::SetCoord(POINT coord)
+{
+	RECT rect = { coord.x, coord.y, 0,0 };
+}
+
 void PrintText::Render()
 {
 	if (data.size() > 0) {
 		sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-		RECT rect = { 5, 5, 0, 0 };
 		font->DrawTextW(
 			sprite,
 			data.c_str(),

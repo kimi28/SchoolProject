@@ -29,10 +29,10 @@ private:
 	Animation * animation;
 	float x;
 	float y;
-
 	POINT frame;
 	TileMap* tileMap;
 
+	RECT rect;
 	TANKDIRECTION direction;
 };
 

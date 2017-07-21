@@ -8,6 +8,7 @@ public:
 	void SetDevice(LPDIRECT3DDEVICE9 device);
 	void AddText(wstring value);
 
+	void SetCoord(POINT coord);
 	void Render();
 
 private:
@@ -22,5 +23,6 @@ private:
 	LPD3DXSPRITE sprite;
 
 	wstring data;
+	RECT rect;
 };
 

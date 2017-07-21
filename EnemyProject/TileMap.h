@@ -20,6 +20,7 @@ public:
 	DWORD* GetAttribute() { return attribute; }
 
 private:
+	Animation* animation;
 	tagTile tiles[TILEX * TILEY];
 	DWORD attribute[TILEX* TILEY];
 
