@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="DebugGrid.cpp" />
+    <ClCompile Include="DxWindow.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Intersect.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PrintText.cpp" />
+    <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_01.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_02.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="tank.cpp">
+      <Filter>MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="tankGameScene.cpp">
+      <Filter>MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="TankMap.cpp">
+      <Filter>MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="isoTest.cpp">
+      <Filter>iso</Filter>
+    </ClCompile>
+    <ClCompile Include="IsoMatrix.cpp" />
+    <ClCompile Include="AStar.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="DebugGrid.h" />
+    <ClInclude Include="DxWindow.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Intersect.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PrintText.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Shooter.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_01.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_02.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="tank.h">
+      <Filter>MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="tankGameScene.h">
+      <Filter>MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TankMap.h">
+      <Filter>MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TileNode.h">
+      <Filter>MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="isoTest.h">
+      <Filter>iso</Filter>
+    </ClInclude>
+    <ClInclude Include="IsoMatrix.h" />
+    <ClInclude Include="AStar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{9e824635-7870-4a57-b6ea-c60b31ffe74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapTool">
+      <UniqueIdentifier>{05a506d4-f139-4f3d-aee6-8028d170ab79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iso">
+      <UniqueIdentifier>{538630ee-95f4-4a56-889d-db01b19fde97}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
