@@ -108,10 +108,10 @@ void AStar::Render()
 				sizeof(MYVERTEX)
 			);
 
-			rect->SetCoord({ (float)(viewport.Width - (TILE_X + 1) * WIDTH + WIDTH*j),
-				(float)(viewport.Height / 2 - (TILE_Y / 2) * HEIGHT + HEIGHT *i)
+			rect->SetCoord({ (float)(viewport.Width - (TILE_X + 1) * WIDTH + WIDTH * j),
+				(float)(viewport.Height / 2 - (TILE_Y / 2) * HEIGHT + HEIGHT * i)
 			});
-			//rect->Render();
+			rect->Render();
 
 			if (tile[i][j].parent == nullptr) continue;
 		}

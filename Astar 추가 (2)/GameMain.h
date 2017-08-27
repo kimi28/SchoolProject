@@ -12,7 +12,7 @@ class Rect;
 #define TILESIZEY TILEY * TILESIZE
 
 //화면 오른쪽 이미지 타일 갯수
-#define SAMPLETILEX 20
+#define SAMPLETILEX 15
 #define SAMPLETILEY 8
 
 //지형
@@ -34,6 +34,8 @@ enum TERRAIN
 	TR_GROUND,
 	TR_GRASS,
 	TR_WATER,
+	TR_DOOR,
+	TR_WELL,
 	TR_END
 };
 

@@ -20,23 +20,23 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	/*m_currentTile.x = 2;
+	m_currentTile.x = 2;
 	m_currentTile.y = 0;
 	D3DVIEWPORT9 viewport;
 	device->GetViewport(&viewport);
-	_animation = new Animation(device, L"Textures/tilemap.bmp", { SAMPLETILEX,SAMPLETILEY });
-	_sprite = new Sprite(device, L"Textures/tilemap.bmp", { (float)(viewport.Width - TILESIZEX) ,0 });
+	_animation = new Animation(device, L"Textures/map.jpg", { SAMPLETILEX,SAMPLETILEY });
+	_sprite = new Sprite(device, L"Textures/map.jpg", { (float)(viewport.Width - TILESIZEX) ,0 });
 	_sprite->Initialize();
 	maptoolSetup();
 
 	rcTile = new Rect(device, { (float)viewport.Width - 100,(float)viewport.Height - 100 }, { 100,100 });
-	rcTile->Initialize();*/
+	rcTile->Initialize();
 
 	//SceneManager::GetInstance()->AddScene("tankGameScene", new tankGameScene(device));
 	//SceneManager::GetInstance()->AddScene("isoTest", new isoTest(device));
-	SceneManager::GetInstance()->AddScene("aStar", new aStar(device));
+	/*SceneManager::GetInstance()->AddScene("aStar", new aStar(device));*/
 	//SceneManager::GetInstance()->changeScene("tankGameScene");
-	SceneManager::GetInstance()->changeScene("aStar");
+	/*SceneManager::GetInstance()->changeScene("aStar");*/
 
 	//this->vertices[0].pos = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	//this->vertices[0].color = 0xff00ff00;
@@ -55,32 +55,32 @@ void GameMain::Initialize()
 
 void GameMain::Destroy()
 {
-	SceneManager::GetInstance()->Destroy();
+	/*SceneManager::GetInstance()->Destroy();*/
 }
 
 void GameMain::Update()
 {
-	SceneManager::GetInstance()->Update();
-	/*setMap();
+	//SceneManager::GetInstance()->Update();
+	setMap();
 	if (PtInRect(&rcTile->GetRect(), Mouse::GetInstance()->GetPosition()))
 	{
 		save();
-	} */
+	} 
 }
 
 void GameMain::Render()
 {
-	/*device->SetFVF(MYVERTEX::FVF);
+	//device->SetFVF(MYVERTEX::FVF);
 
-	device->DrawPrimitiveUP(
-		D3DPT_TRIANGLELIST,
-		1,
-		this->vertices,
-		sizeof(MYVERTEX)
-	);
-*/
-	SceneManager::GetInstance()->Render();
-	/*_sprite->Render();
+	//device->DrawPrimitiveUP(
+	//	D3DPT_TRIANGLELIST,
+	//	1,
+	//	this->vertices,
+	//	sizeof(MYVERTEX)
+	//);
+
+	/*SceneManager::GetInstance()->Render();*/
+	_sprite->Render();
 	for (int i = 0; i < TILEX * TILEY; i++)
 	{
 		_animation->SetCoord({ m_tiles[i].rc->GetCoord() });
@@ -102,7 +102,7 @@ void GameMain::Render()
 		m_sampleTile[i].rcTile->Render();
 
 	}
-	rcTile->Render();*/
+	rcTile->Render();
 }
 
 void GameMain::maptoolSetup()
@@ -123,7 +123,7 @@ void GameMain::maptoolSetup()
 			m_sampleTile[i * SAMPLETILEX + j].rcTile =
 				new Rect(device, { (float)(viewport.Width - TILESIZEX + j *TILESIZE),
 				(float)(i * TILESIZE) }, { (float)TILESIZE,(float)TILESIZE });
-			m_sampleTile[i * TILEX + j].rcTile->Initialize();
+			m_sampleTile[i * SAMPLETILEY + j].rcTile->Initialize();
 
 		}
 	}
@@ -248,9 +248,9 @@ void GameMain::load()
 TERRAIN GameMain::terrainSelect(int frameX, int frameY)
 {
 	//Ω√∏‡∆Æ
-	if (frameX == 1 && frameY == 0)
+	if (frameX == 6 && frameY == 1)
 	{
-		return TR_CEMENT;
+		return TR_WELL;
 	}
 
 	//»Î
@@ -260,15 +260,22 @@ TERRAIN GameMain::terrainSelect(int frameX, int frameY)
 	}
 
 	//¿‹µ
-	else if (frameX == 3 && frameY == 0)
+	else if (frameX == 12 && frameY == 2)
 	{
 		return TR_GRASS;
 	}
 
 	//π∞
-	else if (frameX == 4 && frameY == 0)
+	else if (frameX == 9 && frameY == 5)
 	{
 		return TR_WATER;
+	}
+	else if (frameX == 11 && frameY == 3)
+	{
+		return TR_WATER;
+	}
+	else if (frameX == 8 && frameY == 3) {
+		return TR_DOOR;
 	}
 
 	return TR_GRASS;
