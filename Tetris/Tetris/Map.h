@@ -24,6 +24,7 @@ public:
 	void MoveRight(int blockID);
 
 	void RotateBlock(int blockID);
+	void ClearBlock();
 
 private:
 	LPDIRECT3DDEVICE9 device;

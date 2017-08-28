@@ -41,6 +41,7 @@ void Map::Update()
 	UpdateMoveDown(currTime);
 	UpdateMoveLeft(currTime);
 	UPdateMoveRight(currTime);
+	ClearBlock();
 
 
 }
@@ -137,6 +138,7 @@ void Map::GenerateNewBlock()
 
 
 	int random = rand() % 5 + 1;
+
 	if (random == 1) {
 		array[0][7] = number;
 		array[0][8] = number;
@@ -314,7 +316,28 @@ void Map::RotateBlock(int blockID)
 			if (i == currentBlockCenterX && j == currentBlockCenterY)
 				continue;
 
-			
+
 		}
 	}*/
+}
+
+void Map::ClearBlock()
+{
+	int count = 0;
+
+	for (int i = ROW_SIZE - 1; i >= 0; i--) {
+		for (int j = 0; j < COLUMN_SIZE; j++) {
+			if (array[i][j] > 0) {
+				count++;
+			}
+			else {
+				continue;
+			}
+		}
+		if (count == COLUMN_SIZE) {
+			for (int j = 0; j < COLUMN_SIZE; j++) {
+				array[i][j] = 0;
+			}
+		}
+	}
 }
