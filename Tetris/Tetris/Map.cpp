@@ -41,9 +41,6 @@ void Map::Update()
 	UpdateMoveDown(currTime);
 	UpdateMoveLeft(currTime);
 	UPdateMoveRight(currTime);
-	ClearBlock();
-
-
 }
 
 void Map::UpdateMoveDown(const DWORD &currTime)
@@ -210,6 +207,7 @@ void Map::Move(int blockID)
 	}
 
 	if (collision) {
+		ClearBlock();
 		GenerateNewBlock();
 		return;
 	}
@@ -326,18 +324,6 @@ void Map::ClearBlock()
 	int count = 0;
 
 	for (int i = ROW_SIZE - 1; i >= 0; i--) {
-		for (int j = 0; j < COLUMN_SIZE; j++) {
-			if (array[i][j] > 0) {
-				count++;
-			}
-			else {
-				continue;
-			}
-		}
-		if (count == COLUMN_SIZE) {
-			for (int j = 0; j < COLUMN_SIZE; j++) {
-				array[i][j] = 0;
-			}
-		}
+
 	}
 }
