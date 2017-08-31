@@ -1,6 +1,7 @@
 #pragma once
-#define ROW_SIZE 30
-#define COLUMN_SIZE 15
+#define ROW_SIZE 20
+#define COLUMN_SIZE 10
+#define BLOCK_SIZE 30
 
 class Rect;
 class Map

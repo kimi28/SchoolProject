@@ -22,11 +22,11 @@ void Map::Initialize()
 		for (int j = 0; j < COLUMN_SIZE; j++) {
 			array[i][j] = 0;
 		}
-	}
-	GenerateNewBlock();
+	}//2차배열 초기화
+	GenerateNewBlock();//block 생성
 
-	lastMoveTime = timeGetTime();
-	lastLeftRightTime = timeGetTime();
+	lastMoveTime = timeGetTime();//마지막 이동한 시간
+	lastLeftRightTime = timeGetTime();//마지막 좌우 이동한 시간
 }
 
 void Map::Destroy()
@@ -35,23 +35,23 @@ void Map::Destroy()
 
 void Map::Update()
 {
-	DWORD currTime = timeGetTime();
+	DWORD currTime = timeGetTime();//현재 시간
 
-	UpdateKeyStatus();
-	UpdateMoveDown(currTime);
-	UpdateMoveLeft(currTime);
-	UPdateMoveRight(currTime);
+	UpdateKeyStatus();//키보드 입력체크 함수 호출
+	UpdateMoveDown(currTime);//block 아래로 이동하는 함수
+	UpdateMoveLeft(currTime);//block 좌측으로 이동하는 함수
+	UPdateMoveRight(currTime);//block 우측으로 이동하는 함수
 }
 
 void Map::UpdateMoveDown(const DWORD &currTime)
 {
 	int interval;
-	if (isDownKey)
-		interval = 1000 / 30; // 가속
-	else
-		interval = 1000;
-	if (currTime - lastMoveTime > interval) {
-		Move(number);
+	if (isDownKey)//만약 키보드가 입력이 되었다면
+		interval = 1000 / 30; // 가속//  가속된 속도로 아래로 이동한다.
+	else//키보드 입력이 없으면 
+		interval = 1000;//1초의 속도로 아래로 이동한다.
+	if (currTime - lastMoveTime > interval) { //
+		Move(number);//
 		lastMoveTime = currTime;
 	}
 }
@@ -84,7 +84,7 @@ void Map::UPdateMoveRight(const DWORD currTime)
 	}
 }
 
-void Map::UpdateKeyStatus()
+void Map::UpdateKeyStatus()//키보드 입력 체크
 {
 	if (Keyboard::GetInstance()->KeyDown(VK_LEFT)) {
 		isLeftKey = true;
@@ -114,16 +114,16 @@ void Map::Render()
 	for (int i = 0; i < ROW_SIZE; i++) {
 		for (int j = 0; j < COLUMN_SIZE; j++) {
 			if (array[i][j] > 0) {
-				POINT coord;
-				coord.x = j * 20 + 100;
-				coord.y = i * 20 + 100;
-				Rect* rect = new Rect(device, coord, { 20,20 });
-				rect->Initialize();
+				D3DXVECTOR2 coord;
+				coord.x = j * BLOCK_SIZE + 100;
+				coord.y = i * BLOCK_SIZE + 100;
+				Rect* block = new Rect(device, coord, { BLOCK_SIZE,BLOCK_SIZE });
+				block->Initialize();
 
-				rect->Render();
+				block->Render();
 
-				rect->Destroy();
-				SAFE_DELETE(rect);
+				block->Destroy();
+				SAFE_DELETE(block);
 			}
 		}
 	}
@@ -321,6 +321,7 @@ void Map::RotateBlock(int blockID)
 
 void Map::ClearBlock()
 {
+	bool checkLine = false;
 	int count = 0;
 
 	for (int i = ROW_SIZE - 1; i >= 0; i--) {

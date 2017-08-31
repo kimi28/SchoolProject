@@ -2,14 +2,14 @@
 class Rect
 {
 public:
-	Rect(LPDIRECT3DDEVICE9 device, POINT coord, POINT size, DWORD color = 0xFF000000);
+	Rect(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 coord, D3DXVECTOR2 size, DWORD color = 0xFF000000);
 	~Rect();
 
 	RECT GetRect() { return rect; }
-	POINT GetCoord() { return coord; }
+	D3DXVECTOR2 GetCoord() { return coord; }
 	DWORD GetColor() { return lineColor; }
 
-	void SetCoord(POINT coord);
+	void SetCoord(D3DXVECTOR2 coord);
 	void SetColor(DWORD color) { lineColor = color; }
 
 	void Initialize();
@@ -26,8 +26,8 @@ private:
 	DWORD lineColor;
 
 	RECT rect;
-	POINT coord;
-	POINT size;
+	D3DXVECTOR2 coord;
+	D3DXVECTOR2 size;
 
 };
 
