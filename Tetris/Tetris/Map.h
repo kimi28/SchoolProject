@@ -20,7 +20,7 @@ public:
 	void Render();
 
 	void GenerateNewBlock();
-	void Move(int blockID);
+	void MoveDown(int blockID);
 	void MoveLeft(int blockID);
 	void MoveRight(int blockID);
 

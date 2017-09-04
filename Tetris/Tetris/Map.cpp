@@ -22,11 +22,11 @@ void Map::Initialize()
 		for (int j = 0; j < COLUMN_SIZE; j++) {
 			array[i][j] = 0;
 		}
-	}//2차배열 초기화
-	GenerateNewBlock();//block 생성
+	}
+	GenerateNewBlock();
 
-	lastMoveTime = timeGetTime();//마지막 이동한 시간
-	lastLeftRightTime = timeGetTime();//마지막 좌우 이동한 시간
+	lastMoveTime = timeGetTime();
+	lastLeftRightTime = timeGetTime();
 }
 
 void Map::Destroy()
@@ -35,23 +35,23 @@ void Map::Destroy()
 
 void Map::Update()
 {
-	DWORD currTime = timeGetTime();//현재 시간
+	DWORD currTime = timeGetTime();
 
-	UpdateKeyStatus();//키보드 입력체크 함수 호출
-	UpdateMoveDown(currTime);//block 아래로 이동하는 함수
-	UpdateMoveLeft(currTime);//block 좌측으로 이동하는 함수
-	UPdateMoveRight(currTime);//block 우측으로 이동하는 함수
+	UpdateKeyStatus();
+	UpdateMoveDown(currTime);
+	UpdateMoveLeft(currTime);
+	UPdateMoveRight(currTime);
 }
 
 void Map::UpdateMoveDown(const DWORD &currTime)
 {
 	int interval;
-	if (isDownKey)//만약 키보드가 입력이 되었다면
-		interval = 1000 / 30; // 가속//  가속된 속도로 아래로 이동한다.
-	else//키보드 입력이 없으면 
-		interval = 1000;//1초의 속도로 아래로 이동한다.
-	if (currTime - lastMoveTime > interval) { //
-		Move(number);//
+	if (isDownKey)
+		interval = 1000 / 30; // 가속
+	else
+		interval = 1000;
+	if (currTime - lastMoveTime > interval) {
+		MoveDown(number);
 		lastMoveTime = currTime;
 	}
 }
@@ -84,7 +84,7 @@ void Map::UPdateMoveRight(const DWORD currTime)
 	}
 }
 
-void Map::UpdateKeyStatus()//키보드 입력 체크
+void Map::UpdateKeyStatus()
 {
 	if (Keyboard::GetInstance()->KeyDown(VK_LEFT)) {
 		isLeftKey = true;
@@ -184,7 +184,7 @@ void Map::GenerateNewBlock()
 
 }
 
-void Map::Move(int blockID)
+void Map::MoveDown(int blockID)
 {
 	// 먼저 출동체크
 	bool collision = false;
@@ -321,10 +321,13 @@ void Map::RotateBlock(int blockID)
 
 void Map::ClearBlock()
 {
-	bool checkLine = false;
-	int count = 0;
+	int count = ROW_SIZE - 1;
 
-	for (int i = ROW_SIZE - 1; i >= 0; i--) {
+		for (int i = 0; i < COLUMN_SIZE; i++) {
+			if (array[count][i] != 0) {
 
-	}
+			}
+		}
+
 }
+
