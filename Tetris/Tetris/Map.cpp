@@ -323,11 +323,11 @@ void Map::ClearBlock()
 {
 	int count = ROW_SIZE - 1;
 
-		for (int i = 0; i < COLUMN_SIZE; i++) {
-			if (array[count][i] != 0) {
+	for (int i = 0; i < COLUMN_SIZE; i++) {
+		if (array[count][i] != 0) {
 
-			}
 		}
+	}
 
 }
 
