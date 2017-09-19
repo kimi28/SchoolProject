@@ -186,7 +186,6 @@ void Map::GenerateNewBlock()
 
 void Map::MoveDown(int blockID)
 {
-	// 먼저 출동체크
 	bool collision = false;
 	for (int i = ROW_SIZE - 1; i >= 0; i--) {
 		for (int j = 0; j < COLUMN_SIZE; j++) {
@@ -321,13 +320,12 @@ void Map::RotateBlock(int blockID)
 
 void Map::ClearBlock()
 {
-	int count = ROW_SIZE - 1;
+	for (int i = ROW_SIZE - 1; i >= 0;) {
+		for (int j = 0; j < COLUMN_SIZE; j++) {
+			if (array[i][j] != 0) {
 
-	for (int i = 0; i < COLUMN_SIZE; i++) {
-		if (array[count][i] != 0) {
-
+			}
 		}
 	}
-
 }
 
