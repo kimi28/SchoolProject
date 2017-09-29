@@ -117,7 +117,7 @@ void Map::Render()
 				D3DXVECTOR2 coord;
 				coord.x = j * BLOCK_SIZE + 100;
 				coord.y = i * BLOCK_SIZE + 100;
-				Rect* block = new Rect(device, coord, { BLOCK_SIZE,BLOCK_SIZE });
+				Rect* block = new Rect(device, coord, { BLOCK_SIZE,BLOCK_SIZE }, 0xFF00FFFF);
 				block->Initialize();
 
 				block->Render();
@@ -131,8 +131,8 @@ void Map::Render()
 
 void Map::GenerateNewBlock()
 {
+	srand(time(NULL));
 	number++;
-
 
 	int random = rand() % 5 + 1;
 
@@ -206,8 +206,8 @@ void Map::MoveDown(int blockID)
 	}
 
 	if (collision) {
-		ClearBlock();
 		GenerateNewBlock();
+		ClearBlock();
 		return;
 	}
 
@@ -314,18 +314,39 @@ void Map::RotateBlock(int blockID)
 				continue;
 
 
+
 		}
 	}*/
 }
 
 void Map::ClearBlock()
 {
-	for (int i = ROW_SIZE - 1; i >= 0;) {
-		for (int j = 0; j < COLUMN_SIZE; j++) {
-			if (array[i][j] != 0) {
+	int i, j, k;
 
+	for (i = 0; i < ROW_SIZE; i++) {
+		for (j = 0; j < COLUMN_SIZE; j++) {
+			if (array[i][j] == 0) {
+				break;
+			}
+		}
+
+		if (j == COLUMN_SIZE) {
+			for (j = 0; j < COLUMN_SIZE; j++) {
+				array[i][j] = 0;
+				Sleep(10);
+			}
+
+			for (k = i; k > 0; k--) {
+				for (j = 0; j < COLUMN_SIZE; j++) {
+					array[k][j] = array[k - 1][j];
+				}
+			}
+
+			for (j = 0; j < COLUMN_SIZE; j++) {
+				array[0][j] = 0;
 			}
 		}
 	}
+
 }
 

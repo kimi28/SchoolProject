@@ -16,7 +16,7 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-	rect = new Rect(device, { 100,100 }, { 300, 600 });
+	rect = new Rect(device, { 90,90 }, { 320, 620 });
 	rect->Initialize();
 
 	map = new Map(device);
@@ -39,6 +39,6 @@ void GameMain::Update()
 
 void GameMain::Render()
 {
-	rect->Render();
 	map->Render();
+	rect->Render();
 }
