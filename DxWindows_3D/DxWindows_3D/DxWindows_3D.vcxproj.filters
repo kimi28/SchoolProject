@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="System\D3D.h" />
+    <ClInclude Include="Manager\SingletonBase.h" />
+    <ClInclude Include="Render\ColorShader.h" />
+    <ClInclude Include="Render\Model.h" />
+    <ClInclude Include="System\Frame.h" />
+    <ClInclude Include="System\TweakBar.h" />
+    <ClInclude Include="AntTweakBar.h" />
+    <ClInclude Include="System\Input.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="System\D3D.cpp" />
+    <ClCompile Include="System\WinMain.cpp" />
+    <ClCompile Include="Manager\SingletonBase.cpp" />
+    <ClCompile Include="Render\ColorShader.cpp" />
+    <ClCompile Include="Render\Model.cpp" />
+    <ClCompile Include="System\Frame.cpp" />
+    <ClCompile Include="System\TweakBar.cpp" />
+    <ClCompile Include="System\Input.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\ColorPixel.hlsl" />
+    <None Include="Shader\ColorVertex.hlsl" />
+    <None Include="AntTweakBar.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="AntTweakBar.lib" />
+  </ItemGroup>
+</Project>
