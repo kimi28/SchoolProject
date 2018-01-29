@@ -14,8 +14,9 @@ public:
 	void Destroy();
 	void Update();
 	void UpdateMoveDown(const DWORD &currTime);
-	void UpdateMoveLeft(const DWORD currTime);
-	void UPdateMoveRight(const DWORD currTime);
+	void UpdateMoveLeft(const DWORD &currTime);
+	void UPdateMoveRight(const DWORD &currTime);
+	void UpdateRotateBlock(const DWORD &currTime);
 	void UpdateKeyStatus();
 	void Render();
 
@@ -38,6 +39,7 @@ private:
 	bool isDownKey;
 	bool isLeftKey;
 	bool isRightKey;
+	bool isUpKey;
 
 	int currentBlockCenterX;
 	int currentBlockCenterY;

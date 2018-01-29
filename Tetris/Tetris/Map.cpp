@@ -41,6 +41,7 @@ void Map::Update()
 	UpdateMoveDown(currTime);
 	UpdateMoveLeft(currTime);
 	UPdateMoveRight(currTime);
+	UpdateRotateBlock(currTime);
 }
 
 void Map::UpdateMoveDown(const DWORD &currTime)
@@ -56,7 +57,7 @@ void Map::UpdateMoveDown(const DWORD &currTime)
 	}
 }
 
-void Map::UpdateMoveLeft(const DWORD currTime)
+void Map::UpdateMoveLeft(const DWORD &currTime)
 {
 	int interval;
 	if (isLeftKey)
@@ -70,7 +71,7 @@ void Map::UpdateMoveLeft(const DWORD currTime)
 	}
 }
 
-void Map::UPdateMoveRight(const DWORD currTime)
+void Map::UPdateMoveRight(const DWORD &currTime)
 {
 	int interval;
 	if (isRightKey)
@@ -80,6 +81,20 @@ void Map::UPdateMoveRight(const DWORD currTime)
 
 	if (currTime - lastLeftRightTime > interval) {
 		MoveRight(number);
+		lastLeftRightTime = currTime;
+	}
+}
+
+void Map::UpdateRotateBlock(const DWORD & currTime)
+{
+	int interval;
+	if (isUpKey)
+		interval = 1000 / 20;
+	else
+		return;
+
+	if (currTime - lastLeftRightTime > interval) {
+		RotateBlock(number);
 		lastLeftRightTime = currTime;
 	}
 }
@@ -105,7 +120,10 @@ void Map::UpdateKeyStatus()
 		isDownKey = false;
 	}
 	else if (Keyboard::GetInstance()->KeyDown(VK_UP)) {
-
+		isUpKey = true;
+	}
+	else if (Keyboard::GetInstance()->KeyUp(VK_UP)) {
+		isUpKey = false;
 	}
 }
 
@@ -217,12 +235,12 @@ void Map::MoveDown(int blockID)
 			if (array[i][j] == blockID) {
 				array[i + 1][j] = blockID;
 				array[i][j] = 0;
+				if (currentBlockCenterX >= 0)
+					currentBlockCenterX++;
 			}
 		}
 	}
 
-	if (currentBlockCenterX >= 0)
-		currentBlockCenterX++;
 }
 
 void Map::MoveLeft(int blockID)
@@ -347,6 +365,4 @@ void Map::ClearBlock()
 			}
 		}
 	}
-
 }
-
