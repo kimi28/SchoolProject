@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Program Files %28x86%29\DirectX SDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Program Files %28x86%29\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Program Files %28x86%29\DirectX SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\Program Files %28x86%29\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -144,25 +144,35 @@
     <ClInclude Include="AntTweakBar.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Common\Camera.h" />
+    <ClInclude Include="Common\Transform.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Manager\SingletonBase.h" />
     <ClInclude Include="Render\ColorShader.h" />
+    <ClInclude Include="Render\Cube.h" />
     <ClInclude Include="Render\Model.h" />
+    <ClInclude Include="Render\Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\D3D.h" />
     <ClInclude Include="System\Frame.h" />
     <ClInclude Include="System\Input.h" />
     <ClInclude Include="System\TweakBar.h" />
+    <ClInclude Include="System\Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Camera.cpp" />
+    <ClCompile Include="Common\Transform.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Manager\SingletonBase.cpp" />
     <ClCompile Include="Render\ColorShader.cpp" />
+    <ClCompile Include="Render\Cube.cpp" />
     <ClCompile Include="Render\Model.cpp" />
+    <ClCompile Include="Render\Star.cpp" />
     <ClCompile Include="System\D3D.cpp" />
     <ClCompile Include="System\Frame.cpp" />
     <ClCompile Include="System\Input.cpp" />
     <ClCompile Include="System\TweakBar.cpp" />
+    <ClCompile Include="System\Util.cpp" />
     <ClCompile Include="System\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

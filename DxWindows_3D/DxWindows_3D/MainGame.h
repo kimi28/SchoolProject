@@ -1,6 +1,11 @@
 #pragma once
+class Star;
+class ColorShader;
 class MainGame
 {
+	Star* model;
+	ColorShader* colorShader;
+
 public:
 	MainGame();
 	~MainGame();

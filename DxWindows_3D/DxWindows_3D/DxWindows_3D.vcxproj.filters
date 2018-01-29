@@ -11,6 +11,11 @@
     <ClInclude Include="System\TweakBar.h" />
     <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="System\Input.h" />
+    <ClInclude Include="Common\Camera.h" />
+    <ClInclude Include="Common\Transform.h" />
+    <ClInclude Include="Render\Cube.h" />
+    <ClInclude Include="Render\Star.h" />
+    <ClInclude Include="System\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp" />
@@ -22,6 +27,11 @@
     <ClCompile Include="System\Frame.cpp" />
     <ClCompile Include="System\TweakBar.cpp" />
     <ClCompile Include="System\Input.cpp" />
+    <ClCompile Include="Common\Camera.cpp" />
+    <ClCompile Include="Common\Transform.cpp" />
+    <ClCompile Include="Render\Cube.cpp" />
+    <ClCompile Include="Render\Star.cpp" />
+    <ClCompile Include="System\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\ColorPixel.hlsl" />

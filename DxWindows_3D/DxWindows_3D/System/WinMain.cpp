@@ -6,7 +6,7 @@ HINSTANCE g_hInst;
 
 MainGame g_mainGame;
 
-LRESULT CALLBACK WndPro(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmdParam, int nCmdShow)
 {

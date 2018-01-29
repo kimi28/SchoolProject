@@ -22,7 +22,7 @@ using namespace std;
 #include <d3dx10math.h>
 #include <D3DX11async.h>
 
-#pragma comment(lib, "dxgi.h")
+#pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dx11.lib")

@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "MainGame.h"
-
-
+#include "./Render/Model.h"
+#include "./Render/Cube.h"
+#include "./Render/Star.h"
+#include "./Render/ColorShader.h"
 
 MainGame::MainGame()
 {
@@ -15,21 +17,41 @@ MainGame::~MainGame()
 HRESULT MainGame::Init()
 {
 	D3D::GetInstance();
+	FRAME->Init();
+	TWEAKBAR->Init();
+	colorShader = new ColorShader();
+	model = new Star(colorShader);
+
+	TWEAKBAR->ChangeDraw();
 	return S_OK;
 }
 
 void MainGame::Release()
 {
+	SAFE_DELETE(model);
+	SAFE_DELETE(colorShader);
+	TWEAKBAR->ReleaseInstance();
+	FRAME->Release();
+	FRAME->ReleaseInstance();
 	D3D::ReleaseInstance();
 }
 
 void MainGame::Update()
 {
+	//프레임 업데이트
+	FRAME->UpdateTime(60.0f);
+
+	//한프레임 갱신 시간
+	double timeDelta = FRAME->GetFrameDeltaSec();
+	model->Update(timeDelta);
 }
 
 void MainGame::Render()
 {
 	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+
+	TWEAKBAR->Render();
+	model->Render();
 
 	D3D::GetInstance()->EndScene();
 }
