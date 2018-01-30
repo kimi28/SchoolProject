@@ -1,9 +1,10 @@
 #pragma once
 class Star;
+class Cube;
 class ColorShader;
 class MainGame
 {
-	Star* model;
+	Cube* model;
 	ColorShader* colorShader;
 
 public:

@@ -20,7 +20,7 @@ HRESULT MainGame::Init()
 	FRAME->Init();
 	TWEAKBAR->Init();
 	colorShader = new ColorShader();
-	model = new Star(colorShader);
+	model = new Cube(colorShader);
 
 	TWEAKBAR->ChangeDraw();
 	return S_OK;

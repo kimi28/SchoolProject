@@ -71,6 +71,14 @@ void Transform::SetWorldPosition(D3DXVECTOR3 pos)
 
 }
 
+void Transform::SetLocalPosition(float x, float y, float z)
+{
+}
+
+void Transform::SetLocalPosition(D3DXVECTOR3 pos)
+{
+}
+
 void Transform::MovePositionLocal(D3DXVECTOR3 delta)
 {
 	D3DXVECTOR3 move(0, 0, 0);
@@ -158,7 +166,7 @@ void Transform::GetUnitAxis(D3DXVECTOR3 * pVecArr) const
 {
 	for (int i = 0; i < 3; i++)
 	{
-		D3DXVec3Normalize(pVecArr + i, this->axis);
+		D3DXVec3Normalize(pVecArr + i, this->axis + i);
 	}
 }
 
@@ -169,7 +177,7 @@ void Transform::DefaultControl(float timeDelta)
 	static float maxAngleH = 85.0f;
 	static float minAngleH = -85.0f;
 	static float senitivityH = 0.5f;
-	static float senitivityH = 0.5f;
+	static float senitivityV = 0.5f;
 	static D3DXVECTOR3 nowVelocity(0, 0, 0);
 
 	static float accelate = 30.0f;
