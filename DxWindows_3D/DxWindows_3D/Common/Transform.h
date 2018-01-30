@@ -71,6 +71,8 @@ public:
 	//Trnasform을 업데이트 한다.
 	void UpdateTransform();
 
+	D3DXMATRIX GetFinalMatrix();
+
 	D3DXVECTOR3 GetWorldPosition() const;
 	D3DXVECTOR3 GetLocalPosition() const;
 

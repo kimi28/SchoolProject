@@ -1,6 +1,7 @@
 #include "../stdafx.h"
 #include "Cube.h"
 #include "ColorShader.h"
+#include "../Common/Transform.h"
 
 
 
@@ -10,28 +11,7 @@ Cube::Cube(ColorShader * shader)
 	CreateIndexBuffer();
 	CreateRenderState();
 
-	D3DXMatrixIdentity(&world);
-	D3DXMatrixIdentity(&view);
-	D3DXMatrixIdentity(&projection);
-	D3DXMatrixLookAtLH(
-		&view,
-		&D3DXVECTOR3(0, 0, -20),
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 1, 0));
-	D3DXMatrixPerspectiveFovLH(
-		&projection,
-		(float)D3DX_PI / 4.0f,
-		WINSIZE_X / WINSIZE_Y,
-		0.1f,
-		1000.0f);
-
-	viewport.Width = WINSIZE_X;
-	viewport.Height = WINSIZE_Y;
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 1.0f;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
-	DEVICECONTEXT->RSSetViewports(1, &viewport);
+	this->transform = new Transform;
 
 	this->shader = shader;
 	angle = D3DXVECTOR3(0, 0, 0);
@@ -67,13 +47,9 @@ void Cube::CreateVertexBuffer()
 	vertex[6].position = D3DXVECTOR3(-1,-1, 1);
 	vertex[7].position = D3DXVECTOR3( 1,-1, 1);
 
-	D3DXCOLOR color = D3DXCOLOR(1, 1, 1, 1);
+	D3DXCOLOR color = D3DXCOLOR(1, 0, 0, 0);
 	for (int i = 0; i < 8; i++)
 	{
-		color.r -= 0.1f;
-		color.g -= 0.1f;
-		color.b -= 0.1f;
-
 		vertex[i].color = color;	
 	}
 
@@ -183,42 +159,9 @@ void Cube::Update(float timeDelta)
 
 	D3DXMatrixTranslation(&matTrans, position.x, position.y, position.z);
 
+	CAMERA->DefaultControl(timeDelta);
+	CAMERA->UpdateMatrix();
 
-
-	if (INPUT->GetKey('A'))
-		angle.y += 0.1f;
-
-	if (INPUT->GetKey('D'))
-		angle.y -= 0.1f;
-
-	if (INPUT->GetKey('W'))
-		angle.x += 0.1f;
-
-	if (INPUT->GetKey('S'))
-		angle.x -= 0.1f;
-
-	if (INPUT->GetKey('Q'))
-		angle.z += 0.1f;
-
-	if (INPUT->GetKey('E'))
-		angle.z -= 0.1f;
-
-	if (INPUT->GetKey(VK_RIGHT))
-	{
-		view._41 += 0.1f;
-	}
-	if (INPUT->GetKey(VK_LEFT))
-	{
-		view._41 -= 0.1f;
-	}
-	if (INPUT->GetKey(VK_UP))
-	{
-		view._43 -= 0.1f;
-	}
-	if (INPUT->GetKey(VK_DOWN))
-	{
-		view._43 += 0.1f;
-	}
 	D3DXMatrixRotationX(&matRotX, angle.x);
 	D3DXMatrixRotationY(&matRotY, angle.y);
 	D3DXMatrixRotationZ(&matRotZ, angle.z);
@@ -240,6 +183,10 @@ void Cube::Render()
 	DEVICECONTEXT->IASetPrimitiveTopology
 	(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	DEVICECONTEXT->RSSetState(wireFrameRender);
+
+	D3DXMatrixIdentity(&world);
+	view = CAMERA->GetViewMatrix();
+	projection = CAMERA->GetProjectionMatrix();
 
 	shader->SetParameters(world, view, projection);
 

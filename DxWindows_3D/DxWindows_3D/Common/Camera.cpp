@@ -19,6 +19,14 @@ Camera::~Camera()
 
 void Camera::UpdateMatrix()
 {
+	viewport.Width = WINSIZE_X;
+	viewport.Height = WINSIZE_Y;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+	DEVICECONTEXT->RSSetViewports(1, &viewport);
+
 	D3DXMatrixPerspectiveLH
 	(
 		&projection,

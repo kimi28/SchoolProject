@@ -1,11 +1,12 @@
 #pragma once
+class Transform;
 class ColorShader;
 class Cube
 {
 private:
 	D3DXMATRIX world, view, projection;
-	D3D11_VIEWPORT viewport;
 
+	Transform * transform;
 	ColorShader* shader;
 
 	struct Vertex
@@ -34,5 +35,8 @@ public:
 
 	void Update(float timeDelta);
 	void Render();
+
+	Transform* GetTransform() { return transform; }
+
 };
 

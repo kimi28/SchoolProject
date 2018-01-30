@@ -151,6 +151,12 @@ void Transform::UpdateTransform()
 
 }
 
+D3DXMATRIX Transform::GetFinalMatrix()
+{
+	return matFinal;
+}
+
+
 D3DXVECTOR3 Transform::GetWorldPosition() const
 {
 	D3DXVECTOR3 pos = this->position;
@@ -174,8 +180,8 @@ void Transform::DefaultControl(float timeDelta)
 {
 	static float nowAngleH = 0.0f;
 	static float nowAngleV = 0.0f;
-	static float maxAngleH = 85.0f;
-	static float minAngleH = -85.0f;
+	static float maxAngleV = 85.0f;
+	static float minAngleV = -85.0f;
 	static float senitivityH = 0.5f;
 	static float senitivityV = 0.5f;
 	static D3DXVECTOR3 nowVelocity(0, 0, 0);
@@ -188,6 +194,51 @@ void Transform::DefaultControl(float timeDelta)
 	{
 		int screenCenterX = WINSIZE_X / 2;
 		int screenCenterY = WINSIZE_Y / 2;
+
+		SetMousePos(screenCenterX, screenCenterY);
+	}
+	else if (INPUT->GetKey(VK_RBUTTON))
+	{
+		D3DXVECTOR3 inputVector(0, 0, 0);
+
+		if (INPUT->GetKey('W'))
+			inputVector.z = 1.0f;
+		else if (INPUT->GetKey('S'))
+			inputVector.z = -1.0f;
+
+		if (INPUT->GetKey('A'))
+			inputVector.x = -1.0f;
+		else if (INPUT->GetKey('D'))
+			inputVector.x = 1.0f;
+
+		if (INPUT->GetKey('Q'))
+			inputVector.y = 1.0f;
+		else if (INPUT->GetKey('E'))
+			inputVector.y = -1.0f;
+
+		if (VECTORZERO(inputVector) == false)
+			D3DXVec3Normalize(&inputVector, &inputVector);
+
+		D3DXVECTOR3 target = inputVector * maxSpeed;
+		this->MovePositionLocal(target*timeDelta);
+
+		int screenCenterX = WINSIZE_X / 2;
+		int screenCenterY = WINSIZE_Y / 2;
+
+		POINT mousePos = GetMousePos();
+
+		float deltaX = mousePos.x - screenCenterX;
+		float deltaY = mousePos.y - screenCenterY;
+
+		nowAngleH += deltaX * senitivityH;
+		nowAngleV += deltaY * senitivityV;
+
+		nowAngleV = Clamp(nowAngleV, minAngleV, maxAngleV);
+
+		SetMousePos(screenCenterX, screenCenterY);
+
+		this->RotateWorld(nowAngleV* ONE_RAD, nowAngleH* ONE_RAD, 0.0f);
+
 	}
 
 }

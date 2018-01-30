@@ -19,6 +19,7 @@ HRESULT MainGame::Init()
 	D3D::GetInstance();
 	FRAME->Init();
 	TWEAKBAR->Init();
+	CAMERA->GetInstance();
 	colorShader = new ColorShader();
 	model = new Cube(colorShader);
 
@@ -30,6 +31,7 @@ void MainGame::Release()
 {
 	SAFE_DELETE(model);
 	SAFE_DELETE(colorShader);
+	CAMERA->ReleaseInstance();
 	TWEAKBAR->ReleaseInstance();
 	FRAME->Release();
 	FRAME->ReleaseInstance();
@@ -43,6 +45,8 @@ void MainGame::Update()
 
 	//한프레임 갱신 시간
 	double timeDelta = FRAME->GetFrameDeltaSec();
+	CAMERA->DefaultControl(timeDelta);
+	CAMERA->UpdateMatrix();
 	model->Update(timeDelta);
 }
 

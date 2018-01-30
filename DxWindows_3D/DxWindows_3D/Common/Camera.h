@@ -11,6 +11,8 @@ protected:
 	D3DXMATRIX view;
 	D3DXMATRIX projection;
 	D3DXMATRIX viewProjection;
+	
+	D3D11_VIEWPORT viewport;
 
 public:
 	Camera();
