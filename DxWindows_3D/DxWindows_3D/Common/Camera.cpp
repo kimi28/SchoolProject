@@ -27,7 +27,7 @@ void Camera::UpdateMatrix()
 	viewport.TopLeftY = 0.0f;
 	DEVICECONTEXT->RSSetViewports(1, &viewport);
 
-	D3DXMatrixPerspectiveFovLH
+	D3DXMatrixPerspectiveLH
 	(
 		&projection,
 		this->fov,
