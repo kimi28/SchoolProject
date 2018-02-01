@@ -21,7 +21,17 @@ HRESULT MainGame::Init()
 	TWEAKBAR->Init();
 	CAMERA->GetInstance();
 	colorShader = new ColorShader();
-	model = new Cube(colorShader);
+	for (int i = 0; i < 6; i++)
+	{
+		model[i] = new Cube(colorShader);
+	}
+	model[0]->GetTransform()->SetWorldPosition(0, 2, 0);
+	model[1]->GetTransform()->SetWorldPosition(0, 0, 0);
+	model[2]->GetTransform()->SetWorldPosition(-2, 0, 0);
+	model[3]->GetTransform()->SetWorldPosition(2, 0, 0);
+	model[4]->GetTransform()->SetWorldPosition(1.0f, -2, 0);
+	model[5]->GetTransform()->SetWorldPosition(-1.0f, -2, 0);
+
 
 	TWEAKBAR->ChangeDraw();
 	return S_OK;
@@ -29,7 +39,6 @@ HRESULT MainGame::Init()
 
 void MainGame::Release()
 {
-	SAFE_DELETE(model);
 	SAFE_DELETE(colorShader);
 	CAMERA->ReleaseInstance();
 	TWEAKBAR->ReleaseInstance();
@@ -47,22 +56,22 @@ void MainGame::Update()
 	double timeDelta = FRAME->GetFrameDeltaSec();
 	CAMERA->DefaultControl(timeDelta);
 	CAMERA->UpdateMatrix();
-	model->Update(timeDelta);
 }
 
 void MainGame::Render()
 {
 	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
-	TWEAKBAR->Render();
-	model->Render();
+	for (int i = 0; i < 6; i++)
+		model[i]->Render();
 
+	TWEAKBAR->Render();
 	D3D::GetInstance()->EndScene();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	//TWEAKBAR->InputProc(hWnd, msg, wParam, lParam);
+	TWEAKBAR->InputProc(hWnd, msg, wParam, lParam);
 	if (msg == WM_CLOSE || msg == WM_DESTROY)
 	{
 		PostQuitMessage(0);

@@ -1,6 +1,5 @@
 #include "../stdafx.h"
 #include "../MainGame.h"
-
 HWND g_hWnd;
 HINSTANCE g_hInst;
 
@@ -8,7 +7,8 @@ MainGame g_mainGame;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmdParam, int nCmdShow)
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
+	LPSTR lpCmdParam, int nCmdShow)
 {
 	g_hInst = hInstance;
 
@@ -84,7 +84,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmdPar
 	//윈도우 프로그램 종료
 	return (int)msg.wParam;
 }
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	return g_mainGame.MainProc(hWnd, msg, wParam, lParam);

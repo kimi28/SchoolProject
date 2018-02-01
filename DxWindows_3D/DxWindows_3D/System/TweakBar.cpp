@@ -24,6 +24,7 @@ void TweakBar::Init()
 	TwDefine("TweakBar size='250 700'");
 	TwDefine("TweakBar valueswidth=120");
 	TwDefine("TweakBar visible=false");
+
 }
 
 void TweakBar::InputProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

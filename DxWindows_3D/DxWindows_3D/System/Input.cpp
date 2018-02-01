@@ -1,14 +1,11 @@
 #include "../stdafx.h"
 #include "Input.h"
 
-
-
-Input::Input()
+Input::Input(void)
 {
 }
 
-
-Input::~Input()
+Input::~Input(void)
 {
 }
 
@@ -22,9 +19,9 @@ HRESULT Input::Init(void)
 
 	return S_OK;
 }
-
 void Input::Release(void)
 {
+
 }
 
 bool Input::GetKey(int nVKey)
@@ -68,4 +65,5 @@ bool Input::GetKeyUp(int nVKey)
 		}
 	}
 
+	return false;
 }

@@ -1,12 +1,10 @@
 #pragma once
-class Star;
 class Cube;
 class ColorShader;
 class MainGame
 {
-	Cube* model;
+	Cube* model[6];
 	ColorShader* colorShader;
-
 public:
 	MainGame();
 	~MainGame();
@@ -17,6 +15,7 @@ public:
 	void Render();
 
 public:
-	LRESULT MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	//프로시져
+	LRESULT MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lparam);
 };
 

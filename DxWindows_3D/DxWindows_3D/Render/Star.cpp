@@ -93,7 +93,7 @@ void Star::CreateIndexBuffer()
 
 	indexCount = 60;
 	UINT* index = new UINT[indexCount];
-	
+
 	int count = 2;
 	for (int i = 0; i < 30; i += 3)
 	{
@@ -101,8 +101,8 @@ void Star::CreateIndexBuffer()
 		index[i + 1] = count + 1;
 		index[i + 2] = 0;
 
-		index[i + 30] = count +1;
-		index[i + 31] = count ;
+		index[i + 30] = count + 1;
+		index[i + 31] = count;
 		index[i + 32] = 1;
 		count++;
 	}

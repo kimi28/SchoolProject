@@ -1,13 +1,16 @@
 #pragma once
+
 #include "../Manager/SingletonBase.h"
 
-#define MAX_KEY_NUM	256
+#define MAX_KEY_NUM		256
 
 class Input : public SingletonBase<Input>
 {
 private:
 	bool			m_bDownCheck[MAX_KEY_NUM];
 	bool			m_bUpCheck[MAX_KEY_NUM];
+
+private:
 
 public:
 	Input(void);

@@ -2,7 +2,6 @@
 #include "ColorShader.h"
 
 
-
 ColorShader::ColorShader()
 {
 	HRESULT hr;

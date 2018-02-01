@@ -152,6 +152,12 @@
     <ClInclude Include="Render\Cube.h" />
     <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Star.h" />
+    <ClInclude Include="Scene\Scene.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene_01.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\D3D.h" />
     <ClInclude Include="System\Frame.h" />
@@ -168,6 +174,12 @@
     <ClCompile Include="Render\Cube.cpp" />
     <ClCompile Include="Render\Model.cpp" />
     <ClCompile Include="Render\Star.cpp" />
+    <ClCompile Include="Scene\Scene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene_01.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="System\D3D.cpp" />
     <ClCompile Include="System\Frame.cpp" />
     <ClCompile Include="System\Input.cpp" />

@@ -6,7 +6,8 @@ class Cube
 private:
 	D3DXMATRIX world, view, projection;
 
-	Transform * transform;
+	Transform* transform;
+
 	ColorShader* shader;
 
 	struct Vertex
@@ -25,6 +26,8 @@ private:
 	D3DXVECTOR3 position;
 
 	ID3D11RasterizerState* wireFrameRender;
+
+
 public:
 	Cube(ColorShader* shader);
 	~Cube();
@@ -36,7 +39,8 @@ public:
 	void Update(float timeDelta);
 	void Render();
 
-	Transform* GetTransform() { return transform; }
-
+	Transform* GetTransform() {
+		return transform;
+	}
 };
 

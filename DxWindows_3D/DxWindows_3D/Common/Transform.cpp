@@ -84,7 +84,6 @@ void Transform::MovePositionLocal(D3DXVECTOR3 delta)
 	D3DXVECTOR3 move(0, 0, 0);
 
 	D3DXVECTOR3 moveAxis[3];
-
 	this->GetUnitAxis(moveAxis);
 
 	move += moveAxis[0] * delta.x;
@@ -94,6 +93,42 @@ void Transform::MovePositionLocal(D3DXVECTOR3 delta)
 	D3DXVECTOR3 nowWorldPos = this->GetWorldPosition();
 
 	this->SetWorldPosition(nowWorldPos + move);
+}
+
+void Transform::SetScale(float x, float y, float z)
+{
+	this->scale.x = x;
+	this->scale.y = y;
+	this->scale.z = z;
+
+	if (this->bAutoUpdate)
+		this->UpdateTransform();
+}
+
+void Transform::SetScale(D3DXVECTOR3 scale)
+{
+	this->scale = scale;
+
+	if (this->bAutoUpdate)
+		this->UpdateTransform();
+}
+
+void Transform::Scaling(float dx, float dy, float dz)
+{
+	this->scale.x = dx;
+	this->scale.y = dy;
+	this->scale.z = dz;
+
+	if (this->bAutoUpdate)
+		this->UpdateTransform();
+}
+
+void Transform::Scaling(D3DXVECTOR3 deltaScale)
+{
+	this->scale = deltaScale;
+
+	if (this->bAutoUpdate)
+		this->UpdateTransform();
 }
 
 void Transform::RotateWorld(float eAngleX, float eAngleY, float eAngleZ)
@@ -141,8 +176,8 @@ void Transform::UpdateTransform()
 	D3DXMatrixIdentity(&this->matFinal);
 
 	D3DXVECTOR3 scaledRight = this->right * scale.x;
-	D3DXVECTOR3 scaledUp = this->up * scale.y;
-	D3DXVECTOR3 scaledForward = this->forward * scale.z;
+	D3DXVECTOR3 scaledUp = this->up * this->scale.y;
+	D3DXVECTOR3 scaledForward = this->forward * this->scale.z;
 
 	memcpy(&this->matFinal._11, &scaledRight, sizeof(D3DXVECTOR3));
 	memcpy(&this->matFinal._21, &scaledUp, sizeof(D3DXVECTOR3));

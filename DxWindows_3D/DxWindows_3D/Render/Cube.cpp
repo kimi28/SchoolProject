@@ -4,18 +4,22 @@
 #include "../Common/Transform.h"
 
 
-
 Cube::Cube(ColorShader * shader)
 {
 	CreateVertexBuffer();
 	CreateIndexBuffer();
 	CreateRenderState();
 
-	this->transform = new Transform;
-
 	this->shader = shader;
 	angle = D3DXVECTOR3(0, 0, 0);
 	position = D3DXVECTOR3(0, 0, 0);
+
+	this->transform = new Transform;
+
+	D3DXMatrixIdentity(&world);
+	D3DXMatrixIdentity(&view);
+	D3DXMatrixIdentity(&projection);
+
 
 	TwBar* bar = TWEAKBAR->GetBar();
 	TwAddSeparator(bar, "", "");
@@ -38,19 +42,23 @@ void Cube::CreateVertexBuffer()
 	Vertex* vertex = new Vertex[vertexCount];
 
 	vertex[0].position = D3DXVECTOR3(-1, 1, -1);
-	vertex[1].position = D3DXVECTOR3( 1, 1, -1);
-	vertex[2].position = D3DXVECTOR3(-1,-1, -1);
-	vertex[3].position = D3DXVECTOR3( 1,-1, -1);
+	vertex[1].position = D3DXVECTOR3(1, 1, -1);
+	vertex[2].position = D3DXVECTOR3(-1, -1, -1);
+	vertex[3].position = D3DXVECTOR3(1, -1, -1);
 
 	vertex[4].position = D3DXVECTOR3(-1, 1, 1);
-	vertex[5].position = D3DXVECTOR3( 1, 1, 1);
-	vertex[6].position = D3DXVECTOR3(-1,-1, 1);
-	vertex[7].position = D3DXVECTOR3( 1,-1, 1);
+	vertex[5].position = D3DXVECTOR3(1, 1, 1);
+	vertex[6].position = D3DXVECTOR3(-1, -1, 1);
+	vertex[7].position = D3DXVECTOR3(1, -1, 1);
 
-	D3DXCOLOR color = D3DXCOLOR(1, 0, 0, 0);
+	D3DXCOLOR color = D3DXCOLOR(1, 1, 1, 1);
 	for (int i = 0; i < 8; i++)
 	{
-		vertex[i].color = color;	
+		color.r -= 0.1f;
+		color.g -= 0.1f;
+		color.b -= 0.1f;
+
+		vertex[i].color = color;
 	}
 
 	D3D11_BUFFER_DESC desc = { 0 };
@@ -73,7 +81,7 @@ void Cube::CreateIndexBuffer()
 
 	indexCount = 36;
 	UINT* index = new UINT[indexCount];
-	
+
 	//Á¤¸é 
 	index[0] = 0;
 	index[1] = 1;
@@ -140,7 +148,7 @@ void Cube::CreateRenderState()
 {
 	D3D11_RASTERIZER_DESC rasterizerBuffer;
 	ZeroMemory(&rasterizerBuffer, sizeof(D3D11_RASTERIZER_DESC));
-	rasterizerBuffer.FillMode = D3D11_FILL_WIREFRAME;
+	rasterizerBuffer.FillMode = D3D11_FILL_SOLID;
 	rasterizerBuffer.CullMode = D3D11_CULL_BACK;
 	rasterizerBuffer.DepthClipEnable = true;
 
@@ -152,21 +160,6 @@ void Cube::CreateRenderState()
 
 void Cube::Update(float timeDelta)
 {
-	D3DXMATRIX matRotX;
-	D3DXMATRIX matRotY;
-	D3DXMATRIX matRotZ;
-	D3DXMATRIX matTrans;
-
-	D3DXMatrixTranslation(&matTrans, position.x, position.y, position.z);
-
-	CAMERA->DefaultControl(timeDelta);
-	CAMERA->UpdateMatrix();
-
-	D3DXMatrixRotationX(&matRotX, angle.x);
-	D3DXMatrixRotationY(&matRotY, angle.y);
-	D3DXMatrixRotationZ(&matRotZ, angle.z);
-
-	this->world = matRotX * matRotY * matRotZ * matTrans;
 
 }
 
@@ -183,11 +176,9 @@ void Cube::Render()
 	DEVICECONTEXT->IASetPrimitiveTopology
 	(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	DEVICECONTEXT->RSSetState(wireFrameRender);
-
-	D3DXMatrixIdentity(&world);
+	world = transform->GetFinalMatrix();
 	view = CAMERA->GetViewMatrix();
 	projection = CAMERA->GetProjectionMatrix();
-
 	shader->SetParameters(world, view, projection);
 
 	shader->Render();

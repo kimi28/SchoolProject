@@ -16,6 +16,8 @@
     <ClInclude Include="Render\Cube.h" />
     <ClInclude Include="Render\Star.h" />
     <ClInclude Include="System\Util.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\Scene_01.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp" />
@@ -32,6 +34,8 @@
     <ClCompile Include="Render\Cube.cpp" />
     <ClCompile Include="Render\Star.cpp" />
     <ClCompile Include="System\Util.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\Scene_01.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\ColorPixel.hlsl" />

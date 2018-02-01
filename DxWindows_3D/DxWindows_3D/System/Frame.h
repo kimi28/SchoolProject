@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../Manager/SingletonBase.h"
 
 class Frame : public SingletonBase<Frame>
@@ -19,6 +20,10 @@ private:
 	DWORD			m_FrameCount;		//프레임 카운트
 	DWORD			m_FramePerSec;		//초당 프레임
 
+
+
+private:
+
 public:
 
 	Frame(void);
@@ -38,6 +43,8 @@ public:
 
 
 	void DrawShadowText(HDC hdc, int x, int y, char* szText, COLORREF textColor);
+
 };
+
 
 #define FRAME Frame::GetInstance()

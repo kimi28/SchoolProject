@@ -1,7 +1,7 @@
 #pragma once
 #include "../Manager/SingletonBase.h"
 
-class TweakBar : public SingletonBase<TweakBar>
+class TweakBar :public SingletonBase<TweakBar>
 {
 private:
 	bool isDraw;

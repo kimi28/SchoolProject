@@ -2,14 +2,15 @@
 #include "Frame.h"
 #include <stdio.h>
 
+//timeGetTime 을 이용하기위한 헤더와 라이브러리
+#include <MMSystem.h>
+#pragma comment( lib, "winmm.lib" )		//winmm.lib 추가
 
-
-Frame::Frame()
+Frame::Frame(void)
 {
 }
 
-
-Frame::~Frame()
+Frame::~Frame(void)
 {
 }
 
@@ -56,8 +57,9 @@ void Frame::Release(void)
 {
 }
 
+//매업데이트 물려준다.
 void Frame::UpdateTime(float frameLock)
-{	
+{
 	//현제 시간을 얻는다.
 	if (m_bHardWare)
 		QueryPerformanceCounter((LARGE_INTEGER*)&m_nCurTime);
@@ -112,12 +114,4 @@ void Frame::UpdateTime(float frameLock)
 	m_FrameCount++;
 
 
-}
-
-void Frame::DrawTimeInfo(HDC hdc)
-{
-}
-
-void Frame::DrawShadowText(HDC hdc, int x, int y, char * szText, COLORREF textColor)
-{
 }

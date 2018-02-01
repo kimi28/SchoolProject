@@ -1,8 +1,6 @@
 #include "../stdafx.h"
 #include "Util.h"
 
-
-
 namespace Util
 {
 	POINT GetMousePos()
@@ -20,10 +18,10 @@ namespace Util
 		setMousePos.x = x;
 		setMousePos.y = y;
 
+		//clinet상의 위치를 screen영역 범위로 바꾼다.
 		ClientToScreen(g_hWnd, &setMousePos);
 
 		SetCursorPos(setMousePos.x, setMousePos.y);
-
 	}
 
 	float Clamp(float value, float min, float max)
@@ -34,7 +32,6 @@ namespace Util
 			return max;
 
 		return value;
-
 	}
 	float Clamp01(float value)
 	{
@@ -44,5 +41,4 @@ namespace Util
 	{
 		return Clamp(value, -1, 1);
 	}
-
-};
+}

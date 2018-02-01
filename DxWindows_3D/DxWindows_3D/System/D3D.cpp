@@ -131,8 +131,13 @@ void D3D::CreateSwapChain()
 
 }
 
+//depth Buffer 와 stencil Buffer 생성
+//데이터 처리 옵션
+//래스터라이즈 -> 초기화
+//
 void D3D::CreateDepthStencilBuffer()
 {
+
 	HRESULT hr;
 
 	//깊이 버퍼 구조체 초기화
@@ -166,7 +171,7 @@ void D3D::CreateDepthStencilBuffer()
 	depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;	//표면 버퍼 성공 , 깊이 버퍼 실패시 (표면 값 1증가)
 	depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;		//모두 통과
 	depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;		//현 표면버퍼를 기존 버퍼와 비교 (항상 비교)
-																			//표면 법선이 카메라와멀어 을때
+																			//표면 법선이 카메라와멀어 젔을때
 	depthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
@@ -276,6 +281,7 @@ void D3D::BeginScene(float r, float g, float b, float a)
 		1,				   //(depth)다시 초기화 해주는 값
 		0					//Stencil
 	);
+
 }
 
 void D3D::EndScene()

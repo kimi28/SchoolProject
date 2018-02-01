@@ -3,7 +3,8 @@
 #include "ColorShader.h"
 
 
-Model::Model(ColorShader* shader)
+
+Model::Model(ColorShader * shader)
 {
 	CreateVertexBuffer();
 	CreateIndexBuffer();
@@ -34,7 +35,6 @@ Model::Model(ColorShader* shader)
 	this->shader = shader;
 	angle = 0.0f;
 }
-
 
 Model::~Model()
 {
@@ -117,6 +117,7 @@ void Model::Update(float timeDelta)
 
 void Model::Render()
 {
+
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 

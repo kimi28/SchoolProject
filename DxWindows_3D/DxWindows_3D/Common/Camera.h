@@ -1,7 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include "../Manager/SingletonBase.h"
-class Camera : public Transform ,public SingletonBase<Camera>
+class Camera : public Transform, public SingletonBase<Camera>
 {
 protected:
 	float fov;
@@ -11,23 +11,32 @@ protected:
 	D3DXMATRIX view;
 	D3DXMATRIX projection;
 	D3DXMATRIX viewProjection;
-	
-	D3D11_VIEWPORT viewport;
 
+	D3D11_VIEWPORT viewport;
 public:
 	Camera();
 	~Camera();
 
 	void UpdateMatrix();
 
-	D3DXMATRIX GetViewMatrix() const { return this->view; }
-	D3DXMATRIX GetProjectionMatrix() const { return this->projection; }
-	D3DXMATRIX GetViewProjectionMatrix() const { return this->viewProjection; }
+	D3DXMATRIX GetViewMatrix()const {
+		return this->view;
+	}
+	D3DXMATRIX GetProjectionMatrix()const {
+		return this->projection;
+	}
+	D3DXMATRIX GetViewProjectionMatrix()const {
+		return this->viewProjection;
+	}
 
-
-	void SetFov(float fov) { this->fov = fov; }
-	float GetFov() { return this->fov; }
-
+	//화각셋팅
+	void SetFov(float fov) {
+		this->fov = fov;
+	}
+	float GetFov() {
+		return this->fov;
+	}
 };
 
 #define CAMERA Camera::GetInstance()
+

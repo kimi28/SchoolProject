@@ -62,8 +62,14 @@ public:
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(D3DXVECTOR3 pos);
 
-	//부모가 있는 경우 로컬 기준으로 이동 시킨다.
+	//자신의 축을 기준으로 이동
 	void MovePositionLocal(D3DXVECTOR3 delta);
+
+	void SetScale(float x, float y, float z);
+	void SetScale(D3DXVECTOR3 scale);
+
+	void Scaling(float dx, float dy, float dz);
+	void Scaling(D3DXVECTOR3 deltaScale);
 
 	//사원수를 이용한 특정 회전값으로 회전량을 가져라
 	void RotateWorld(float eAngleX, float eAngleY, float eAngleZ);

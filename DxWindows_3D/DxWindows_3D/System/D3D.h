@@ -1,5 +1,5 @@
 #pragma once
-class D3D : public SingletonBase<D3D> 
+class D3D : public SingletonBase<D3D>
 {
 private:
 	void CreateAdapter();
