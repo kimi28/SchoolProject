@@ -115,9 +115,9 @@ void Transform::SetScale(D3DXVECTOR3 scale)
 
 void Transform::Scaling(float dx, float dy, float dz)
 {
-	this->scale.x = dx;
-	this->scale.y = dy;
-	this->scale.z = dz;
+	this->scale.x += dx;
+	this->scale.y += dy;
+	this->scale.z += dz;
 
 	if (this->bAutoUpdate)
 		this->UpdateTransform();
@@ -125,7 +125,7 @@ void Transform::Scaling(float dx, float dy, float dz)
 
 void Transform::Scaling(D3DXVECTOR3 deltaScale)
 {
-	this->scale = deltaScale;
+	this->scale += deltaScale;
 
 	if (this->bAutoUpdate)
 		this->UpdateTransform();
@@ -150,6 +150,18 @@ void Transform::RotateWorld(float eAngleX, float eAngleY, float eAngleZ)
 		&quatRot
 	);
 
+	//부모가 있다면 부모의 상대적인 위치로...
+	if (this->pParent != NULL)
+	{
+		D3DXMATRIX matInvParentFinal;
+		D3DXMatrixInverse(&matInvParentFinal,
+			NULL, &this->pParent->matFinal);
+
+		//부모의 역행렬에 곱
+		matRotate = matRotate * matInvParentFinal;
+	}
+
+
 	//축 리셋
 	this->right = D3DXVECTOR3(1, 0, 0);
 	this->up = D3DXVECTOR3(0, 1, 0);
@@ -173,16 +185,36 @@ void Transform::RotateWorld(float eAngleX, float eAngleY, float eAngleZ)
 
 void Transform::UpdateTransform()
 {
-	D3DXMatrixIdentity(&this->matFinal);
+	D3DXMatrixIdentity(&this->matLocal);
 
 	D3DXVECTOR3 scaledRight = this->right * scale.x;
 	D3DXVECTOR3 scaledUp = this->up * this->scale.y;
 	D3DXVECTOR3 scaledForward = this->forward * this->scale.z;
 
-	memcpy(&this->matFinal._11, &scaledRight, sizeof(D3DXVECTOR3));
-	memcpy(&this->matFinal._21, &scaledUp, sizeof(D3DXVECTOR3));
-	memcpy(&this->matFinal._31, &scaledForward, sizeof(D3DXVECTOR3));
-	memcpy(&this->matFinal._41, &this->position, sizeof(D3DXVECTOR3));
+	memcpy(&this->matLocal._11, &scaledRight, sizeof(D3DXVECTOR3));
+	memcpy(&this->matLocal._21, &scaledUp, sizeof(D3DXVECTOR3));
+	memcpy(&this->matLocal._31, &scaledForward, sizeof(D3DXVECTOR3));
+	memcpy(&this->matLocal._41, &this->position, sizeof(D3DXVECTOR3));
+
+
+	//나의 최종 행렬
+	if (this->pParent == NULL)
+	{
+		this->matFinal = matLocal;
+	}
+	//부모가 있으면 
+	else
+	{
+		this->matFinal = matLocal * this->pParent->matFinal;
+	}
+	//자식 업데이트
+	Transform* pChild = this->pFirstChild;
+
+	while (pChild != NULL)
+	{
+		pChild->UpdateTransform();
+		pChild = pChild->pNextSibling;
+	}
 
 }
 

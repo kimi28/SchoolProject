@@ -1,8 +1,13 @@
 #pragma once
 #include "Scene.h"
 
+class Cube;
+class ColorShader;
 class Scene_01 : public Scene
 {
+	Cube* model[6];
+	ColorShader* colorShader;
+
 public:
 	Scene_01();
 	~Scene_01();

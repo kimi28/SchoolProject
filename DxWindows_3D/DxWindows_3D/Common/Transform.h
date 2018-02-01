@@ -41,6 +41,17 @@ protected:
 	//transform 변화시 자동으로 업데이트가 될꺼냐?
 	bool bAutoUpdate;
 
+	//로컬 행렬 
+	D3DXMATRIX matLocal; //부모를 기준으로 한 상대 행렬 
+						 //부모가 없으면 matFinal이랑 같다
+						 //부모 행렬 (null 이면 부모가 없는애 )
+	Transform* pParent;
+
+	//자식 참조 (null 이면 자식이 없는애)
+	Transform* pFirstChild;
+
+	//형제 참조
+	Transform* pNextSibling;
 public:
 	Transform();
 	~Transform();
@@ -65,9 +76,11 @@ public:
 	//자신의 축을 기준으로 이동
 	void MovePositionLocal(D3DXVECTOR3 delta);
 
+	//스케일 셋팅
 	void SetScale(float x, float y, float z);
 	void SetScale(D3DXVECTOR3 scale);
 
+	//스케일링
 	void Scaling(float dx, float dy, float dz);
 	void Scaling(D3DXVECTOR3 deltaScale);
 

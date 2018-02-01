@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "MainGame.h"
-#include "./Render/Model.h"
-#include "./Render/Cube.h"
-#include "./Render/Star.h"
-#include "./Render/ColorShader.h"
+#include "./Scene/Scene.h"
+#include "./Scene/Scene_01.h"
 
 MainGame::MainGame()
 {
@@ -20,17 +18,8 @@ HRESULT MainGame::Init()
 	FRAME->Init();
 	TWEAKBAR->Init();
 	CAMERA->GetInstance();
-	colorShader = new ColorShader();
-	for (int i = 0; i < 6; i++)
-	{
-		model[i] = new Cube(colorShader);
-	}
-	model[0]->GetTransform()->SetWorldPosition(0, 2, 0);
-	model[1]->GetTransform()->SetWorldPosition(0, 0, 0);
-	model[2]->GetTransform()->SetWorldPosition(-2, 0, 0);
-	model[3]->GetTransform()->SetWorldPosition(2, 0, 0);
-	model[4]->GetTransform()->SetWorldPosition(1.0f, -2, 0);
-	model[5]->GetTransform()->SetWorldPosition(-1.0f, -2, 0);
+	nowScene = new Scene_01;
+	nowScene->Init();
 
 
 	TWEAKBAR->ChangeDraw();
@@ -39,7 +28,8 @@ HRESULT MainGame::Init()
 
 void MainGame::Release()
 {
-	SAFE_DELETE(colorShader);
+	nowScene->Release();
+
 	CAMERA->ReleaseInstance();
 	TWEAKBAR->ReleaseInstance();
 	FRAME->Release();
@@ -56,14 +46,15 @@ void MainGame::Update()
 	double timeDelta = FRAME->GetFrameDeltaSec();
 	CAMERA->DefaultControl(timeDelta);
 	CAMERA->UpdateMatrix();
+
+	nowScene->Update(timeDelta);
 }
 
 void MainGame::Render()
 {
 	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
-	for (int i = 0; i < 6; i++)
-		model[i]->Render();
+	nowScene->Render();
 
 	TWEAKBAR->Render();
 	D3D::GetInstance()->EndScene();

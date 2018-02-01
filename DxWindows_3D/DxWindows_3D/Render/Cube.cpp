@@ -38,28 +38,90 @@ void Cube::CreateVertexBuffer()
 {
 	HRESULT hr;
 
-	vertexCount = 8;
+	vertexCount = 24;
 	Vertex* vertex = new Vertex[vertexCount];
 
-	vertex[0].position = D3DXVECTOR3(-1, 1, -1);
-	vertex[1].position = D3DXVECTOR3(1, 1, -1);
-	vertex[2].position = D3DXVECTOR3(-1, -1, -1);
-	vertex[3].position = D3DXVECTOR3(1, -1, -1);
+	Vertex* quad = new Vertex[4];
+	quad[0].position = D3DXVECTOR3(-0.5f, -0.5f, -0.5f);
+	quad[1].position = D3DXVECTOR3(-0.5f, 0.5f, -0.5f);
+	quad[2].position = D3DXVECTOR3(0.5f, 0.5f, -0.5f);
+	quad[3].position = D3DXVECTOR3(0.5f, -0.5f, -0.5f);
 
-	vertex[4].position = D3DXVECTOR3(-1, 1, 1);
-	vertex[5].position = D3DXVECTOR3(1, 1, 1);
-	vertex[6].position = D3DXVECTOR3(-1, -1, 1);
-	vertex[7].position = D3DXVECTOR3(1, -1, 1);
+	D3DXMATRIX matRot;
+	D3DXMatrixRotationY(&matRot, -90.0f * ONE_RAD);
 
-	D3DXCOLOR color = D3DXCOLOR(1, 1, 1, 1);
-	for (int i = 0; i < 8; i++)
-	{
-		color.r -= 0.1f;
-		color.g -= 0.1f;
-		color.b -= 0.1f;
+	//앞면 복사
+	memcpy(vertex, quad, sizeof(Vertex) * 4);
+	vertex[0].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
+	vertex[1].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
+	vertex[2].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
+	vertex[3].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
 
-		vertex[i].color = color;
-	}
+	//돌릴자 
+	for (int i = 0; i < 4; i++)
+		D3DXVec3TransformCoord(&quad[i].position,
+			&quad[i].position, &matRot);
+
+	//우측면 복사
+	memcpy(vertex + 4, quad, sizeof(Vertex) * 4);
+	vertex[4].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertex[5].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertex[6].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertex[7].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+
+	//돌릴자 
+	for (int i = 0; i < 4; i++)
+		D3DXVec3TransformCoord(&quad[i].position,
+			&quad[i].position, &matRot);
+
+	//뒷면 복사
+	memcpy(vertex + 8, quad, sizeof(Vertex) * 4);
+	vertex[8].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+	vertex[9].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+	vertex[10].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+	vertex[11].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+
+	//돌릴자 
+	for (int i = 0; i < 4; i++)
+		D3DXVec3TransformCoord(&quad[i].position,
+			&quad[i].position, &matRot);
+
+	//왼면 복사
+	memcpy(vertex + 12, quad, sizeof(Vertex) * 4);
+	vertex[12].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
+	vertex[13].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
+	vertex[14].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
+	vertex[15].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
+
+	//윗면으로 가기 위한 z축 회전
+	D3DXMatrixRotationZ(&matRot, -90.0f* ONE_RAD);
+
+	//돌릴자 
+	for (int i = 0; i < 4; i++)
+		D3DXVec3TransformCoord(&quad[i].position,
+			&quad[i].position, &matRot);
+
+	//왼면 복사
+	memcpy(vertex + 16, quad, sizeof(Vertex) * 4);
+	vertex[16].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+	vertex[17].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+	vertex[18].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+	vertex[19].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+
+	//아래면으로 가기 위한 z축 회전
+	D3DXMatrixRotationZ(&matRot, 180.0f* ONE_RAD);
+
+	//돌릴자 
+	for (int i = 0; i < 4; i++)
+		D3DXVec3TransformCoord(&quad[i].position,
+			&quad[i].position, &matRot);
+
+	//왼면 복사
+	memcpy(vertex + 20, quad, sizeof(Vertex) * 4);
+	vertex[20].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
+	vertex[21].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
+	vertex[22].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
+	vertex[23].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -82,53 +144,22 @@ void Cube::CreateIndexBuffer()
 	indexCount = 36;
 	UINT* index = new UINT[indexCount];
 
-	//정면 
-	index[0] = 0;
-	index[1] = 1;
-	index[2] = 2;
-	index[3] = 2;
-	index[4] = 1;
-	index[5] = 3;
+	for (int i = 0; i < 6; i++)
+	{
+		//정점의 스타트 인덱스 
+		UINT vertexIndex = i * 4;
+		//인덱스 배열의 스타트 인덱스
 
-	//우측면 
-	index[6] = 1;
-	index[7] = 5;
-	index[8] = 3;
-	index[9] = 3;
-	index[10] = 5;
-	index[11] = 7;
+		int indicexIndex = i * 6;
 
-	//후면
-	index[12] = 5;
-	index[13] = 4;
-	index[14] = 6;
-	index[15] = 5;
-	index[16] = 6;
-	index[17] = 7;
+		index[indicexIndex + 0] = vertexIndex + 0;
+		index[indicexIndex + 1] = vertexIndex + 1;
+		index[indicexIndex + 2] = vertexIndex + 2;
+		index[indicexIndex + 3] = vertexIndex + 0;
+		index[indicexIndex + 4] = vertexIndex + 2;
+		index[indicexIndex + 5] = vertexIndex + 3;
+	}
 
-	//좌측
-	index[18] = 4;
-	index[19] = 0;
-	index[20] = 6;
-	index[21] = 0;
-	index[22] = 2;
-	index[23] = 6;
-
-	//윗면
-	index[24] = 0;
-	index[25] = 4;
-	index[26] = 5;
-	index[27] = 0;
-	index[28] = 5;
-	index[29] = 1;
-
-	//아래면
-	index[30] = 7;
-	index[31] = 6;
-	index[32] = 2;
-	index[33] = 7;
-	index[34] = 2;
-	index[35] = 3;
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;

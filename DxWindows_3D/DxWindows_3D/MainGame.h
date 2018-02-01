@@ -1,10 +1,9 @@
 #pragma once
-class Cube;
-class ColorShader;
+class Scene;
 class MainGame
 {
-	Cube* model[6];
-	ColorShader* colorShader;
+	Scene* nowScene;
+
 public:
 	MainGame();
 	~MainGame();
