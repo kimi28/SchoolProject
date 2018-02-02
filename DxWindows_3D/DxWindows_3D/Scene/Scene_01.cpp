@@ -54,6 +54,64 @@ void Scene_01::Release()
 
 void Scene_01::Update(float timeDelta)
 {
+	float deltaMove = 3.0f *timeDelta;
+	float deltaAngle = 90.0f * ONE_RAD * timeDelta;
+
+	if (INPUT->GetKey(VK_RBUTTON) == false)
+	{
+		D3DXVECTOR3 axis[3];
+		model[1]->GetTransform()->GetUnitAxies(axis);
+		D3DXVECTOR3 position
+			= model[1]->GetTransform()->GetWorldPosition();
+		if (INPUT->GetKey('D'))
+		{
+			angleY += deltaAngle;
+			for (int i = 0; i < 6; i++)
+				model[i]->GetTransform()->RotateWorld(0, angleY, 0);
+		}
+		model[0]->GetTransform()
+			->SetWorldPosition(position + axis[1] / 2);
+		model[2]->GetTransform()
+			->SetWorldPosition(position - axis[0]);
+		model[3]->GetTransform()
+			->SetWorldPosition(position + axis[0]);
+		model[4]->GetTransform()
+			->SetWorldPosition(position - axis[0] / 2
+				- axis[1]);
+		model[5]->GetTransform()
+			->SetWorldPosition(position + axis[0] / 2
+				- axis[1]);
+
+
+		if (INPUT->GetKey('W'))
+		{
+			model[1]->GetTransform()->
+				MovePositionLocal(
+					D3DXVECTOR3(0, 0, deltaMove));
+			if (turn)
+			{
+				currentAngle = deltaAngle;
+				countAngle += deltaAngle;
+				if (countAngle > maxAngle) turn = false;
+			}
+			else
+			{
+				currentAngle = -deltaAngle;
+				countAngle -= deltaAngle;
+
+				if (countAngle < minAngle) turn = true;
+			}
+			model[2]->GetTransform()->RotateSelf(
+				currentAngle, 0, 0);
+			model[3]->GetTransform()->RotateSelf(
+				-currentAngle, 0, 0);
+			model[4]->GetTransform()->RotateSelf(
+				-currentAngle, 0, 0);
+			model[5]->GetTransform()->RotateSelf(
+				currentAngle, 0, 0);
+		}
+
+	}
 }
 
 void Scene_01::Render()

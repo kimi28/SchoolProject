@@ -18,6 +18,8 @@
     <ClInclude Include="System\Util.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\Scene_01.h" />
+    <ClInclude Include="Render\TextureShader.h" />
+    <ClInclude Include="Scene\Scene_02.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp" />
@@ -36,11 +38,15 @@
     <ClCompile Include="System\Util.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\Scene_01.cpp" />
+    <ClCompile Include="Render\TextureShader.cpp" />
+    <ClCompile Include="Scene\Scene_02.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\ColorPixel.hlsl" />
     <None Include="Shader\ColorVertex.hlsl" />
     <None Include="AntTweakBar.dll" />
+    <None Include="Shader\TexturePixel.hlsl" />
+    <None Include="Shader\TextureVertex.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="AntTweakBar.lib" />

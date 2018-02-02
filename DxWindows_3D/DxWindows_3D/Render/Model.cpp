@@ -1,37 +1,29 @@
 #include "../stdafx.h"
 #include "Model.h"
 #include "ColorShader.h"
+#include "TextureShader.h"
 
 
 
-Model::Model(ColorShader * shader)
+Model::Model(TextureShader * shader)
 {
 	CreateVertexBuffer();
 	CreateIndexBuffer();
 
 	D3DXMatrixIdentity(&world);
-	D3DXMatrixIdentity(&view);
-	D3DXMatrixIdentity(&projection);
-	D3DXMatrixLookAtLH(
-		&view,
-		&D3DXVECTOR3(0, 0, -20),
-		&D3DXVECTOR3(0, 0, 0),
-		&D3DXVECTOR3(0, 1, 0));
-	D3DXMatrixPerspectiveFovLH(
-		&projection,
-		(float)D3DX_PI / 4.0f,
-		WINSIZE_X / WINSIZE_Y,
-		0.1f,
-		1000.0f);
 
-	viewport.Width = WINSIZE_X;
-	viewport.Height = WINSIZE_Y;
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 1.0f;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
-	DEVICECONTEXT->RSSetViewports(1, &viewport);
+	HRESULT hr;
+	hr = D3DX11CreateShaderResourceViewFromFile
+	(
+		DEVICE,
+		L"./Textures/Box.png",
+		NULL,
+		NULL,
+		&texture,
+		NULL
+	);
 
+	
 	this->shader = shader;
 	angle = 0.0f;
 }
@@ -54,10 +46,10 @@ void Model::CreateVertexBuffer()
 	vertex[2].position = D3DXVECTOR3(-1, -1, 0);
 	vertex[3].position = D3DXVECTOR3(1, -1, 0);
 
-	vertex[0].color = D3DXCOLOR(1, 0, 0, 1);
-	vertex[1].color = D3DXCOLOR(0, 1, 0, 1);
-	vertex[2].color = D3DXCOLOR(0, 0, 1, 1);
-	vertex[3].color = D3DXCOLOR(1, 1, 0, 1);
+	vertex[0].uv = D3DXVECTOR2(0,0);
+	vertex[1].uv = D3DXVECTOR2(1,0);
+	vertex[3].uv = D3DXVECTOR2(0,1);
+	vertex[2].uv = D3DXVECTOR2(1,1);
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -127,9 +119,11 @@ void Model::Render()
 		IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	DEVICECONTEXT->IASetPrimitiveTopology
 	(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	view = CAMERA->GetViewMatrix();
+	projection = CAMERA->GetProjectionMatrix();
 
 	shader->SetParameters(world, view, projection);
-
+	DEVICECONTEXT->PSSetShaderResources(0, 1, &texture);
 	shader->Render();
 	DEVICECONTEXT->DrawIndexed(indexCount, 0, 0);
 }

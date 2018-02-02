@@ -2,6 +2,7 @@
 #include "MainGame.h"
 #include "./Scene/Scene.h"
 #include "./Scene/Scene_01.h"
+#include "./Scene/Scene_02.h"
 
 MainGame::MainGame()
 {
@@ -18,7 +19,8 @@ HRESULT MainGame::Init()
 	FRAME->Init();
 	TWEAKBAR->Init();
 	CAMERA->GetInstance();
-	nowScene = new Scene_01;
+
+	nowScene = new Scene_02;
 	nowScene->Init();
 
 

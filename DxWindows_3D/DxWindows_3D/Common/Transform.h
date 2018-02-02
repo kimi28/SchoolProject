@@ -64,6 +64,12 @@ public:
 	//Transform 정보를 초기화
 	void Reset(int resetFlag = -1);
 
+	void AddChild(Transform* pNewChild);
+
+	void AttackTo(Transform* pNewParent);
+
+	void ReleaseParent();
+
 	//위치를 월드 좌표계로 셋팅한다. 
 	void SetWorldPosition(float x, float y, float z);
 	void SetWorldPosition(D3DXVECTOR3 pos);
@@ -84,6 +90,8 @@ public:
 	void Scaling(float dx, float dy, float dz);
 	void Scaling(D3DXVECTOR3 deltaScale);
 
+	void RotateSelf(float angleX, float angleY, float angleZ);
+
 	//사원수를 이용한 특정 회전값으로 회전량을 가져라
 	void RotateWorld(float eAngleX, float eAngleY, float eAngleZ);
 
@@ -95,7 +103,7 @@ public:
 	D3DXVECTOR3 GetWorldPosition() const;
 	D3DXVECTOR3 GetLocalPosition() const;
 
-	void GetUnitAxis(D3DXVECTOR3* pVecArr) const;
+	void GetUnitAxies(D3DXVECTOR3* pVecArr) const;
 
 	void DefaultControl(float timeDelta);
 };

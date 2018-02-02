@@ -3,6 +3,10 @@
 
 Transform::Transform()
 {
+	this->pParent = NULL;
+	this->pFirstChild = NULL;
+	this->pNextSibling = NULL;
+
 	this->bAutoUpdate = true;
 
 	//정보 리셋
@@ -47,9 +51,98 @@ void Transform::Reset(int resetFlag)
 	}
 }
 
+void Transform::AddChild(Transform * pNewChild)
+{
+	if (pNewChild->pParent == this)
+		return;
+
+	pNewChild->ReleaseParent();
+
+	D3DXMATRIX matInvFinal;
+	D3DXMatrixInverse(&matInvFinal, NULL, &this->matFinal);
+
+	for (int i = 0; i < 3; i++)
+	{
+		D3DXVec3TransformNormal(pNewChild->axis + i, pNewChild->axis + i, &matInvFinal);
+	}
+
+	pNewChild->scale.x = D3DXVec3Length(&pNewChild->right);
+	pNewChild->scale.y = D3DXVec3Length(&pNewChild->up);
+	pNewChild->scale.z = D3DXVec3Length(&pNewChild->forward);
+
+	pNewChild->pParent = this;
+
+	Transform* pChild = this->pFirstChild;
+
+	if (pChild == NULL)
+	{
+		this->pFirstChild = pNewChild;
+		pNewChild->pParent = this;
+	}
+	else
+	{
+		while (pChild != NULL)
+		{
+			if (pChild->pNextSibling == NULL)
+			{
+				pChild->pNextSibling = pNewChild;
+				pNewChild->pParent = this;
+				break;
+			}
+			pChild = pChild->pNextSibling;
+		}
+	}
+	this->UpdateTransform();
+}
+
+void Transform::AttackTo(Transform * pNewParent)
+{
+	pNewParent->AddChild(this);
+}
+
+void Transform::ReleaseParent()
+{
+	if (this->pParent == NULL)
+		return;
+
+	Transform* pChild = this->pParent->pFirstChild;
+
+	if (pChild == this)
+	{
+		this->pParent->pFirstChild = this->pNextSibling;
+
+		this->pNextSibling = NULL;
+	}
+	else
+	{
+		while (pChild != NULL)
+		{
+			if (pChild->pNextSibling == this)
+			{
+				pChild->pNextSibling = this->pNextSibling;
+
+				this->pNextSibling = NULL;
+				break;
+			}
+
+			pChild = pChild->pNextSibling;
+		}
+
+		this->pParent = NULL;
+	}
+}
+
 void Transform::SetWorldPosition(float x, float y, float z)
 {
 	D3DXVECTOR3 pos = D3DXVECTOR3(x, y, z);
+
+	if (this->pParent != NULL)
+	{
+		D3DXMATRIX matInvParentFinal;
+		D3DXMatrixInverse(&matInvParentFinal, NULL, &this->pParent->matFinal);
+
+		D3DXVec3TransformCoord(&pos, &pos, &matInvParentFinal);
+	}
 
 	this->position.x = x;
 	this->position.y = y;
@@ -84,7 +177,7 @@ void Transform::MovePositionLocal(D3DXVECTOR3 delta)
 	D3DXVECTOR3 move(0, 0, 0);
 
 	D3DXVECTOR3 moveAxis[3];
-	this->GetUnitAxis(moveAxis);
+	this->GetUnitAxies(moveAxis);
 
 	move += moveAxis[0] * delta.x;
 	move += moveAxis[1] * delta.y;
@@ -126,6 +219,33 @@ void Transform::Scaling(float dx, float dy, float dz)
 void Transform::Scaling(D3DXVECTOR3 deltaScale)
 {
 	this->scale += deltaScale;
+
+	if (this->bAutoUpdate)
+		this->UpdateTransform();
+}
+
+void Transform::RotateSelf(float angleX, float angleY, float angleZ)
+{
+	D3DXMATRIX matRotateX;
+	D3DXMatrixRotationAxis(&matRotateX, &this->right, angleX);
+
+	D3DXMATRIX matRotateY; 
+	D3DXMatrixRotationAxis(&matRotateY, &this->up, angleY);
+
+	D3DXMATRIX matRotateZ;
+	D3DXMatrixRotationAxis(&matRotateZ, &this->forward, angleZ);
+
+	D3DXMATRIX matRotate = matRotateY * matRotateX * matRotateZ;
+
+	for (int i = 0; i < 3; i++)
+	{
+		D3DXVec3TransformNormal
+		(
+			&this->axis[i],
+			&this->axis[i],
+			&matRotate
+		);
+	}
 
 	if (this->bAutoUpdate)
 		this->UpdateTransform();
@@ -235,7 +355,7 @@ D3DXVECTOR3 Transform::GetLocalPosition() const
 	return this->position;
 }
 
-void Transform::GetUnitAxis(D3DXVECTOR3 * pVecArr) const
+void Transform::GetUnitAxies(D3DXVECTOR3 * pVecArr) const
 {
 	for (int i = 0; i < 3; i++)
 	{

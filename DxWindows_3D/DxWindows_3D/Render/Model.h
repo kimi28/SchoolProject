@@ -1,17 +1,18 @@
 #pragma once
 class ColorShader;
+class TextureShader;
 class Model
 {
 private:
 	D3DXMATRIX world, view, projection;
 	D3D11_VIEWPORT viewport;
 
-	ColorShader* shader;
+	TextureShader* shader;
 
 	struct Vertex
 	{
 		D3DXVECTOR3 position;
-		D3DXCOLOR color;
+		D3DXVECTOR2 uv;
 	};
 
 	ID3D11Buffer* vertexBuffer;
@@ -21,8 +22,10 @@ private:
 	UINT indexCount;
 
 	float angle;
+
+	ID3D11ShaderResourceView* texture;
 public:
-	Model(ColorShader* shader);
+	Model(TextureShader* shader);
 	~Model();
 
 	void CreateVertexBuffer();
