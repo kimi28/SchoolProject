@@ -48,8 +48,8 @@ void Model::CreateVertexBuffer()
 
 	vertex[0].uv = D3DXVECTOR2(0,0);
 	vertex[1].uv = D3DXVECTOR2(1,0);
-	vertex[3].uv = D3DXVECTOR2(0,1);
-	vertex[2].uv = D3DXVECTOR2(1,1);
+	vertex[2].uv = D3DXVECTOR2(0,1);
+	vertex[3].uv = D3DXVECTOR2(1,1);
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;

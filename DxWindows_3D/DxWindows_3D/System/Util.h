@@ -20,4 +20,15 @@ namespace Util
 	float Clamp(float value, float min, float max);
 	float Clamp01(float value);
 	float ClampMinusOnePlusOne(float value);
+
+	struct ST_TEXTURE_RANGE
+	{
+		D3DXVECTOR2 vMin;
+		D3DXVECTOR2 vMax;
+
+		ST_TEXTURE_RANGE() :vMin(0, 0), vMax(1, 1) {}
+		ST_TEXTURE_RANGE(D3DXVECTOR2 _vMin, D3DXVECTOR2 _vMax) : vMin(_vMin), vMax(_vMax) {}
+
+
+	};
 }

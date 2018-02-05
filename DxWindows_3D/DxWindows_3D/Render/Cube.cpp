@@ -6,8 +6,8 @@
 
 Cube::Cube(ColorShader * shader)
 {
-	CreateVertexBuffer();
-	CreateIndexBuffer();
+	//CreateVertexBuffer();
+	//CreateIndexBuffer();
 	CreateRenderState();
 
 	this->shader = shader;
@@ -34,7 +34,11 @@ Cube::~Cube()
 	SAFE_RELEASE(wireFrameRender);
 }
 
-void Cube::CreateVertexBuffer()
+void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
+	int widthRaido,
+	int heightRaido,
+	int depthRadio
+)
 {
 	HRESULT hr;
 
@@ -122,6 +126,50 @@ void Cube::CreateVertexBuffer()
 	vertex[21].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
 	vertex[22].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
 	vertex[23].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
+
+	for (int i = 0; i < 24; i++)
+		vertex[i].position.y -= 0.5f;
+
+	float RangeWidth = range.vMax.x - range.vMin.x;
+	float RangeHeight = range.vMax.y - range.vMin.y;
+
+	float TexUnitWidth = 1.0f / 16.0f;
+	float TexUnitHeight = 1.0f / 8.0f;
+
+	float HalfRangeWidth = RangeWidth / 2.0f;
+	
+	enum 
+	{
+		E_BACK,
+		E_RIGHT,
+		E_FORNT,
+		E_LEFT,
+		E_TOP,
+		E_BOTTOM,
+		E_COUNT
+	};
+
+	ST_TEXTURE_RANGE faceRange[E_COUNT];
+
+	//ÃÊ±âÈ­
+	faceRange[E_TOP].vMax = range.vMin;
+	faceRange[E_TOP].vMin = range.vMin;
+
+	faceRange[E_TOP].vMin.x += (HalfRangeWidth - TexUnitWidth * widthRaido);
+	faceRange[E_TOP].vMin.y += 0;
+
+	faceRange[E_TOP].vMax.x += HalfRangeWidth;
+	faceRange[E_TOP].vMax.y += TexUnitHeight * depthRadio;
+
+	faceRange[E_BOTTOM] = faceRange[E_TOP];
+	faceRange[E_BOTTOM].vMin.x += TexUnitWidth * widthRaido;
+	faceRange[E_BOTTOM].vMax.x += TexUnitWidth * widthRaido;
+
+	faceRange[E_RIGHT].vMax = range.vMin;
+	faceRange[E_RIGHT].vMin = range.vMin;
+
+
+
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;

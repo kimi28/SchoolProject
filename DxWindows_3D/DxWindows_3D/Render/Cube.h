@@ -32,7 +32,12 @@ public:
 	Cube(ColorShader* shader);
 	~Cube();
 
-	void CreateVertexBuffer();
+	void CreateVertexBuffer(
+		ST_TEXTURE_RANGE range,
+		int widthRaido = 1,
+		int heightRaido = 1,
+		int depthRadio = 1
+	);
 	void CreateIndexBuffer();
 	void CreateRenderState();
 
