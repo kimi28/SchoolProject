@@ -1,14 +1,15 @@
 #include "../stdafx.h"
 #include "Cube.h"
 #include "ColorShader.h"
+#include "TextureShader.h"
 #include "../Common/Transform.h"
 
 
-Cube::Cube(ColorShader * shader)
+Cube::Cube(TextureShader * shader)
 {
 	//CreateVertexBuffer();
 	//CreateIndexBuffer();
-	CreateRenderState();
+	//CreateRenderState();
 
 	this->shader = shader;
 	angle = D3DXVECTOR3(0, 0, 0);
@@ -20,11 +21,15 @@ Cube::Cube(ColorShader * shader)
 	D3DXMatrixIdentity(&view);
 	D3DXMatrixIdentity(&projection);
 
-
-	TwBar* bar = TWEAKBAR->GetBar();
-	TwAddSeparator(bar, "", "");
-	TwAddVarRW(bar, "position",
-		TW_TYPE_DIR3F, &position, "");
+	HRESULT hr = D3DX11CreateShaderResourceViewFromFile
+	(
+		DEVICE,
+		L"./Textures/KakaoTalk_20161208_150843363.png",
+		NULL,
+		NULL,
+		&texture,
+		NULL
+	);
 }
 
 Cube::~Cube()
@@ -34,11 +39,9 @@ Cube::~Cube()
 	SAFE_RELEASE(wireFrameRender);
 }
 
-void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
-	int widthRaido,
-	int heightRaido,
-	int depthRadio
-)
+void Cube::CreateVertexBuffer(
+	ST_TEXTURE_RANGE stRange, int widthRatio
+	,int heightRatio,int depthRatio)
 {
 	HRESULT hr;
 
@@ -47,20 +50,16 @@ void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
 
 	Vertex* quad = new Vertex[4];
 	quad[0].position = D3DXVECTOR3(-0.5f, -0.5f, -0.5f);
-	quad[1].position = D3DXVECTOR3(-0.5f, 0.5f, -0.5f);
-	quad[2].position = D3DXVECTOR3(0.5f, 0.5f, -0.5f);
-	quad[3].position = D3DXVECTOR3(0.5f, -0.5f, -0.5f);
+	quad[1].position = D3DXVECTOR3(-0.5f,  0.5f, -0.5f);
+	quad[2].position = D3DXVECTOR3( 0.5f,  0.5f, -0.5f);
+	quad[3].position = D3DXVECTOR3( 0.5f, -0.5f, -0.5f);
 
 	D3DXMATRIX matRot;
 	D3DXMatrixRotationY(&matRot, -90.0f * ONE_RAD);
 
 	//앞면 복사
 	memcpy(vertex, quad, sizeof(Vertex) * 4);
-	vertex[0].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
-	vertex[1].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
-	vertex[2].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
-	vertex[3].color = D3DXCOLOR(0.0f, 0.0f, 0.5f, 1.0f);
-
+	
 	//돌릴자 
 	for (int i = 0; i < 4; i++)
 		D3DXVec3TransformCoord(&quad[i].position,
@@ -68,11 +67,7 @@ void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
 
 	//우측면 복사
 	memcpy(vertex + 4, quad, sizeof(Vertex) * 4);
-	vertex[4].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-	vertex[5].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-	vertex[6].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-	vertex[7].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-
+	
 	//돌릴자 
 	for (int i = 0; i < 4; i++)
 		D3DXVec3TransformCoord(&quad[i].position,
@@ -80,11 +75,7 @@ void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
 
 	//뒷면 복사
 	memcpy(vertex + 8, quad, sizeof(Vertex) * 4);
-	vertex[8].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
-	vertex[9].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
-	vertex[10].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
-	vertex[11].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
-
+	
 	//돌릴자 
 	for (int i = 0; i < 4; i++)
 		D3DXVec3TransformCoord(&quad[i].position,
@@ -92,11 +83,7 @@ void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
 
 	//왼면 복사
 	memcpy(vertex + 12, quad, sizeof(Vertex) * 4);
-	vertex[12].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
-	vertex[13].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
-	vertex[14].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
-	vertex[15].color = D3DXCOLOR(0.5f, 0.0f, 0.0f, 1.0f);
-
+	
 	//윗면으로 가기 위한 z축 회전
 	D3DXMatrixRotationZ(&matRot, -90.0f* ONE_RAD);
 
@@ -107,11 +94,7 @@ void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
 
 	//왼면 복사
 	memcpy(vertex + 16, quad, sizeof(Vertex) * 4);
-	vertex[16].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
-	vertex[17].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
-	vertex[18].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
-	vertex[19].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
-
+	
 	//아래면으로 가기 위한 z축 회전
 	D3DXMatrixRotationZ(&matRot, 180.0f* ONE_RAD);
 
@@ -122,54 +105,78 @@ void Cube::CreateVertexBuffer(ST_TEXTURE_RANGE range,
 
 	//왼면 복사
 	memcpy(vertex + 20, quad, sizeof(Vertex) * 4);
-	vertex[20].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
-	vertex[21].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
-	vertex[22].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
-	vertex[23].color = D3DXCOLOR(0.0f, 0.5f, 0.0f, 1.0f);
-
-	for (int i = 0; i < 24; i++)
-		vertex[i].position.y -= 0.5f;
-
-	float RangeWidth = range.vMax.x - range.vMin.x;
-	float RangeHeight = range.vMax.y - range.vMin.y;
-
-	float TexUnitWidth = 1.0f / 16.0f;
-	float TexUnitHeight = 1.0f / 8.0f;
-
-	float HalfRangeWidth = RangeWidth / 2.0f;
 	
-	enum 
+	enum
 	{
 		E_BACK,
 		E_RIGHT,
-		E_FORNT,
+		E_FRONT,
 		E_LEFT,
 		E_TOP,
 		E_BOTTOM,
 		E_COUNT
 	};
 
-	ST_TEXTURE_RANGE faceRange[E_COUNT];
+	// int nWidthRatio /*= 1*/ 
 
-	//초기화
-	faceRange[E_TOP].vMax = range.vMin;
-	faceRange[E_TOP].vMin = range.vMin;
+	float fRangeWidth = stRange.vMax.x - stRange.vMin.x;
+	float fRangeHeight = stRange.vMax.y - stRange.vMin.y;
 
-	faceRange[E_TOP].vMin.x += (HalfRangeWidth - TexUnitWidth * widthRaido);
-	faceRange[E_TOP].vMin.y += 0;
+	float fTexUnitWidth = 1.0f / 16.0f;
+	float fTexUnitHeight = 1.0f / 8.0f;
 
-	faceRange[E_TOP].vMax.x += HalfRangeWidth;
-	faceRange[E_TOP].vMax.y += TexUnitHeight * depthRadio;
+	float fHalfRangeWidth = fRangeWidth / 2.0f;
 
-	faceRange[E_BOTTOM] = faceRange[E_TOP];
-	faceRange[E_BOTTOM].vMin.x += TexUnitWidth * widthRaido;
-	faceRange[E_BOTTOM].vMax.x += TexUnitWidth * widthRaido;
-
-	faceRange[E_RIGHT].vMax = range.vMin;
-	faceRange[E_RIGHT].vMin = range.vMin;
+	ST_TEXTURE_RANGE stFaceRange[E_COUNT];
 
 
+	// 초기화
+	stFaceRange[E_TOP].vMin = stRange.vMin;
+	stFaceRange[E_TOP].vMax = stRange.vMin;
 
+	// 누적 가산
+	stFaceRange[E_TOP].vMin.x += (fHalfRangeWidth - fTexUnitWidth  * widthRatio);
+	stFaceRange[E_TOP].vMin.y += 0;
+	stFaceRange[E_TOP].vMax.x += fHalfRangeWidth;
+	stFaceRange[E_TOP].vMax.y += (fTexUnitHeight * depthRatio);
+
+	stFaceRange[E_BOTTOM] = stFaceRange[E_TOP];
+	stFaceRange[E_BOTTOM].vMin.x += (fTexUnitWidth  * widthRatio);
+	stFaceRange[E_BOTTOM].vMax.x += (fTexUnitWidth  * widthRatio);
+
+	// 초기화
+	stFaceRange[E_RIGHT].vMin = stRange.vMin;
+	stFaceRange[E_RIGHT].vMax = stRange.vMin;
+
+	// 누적 가산
+	stFaceRange[E_RIGHT].vMin.x += 0;
+	stFaceRange[E_RIGHT].vMin.y += (fTexUnitHeight * depthRatio);
+	stFaceRange[E_RIGHT].vMax.x += (fTexUnitWidth * depthRatio);
+	stFaceRange[E_RIGHT].vMax.y += fRangeHeight;
+
+	stFaceRange[E_FRONT] = stFaceRange[E_RIGHT];
+	stFaceRange[E_FRONT].vMin.x += (fTexUnitWidth * depthRatio);
+	stFaceRange[E_FRONT].vMax.x += (fTexUnitWidth  *widthRatio);
+
+	stFaceRange[E_LEFT] = stFaceRange[E_FRONT];
+	stFaceRange[E_LEFT].vMin.x += (fTexUnitWidth  * widthRatio);
+	stFaceRange[E_LEFT].vMax.x += (fTexUnitWidth * depthRatio);
+
+	stFaceRange[E_BACK] = stFaceRange[E_LEFT];
+	stFaceRange[E_BACK].vMin.x += (fTexUnitWidth * depthRatio);
+	stFaceRange[E_BACK].vMax.x += (fTexUnitWidth  * widthRatio);
+
+	for (int i = 0; i < E_COUNT; i++)
+	{
+		vertex[i * 4 + 0].uv = D3DXVECTOR2(stFaceRange[i].vMin.x, stFaceRange[i].vMax.y);
+		vertex[i * 4 + 1].uv = D3DXVECTOR2(stFaceRange[i].vMin.x, stFaceRange[i].vMin.y);
+		vertex[i * 4 + 2].uv = D3DXVECTOR2(stFaceRange[i].vMax.x, stFaceRange[i].vMin.y);
+		vertex[i * 4 + 3].uv = D3DXVECTOR2(stFaceRange[i].vMax.x, stFaceRange[i].vMax.y);
+
+	}
+
+	for (int i = 0; i < 24; i++)
+		vertex[i].position.y -= 0.5f;
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -191,7 +198,7 @@ void Cube::CreateIndexBuffer()
 
 	indexCount = 36;
 	UINT* index = new UINT[indexCount];
-
+	
 	for (int i = 0; i < 6; i++)
 	{
 		//정점의 스타트 인덱스 
@@ -207,7 +214,7 @@ void Cube::CreateIndexBuffer()
 		index[indicexIndex + 4] = vertexIndex + 2;
 		index[indicexIndex + 5] = vertexIndex + 3;
 	}
-
+	
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -259,6 +266,7 @@ void Cube::Render()
 	view = CAMERA->GetViewMatrix();
 	projection = CAMERA->GetProjectionMatrix();
 	shader->SetParameters(world, view, projection);
+	DEVICECONTEXT->PSSetShaderResources(0, 1, &texture);
 
 	shader->Render();
 	DEVICECONTEXT->DrawIndexed(indexCount, 0, 0);

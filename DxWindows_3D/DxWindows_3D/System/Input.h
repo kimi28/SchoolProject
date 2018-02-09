@@ -13,15 +13,15 @@ private:
 private:
 
 public:
-	Input(void);
-	~Input(void);
+	Input( void );
+	~Input( void );
 
-	HRESULT Init(void);
-	void Release(void);
+	HRESULT Init( void );
+	void Release( void );
 
-	bool GetKey(int nVKey);
-	bool GetKeyDown(int nVKey);
-	bool GetKeyUp(int nVKey);
+	bool GetKey( int nVKey );
+	bool GetKeyDown( int nVKey );
+	bool GetKeyUp( int nVKey );
 };
 
 #define INPUT Input::GetInstance()

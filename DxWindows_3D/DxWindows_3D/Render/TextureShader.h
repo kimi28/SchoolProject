@@ -14,8 +14,6 @@ private:
 	ID3D11InputLayout* layout;
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* samplerState;
-
-
 public:
 	TextureShader();
 	~TextureShader();

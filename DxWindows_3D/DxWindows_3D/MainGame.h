@@ -1,15 +1,17 @@
 #pragma once
+
 class Scene;
+
 class MainGame
 {
-	Scene* nowScene;
+	Scene*		nowScene;
 
 public:
 	MainGame();
 	~MainGame();
 
 	HRESULT Init();
-	void Release();
+	void Realese();
 	void Update();
 	void Render();
 

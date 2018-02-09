@@ -5,8 +5,7 @@
 #include "../Render/Cube.h"
 #include "../Render/Star.h"
 #include "../Render/ColorShader.h"
-
-
+#include "../Render/TextureShader.h"
 
 Scene_01::Scene_01()
 {
@@ -19,10 +18,39 @@ Scene_01::~Scene_01()
 
 void Scene_01::Init()
 {
-	colorShader = new ColorShader();
+
+	colorShader = new TextureShader();
 	for (int i = 0; i < 6; i++)
 	{
 		model[i] = new Cube(colorShader);
+	}
+	ST_TEXTURE_RANGE stRange;
+
+	// 머리
+	stRange.vMin = D3DXVECTOR2(0.0f, 0.0f);
+	stRange.vMax = D3DXVECTOR2(0.5f, 0.5f);
+	model[0]->CreateVertexBuffer(stRange, 2, 2, 2);
+
+	// 몸통
+	stRange.vMin = D3DXVECTOR2(4.0f / 16.0f, 0.5f);
+	stRange.vMax = D3DXVECTOR2(10.0f / 16.0f, 1.0f);
+
+	model[1]->CreateVertexBuffer(stRange, 2, 3, 1);
+
+	stRange.vMin = D3DXVECTOR2(10.0f / 16.0f, 0.5f);
+	stRange.vMax = D3DXVECTOR2(14.0f / 16.0f, 1.0f);
+	model[2]->CreateVertexBuffer(stRange, 1, 3, 1);
+	model[3]->CreateVertexBuffer(stRange, 1, 3, 1);
+
+	// 오른다리
+	stRange.vMin = D3DXVECTOR2(0.0f, 0.5f);
+	stRange.vMax = D3DXVECTOR2(0.25f, 1.0f);
+	model[4]->CreateVertexBuffer(stRange, 1, 3, 1);
+	model[5]->CreateVertexBuffer(stRange, 1, 3, 1);
+
+	for (int i = 0; i < 6; i++)
+	{
+		model[i]->CreateIndexBuffer();
 	}
 
 	//머리
@@ -44,6 +72,12 @@ void Scene_01::Init()
 
 	model[5]->GetTransform()->SetWorldPosition(-0.5f, -2.0f, 0);
 	model[5]->GetTransform()->SetScale(0.5f, 1.0f, 0.5f);
+
+	currentAngle = 0.0f;
+	countAngle = 0.0f;
+	maxAngle = 35.0f*ONE_RAD;
+	minAngle = -35.0f*ONE_RAD;
+	turn = false;
 
 }
 
@@ -76,18 +110,18 @@ void Scene_01::Update(float timeDelta)
 		model[3]->GetTransform()
 			->SetWorldPosition(position + axis[0]);
 		model[4]->GetTransform()
-			->SetWorldPosition(position - axis[0] / 2
-				- axis[1]);
+			->SetWorldPosition(position - axis[0]/2
+			-axis[1]);
 		model[5]->GetTransform()
-			->SetWorldPosition(position + axis[0] / 2
-				- axis[1]);
+			->SetWorldPosition(position + axis[0]/2
+			-axis[1]);
 
 
 		if (INPUT->GetKey('W'))
 		{
 			model[1]->GetTransform()->
 				MovePositionLocal(
-					D3DXVECTOR3(0, 0, deltaMove));
+					D3DXVECTOR3(0,0,deltaMove));
 			if (turn)
 			{
 				currentAngle = deltaAngle;
@@ -110,7 +144,7 @@ void Scene_01::Update(float timeDelta)
 			model[5]->GetTransform()->RotateSelf(
 				currentAngle, 0, 0);
 		}
-
+		
 	}
 }
 

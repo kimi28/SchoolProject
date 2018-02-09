@@ -6,20 +6,20 @@
 #include <MMSystem.h>
 #pragma comment( lib, "winmm.lib" )		//winmm.lib 추가
 
-Frame::Frame(void)
+Frame::Frame( void )
 {
 }
 
-Frame::~Frame(void)
+Frame::~Frame( void )
 {
 }
 
-HRESULT Frame::Init(void)
+HRESULT Frame::Init( void )
 {
 	//고성능 타이머 지원 여부
 	//QueryPerformanceFrequency 함수로 초당 카운트 가능한 값을 얻는다.
 	//고성능 타이머 지원 된다면 TRUE 안된다면 FALSE
-	if (QueryPerformanceFrequency((LARGE_INTEGER*)&m_nPreriodTime))
+	if ( QueryPerformanceFrequency( (LARGE_INTEGER*) &m_nPreriodTime ) )
 	{
 		//고성능 타이머를 지원한다면...
 		m_bHardWare = true;
@@ -28,7 +28,7 @@ HRESULT Frame::Init(void)
 		m_TimeScaleSec = 1.0 / m_nPreriodTime;
 
 		//초기화 시점의 시간을 LastTime 으로...
-		QueryPerformanceCounter((LARGE_INTEGER*)&m_nLastTime);
+		QueryPerformanceCounter( (LARGE_INTEGER*) &m_nLastTime );
 	}
 
 	else
@@ -53,16 +53,16 @@ HRESULT Frame::Init(void)
 	return S_OK;
 }
 
-void Frame::Release(void)
+void Frame::Release( void )
 {
 }
 
 //매업데이트 물려준다.
-void Frame::UpdateTime(float frameLock)
+void Frame::UpdateTime( float frameLock )
 {
 	//현제 시간을 얻는다.
-	if (m_bHardWare)
-		QueryPerformanceCounter((LARGE_INTEGER*)&m_nCurTime);
+	if ( m_bHardWare )
+		QueryPerformanceCounter( (LARGE_INTEGER*) &m_nCurTime );
 	else
 		m_nCurTime = timeGetTime();
 
@@ -74,16 +74,16 @@ void Frame::UpdateTime(float frameLock)
 	m_FrameDeltaSec = m_nDeltaTime * m_TimeScaleSec;
 
 	//프레임 락이 존해한다면...( 프레임 스키핑 )
-	if (frameLock > 0.0f) {
+	if ( frameLock > 0.0f ) {
 
 		//고여있을 시간.
-		float fLockTime = (1.0f / frameLock);
+		float fLockTime = ( 1.0f / frameLock );
 
-		while (m_FrameDeltaSec < fLockTime)
+		while ( m_FrameDeltaSec < fLockTime )
 		{
 			//현제 시간을 얻는다.
-			if (m_bHardWare)
-				QueryPerformanceCounter((LARGE_INTEGER*)&m_nCurTime);
+			if ( m_bHardWare )
+				QueryPerformanceCounter( (LARGE_INTEGER*) &m_nCurTime );
 			else
 				m_nCurTime = timeGetTime();
 
@@ -106,7 +106,7 @@ void Frame::UpdateTime(float frameLock)
 	m_FrameCountSec += m_FrameDeltaSec;
 
 	//1초가 지났다면....
-	if (m_FrameCountSec >= 1.0) {
+	if ( m_FrameCountSec >= 1.0 ) {
 		m_FramePerSec = m_FrameCount;
 		m_FrameCount = 0;
 		m_FrameCountSec -= 1.0;

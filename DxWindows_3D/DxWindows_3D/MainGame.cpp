@@ -3,7 +3,6 @@
 #include "./Scene/Scene.h"
 #include "./Scene/Scene_01.h"
 #include "./Scene/Scene_02.h"
-
 MainGame::MainGame()
 {
 }
@@ -20,16 +19,18 @@ HRESULT MainGame::Init()
 	TWEAKBAR->Init();
 	CAMERA->GetInstance();
 
-	nowScene = new Scene_02;
+	nowScene = new Scene_01;
 	nowScene->Init();
+
 
 
 	TWEAKBAR->ChangeDraw();
 	return S_OK;
 }
 
-void MainGame::Release()
+void MainGame::Realese()
 {
+
 	nowScene->Release();
 
 	CAMERA->ReleaseInstance();
@@ -54,10 +55,10 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+	D3D::GetInstance()->BeginScene(0.5f,0.5f,0.5f,1.0f);
+
 
 	nowScene->Render();
-
 	TWEAKBAR->Render();
 	D3D::GetInstance()->EndScene();
 }

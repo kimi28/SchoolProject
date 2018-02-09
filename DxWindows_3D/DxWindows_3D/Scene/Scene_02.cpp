@@ -4,7 +4,6 @@
 #include "../Render/Model.h"
 
 
-
 Scene_02::Scene_02()
 {
 }

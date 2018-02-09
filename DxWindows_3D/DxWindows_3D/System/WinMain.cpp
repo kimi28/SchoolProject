@@ -40,7 +40,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		hInstance,
 		NULL
 	);
-
+	
 	RECT rcClient = { 0,0,WINSIZE_X,WINSIZE_Y };
 
 	AdjustWindowRect(&rcClient, WIN_STYLE, FALSE);
@@ -76,7 +76,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		g_mainGame.Render();
 	}
 
-	g_mainGame.Release();
+	g_mainGame.Realese();
 
 	//등록되어있는 윈도우 해제인데.......(안해도 상관은 없다)
 	UnregisterClass(WIN_CLASS, hInstance);

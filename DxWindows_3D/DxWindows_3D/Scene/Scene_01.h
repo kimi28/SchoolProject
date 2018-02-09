@@ -3,10 +3,12 @@
 
 class Cube;
 class ColorShader;
+class TextureShader;
 class Scene_01 : public Scene
 {
+private:
 	Cube* model[6];
-	ColorShader* colorShader;
+	TextureShader* colorShader;
 
 	float maxAngle;
 	float minAngle;
@@ -15,7 +17,6 @@ class Scene_01 : public Scene
 	bool turn;
 
 	float angleY = 0.0f;
-
 public:
 	Scene_01();
 	~Scene_01();

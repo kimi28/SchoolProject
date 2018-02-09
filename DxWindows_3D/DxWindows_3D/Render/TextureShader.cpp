@@ -138,12 +138,8 @@ TextureShader::TextureShader()
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 	hr = DEVICE->CreateSamplerState
-	(
-		&samplerDesc, &samplerState
-	);
-
+	(&samplerDesc, &samplerState);
 	assert(SUCCEEDED(hr));
-	
 }
 
 
@@ -166,7 +162,7 @@ void TextureShader::SetParameters(D3DXMATRIX world, D3DXMATRIX view, D3DXMATRIX 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	hr = DEVICECONTEXT->Map
 	(
-		matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource
+		matrixBuffer, 0,D3D11_MAP_WRITE_DISCARD,0,&mappedResource
 	);
 	assert(SUCCEEDED(hr));
 	MatrixBuffer* buffer = (MatrixBuffer*)mappedResource.pData;

@@ -26,23 +26,23 @@ private:
 
 public:
 
-	Frame(void);
-	~Frame(void);
+	Frame( void );
+	~Frame( void );
 
-	HRESULT Init(void);
-	void Release(void);
+	HRESULT Init( void );
+	void Release( void );
 
 	//매업데이트 물려준다.
-	void UpdateTime(float frameLock = 0.0f);
+	void UpdateTime( float frameLock = 0.0f );
 
 	//타임정보를 출력한다
-	void DrawTimeInfo(HDC hdc);
+	void DrawTimeInfo( HDC hdc );
 
 	//프레임간의 지난 초시간을 얻는다.
-	double GetFrameDeltaSec(void) { return m_FrameDeltaSec; }
+	double GetFrameDeltaSec( void ) { return m_FrameDeltaSec; }
 
 
-	void DrawShadowText(HDC hdc, int x, int y, char* szText, COLORREF textColor);
+	void DrawShadowText( HDC hdc, int x, int y, char* szText, COLORREF textColor );
 
 };
 

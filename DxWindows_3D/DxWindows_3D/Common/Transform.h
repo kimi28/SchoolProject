@@ -44,7 +44,7 @@ protected:
 	//로컬 행렬 
 	D3DXMATRIX matLocal; //부모를 기준으로 한 상대 행렬 
 						 //부모가 없으면 matFinal이랑 같다
-						 //부모 행렬 (null 이면 부모가 없는애 )
+	//부모 행렬 (null 이면 부모가 없는애 )
 	Transform* pParent;
 
 	//자식 참조 (null 이면 자식이 없는애)
@@ -64,47 +64,52 @@ public:
 	//Transform 정보를 초기화
 	void Reset(int resetFlag = -1);
 
+	//특정 child를 내자식으로 붙인다.
 	void AddChild(Transform* pNewChild);
 
-	void AttackTo(Transform* pNewParent);
+	//특정 Transform에 붙는다.
+	void AttachTo(Transform* pNewParent);
 
+	//부모와 안녕~~
 	void ReleaseParent();
 
-	//위치를 월드 좌표계로 셋팅한다. 
+	//위치를 월드 좌표계로 셋팅한다.
 	void SetWorldPosition(float x, float y, float z);
 	void SetWorldPosition(D3DXVECTOR3 pos);
 
-
-	//위치를 로컬 좌표계로 셋팅한다.  ( 부모가 있는 경우 무모의 상태적인 위치 )
+	//위치를 로컬 좌표계로 셋팅한다. 
+	//부모가 있는 경우 부모의 상대적인 위치로...
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(D3DXVECTOR3 pos);
 
 	//자신의 축을 기준으로 이동
 	void MovePositionLocal(D3DXVECTOR3 delta);
 
-	//스케일 셋팅
+	//스케일 셋팅(
 	void SetScale(float x, float y, float z);
 	void SetScale(D3DXVECTOR3 scale);
-
-	//스케일링
+	//스케일링(
 	void Scaling(float dx, float dy, float dz);
 	void Scaling(D3DXVECTOR3 deltaScale);
 
 	void RotateSelf(float angleX, float angleY, float angleZ);
 
-	//사원수를 이용한 특정 회전값으로 회전량을 가져라
+	//사원수를 이용한 특정 회전값으로 회전량을 가져라.
 	void RotateWorld(float eAngleX, float eAngleY, float eAngleZ);
 
-	//Trnasform을 업데이트 한다.
+	//TransForm을 업데이트 한다.
 	void UpdateTransform();
-
-	D3DXMATRIX GetFinalMatrix();
-
+	//최종 행렬을 얻는다.
+	D3DMATRIX GetFinalMatrix();
+	
+	//위치값을 얻는다.
 	D3DXVECTOR3 GetWorldPosition() const;
 	D3DXVECTOR3 GetLocalPosition() const;
 
+	//축을 얻는다(월드 기준)
 	void GetUnitAxies(D3DXVECTOR3* pVecArr) const;
 
+	//움직이자 
 	void DefaultControl(float timeDelta);
 };
 

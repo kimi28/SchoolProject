@@ -1,19 +1,20 @@
 #pragma once
 class Transform;
 class ColorShader;
+class TextureShader;
 class Cube
 {
 private:
 	D3DXMATRIX world, view, projection;
-
+	
 	Transform* transform;
 
-	ColorShader* shader;
+	TextureShader* shader;
 
 	struct Vertex
 	{
 		D3DXVECTOR3 position;
-		D3DXCOLOR color;
+		D3DXVECTOR2 uv;
 	};
 
 	ID3D11Buffer* vertexBuffer;
@@ -27,17 +28,17 @@ private:
 
 	ID3D11RasterizerState* wireFrameRender;
 
+	ID3D11ShaderResourceView* texture;
 
 public:
-	Cube(ColorShader* shader);
+	Cube(TextureShader* shader);
 	~Cube();
 
 	void CreateVertexBuffer(
-		ST_TEXTURE_RANGE range,
-		int widthRaido = 1,
-		int heightRaido = 1,
-		int depthRadio = 1
-	);
+		ST_TEXTURE_RANGE stRagne,
+		int widthRatio = 1,
+		int heightRatio = 1,
+		int depthRatio = 1);
 	void CreateIndexBuffer();
 	void CreateRenderState();
 

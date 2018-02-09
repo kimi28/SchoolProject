@@ -1,4 +1,4 @@
-ï»¿#include "../stdafx.h"
+#include "../stdafx.h"
 #include "D3D.h"
 
 
@@ -18,7 +18,7 @@ void D3D::CreateAdapter()
 	hr = adapter->EnumOutputs(0, &adapterOutput);
 	assert(SUCCEEDED(hr));
 
-	//ë””ìŠ¤í”Œë ˆì´ (ëª¨ë‹ˆí„°) ì •ë³´ ì¶œë ¥ì„ ìœ„í•´ì„œ
+	//µğ½ºÇÃ·¹ÀÌ (¸ğ´ÏÅÍ) Á¤º¸ Ãâ·ÂÀ» À§ÇØ¼­
 	UINT modeCount;
 	hr = adapterOutput->GetDisplayModeList
 	(
@@ -72,14 +72,14 @@ void D3D::CreateSwapChain()
 	swapChainDesc.BufferDesc.Height = WINSIZE_Y;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
-	//(UNSPECIFIED) íŠ¹ì • ì˜µì…˜ì´ ì§€ì •ë˜ì§€ ì•Šì•˜ë‹¤.
+	//(UNSPECIFIED) Æ¯Á¤ ¿É¼ÇÀÌ ÁöÁ¤µÇÁö ¾Ê¾Ò´Ù.
 	//
 	swapChainDesc.BufferDesc.ScanlineOrdering =
 		DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	swapChainDesc.BufferDesc.Scaling =
 		DXGI_MODE_SCALING_UNSPECIFIED;
 
-	if (isVsync) //ìˆ˜ì§ë™ê¸°í™”
+	if (isVsync) //¼öÁ÷µ¿±âÈ­
 	{
 		swapChainDesc.BufferDesc.RefreshRate.Numerator = numerator;
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = denominator;
@@ -89,7 +89,7 @@ void D3D::CreateSwapChain()
 		swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	}
-	//í›„ë©´ë²„í¼ì— ëœë”ë§ì„ í•˜ì
+	//ÈÄ¸é¹öÆÛ¿¡ ·£´õ¸µÀ» ÇÏÀÚ
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.OutputWindow = g_hWnd;
 	//count 1 -> Quality;
@@ -97,13 +97,13 @@ void D3D::CreateSwapChain()
 	swapChainDesc.SampleDesc.Quality = 0;
 	swapChainDesc.Windowed = true;
 	swapChainDesc.SwapEffect =
-		DXGI_SWAP_EFFECT_DISCARD; //ì¥ë©´ ì „í™˜ ë ë•Œ ë§ˆë‹¤ ì´ì „ ë‚´ìš©ì„ ëª¨ë‘ ì‚­ì œ
-	swapChainDesc.Flags = 0;  //ê¸°íƒ€ ì˜µì…˜ 
+		DXGI_SWAP_EFFECT_DISCARD; //Àå¸é ÀüÈ¯ µÉ¶§ ¸¶´Ù ÀÌÀü ³»¿ëÀ» ¸ğµÎ »èÁ¦
+	swapChainDesc.Flags = 0;  //±âÅ¸ ¿É¼Ç 
 
 	hr = D3D11CreateDeviceAndSwapChain
 	(
-		NULL, //ì¥ì¹˜ ì„¤ì •
-		D3D_DRIVER_TYPE_HARDWARE, //ë””ë°”ì´ìŠ¤ íƒ€ì…
+		NULL, //ÀåÄ¡ ¼³Á¤
+		D3D_DRIVER_TYPE_HARDWARE, //µğ¹ÙÀÌ½º Å¸ÀÔ
 		NULL,
 		0,
 		&version,
@@ -116,13 +116,13 @@ void D3D::CreateSwapChain()
 		&deviceContext
 	);
 	assert(SUCCEEDED(hr));
-	//ë°±ë²„í¼ í¬ì¸í„°
+	//¹é¹öÆÛ Æ÷ÀÎÅÍ
 
 	ID3D11Texture2D* backBufferPointer;
 	hr = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)&backBufferPointer);
 	assert(SUCCEEDED(hr));
 
-	//ë°±ë²„í¼ í¬ì¸í„°ë¥¼ ì´ìš©í•˜ì—¬ ëœë” íƒ€ê²Ÿ ë·° ìƒì„±
+	//¹é¹öÆÛ Æ÷ÀÎÅÍ¸¦ ÀÌ¿ëÇÏ¿© ·£´õ Å¸°Ù ºä »ı¼º
 	hr = device->CreateRenderTargetView(
 		backBufferPointer, NULL, &renderTargetView);
 	assert(SUCCEEDED(hr));
@@ -131,16 +131,16 @@ void D3D::CreateSwapChain()
 
 }
 
-//depth Buffer ì™€ stencil Buffer ìƒì„±
-//ë°ì´í„° ì²˜ë¦¬ ì˜µì…˜
-//ë˜ìŠ¤í„°ë¼ì´ì¦ˆ -> ì´ˆê¸°í™”
+//depth Buffer ¿Í stencil Buffer »ı¼º
+//µ¥ÀÌÅÍ Ã³¸® ¿É¼Ç
+//·¡½ºÅÍ¶óÀÌÁî -> ÃÊ±âÈ­
 //
 void D3D::CreateDepthStencilBuffer()
 {
 
 	HRESULT hr;
 
-	//ê¹Šì´ ë²„í¼ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
+	//±íÀÌ ¹öÆÛ ±¸Á¶Ã¼ ÃÊ±âÈ­
 	D3D11_TEXTURE2D_DESC depthBufferDesc = { 0 };
 	depthBufferDesc.Width = WINSIZE_X;
 	depthBufferDesc.Height = WINSIZE_Y;
@@ -157,21 +157,21 @@ void D3D::CreateDepthStencilBuffer()
 	hr = device->CreateTexture2D(&depthBufferDesc, NULL, &depthStencilBuffer);
 	assert(SUCCEEDED(hr));
 
-	//ìŠ¤íƒ ì‹¤ ìƒíƒœ ì´ˆê¸°í™” 
+	//½ºÅÄ½Ç »óÅÂ ÃÊ±âÈ­ 
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc = { 0 };
-	depthStencilDesc.DepthEnable = true;									//ê¹Šì´ë²„í¼ í™œì„±í™” ì—¬ë¶€
-	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;			//ê¹Šì´ë²„í¼ ì“°ê¸° í™œì„±í™”
-	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;						//ê¹Šì´ í…Œì´í„° ì™€ ê¸°ì¡´ ë°ì´í„° ë¹„êµ(ì›ë³¸ ë°ì´í„°ê°€ ëŒ€ìƒ ë°ì´í„°ë³´ë‹¤ ì‘ìœ¼ë©´ í†µê³¼) 
+	depthStencilDesc.DepthEnable = true;									//±íÀÌ¹öÆÛ È°¼ºÈ­ ¿©ºÎ
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;			//±íÀÌ¹öÆÛ ¾²±â È°¼ºÈ­
+	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;						//±íÀÌ Å×ÀÌÅÍ ¿Í ±âÁ¸ µ¥ÀÌÅÍ ºñ±³(¿øº» µ¥ÀÌÅÍ°¡ ´ë»ó µ¥ÀÌÅÍº¸´Ù ÀÛÀ¸¸é Åë°ú) 
 
-	depthStencilDesc.StencilEnable = true;									//í‘œë©´ ë²„í¼ ì—¬ë¶€
-	depthStencilDesc.StencilReadMask = 0xFF;								//ì½ëŠ”ë° í•„ìš”í•œ ì¼ë¶€ ì‹ë³„
-	depthStencilDesc.StencilWriteMask = 0xFF;								//ì“°ëŠ”ë° í•„ìš”í•œ ì¼ë¶€ ì‹ë³„
-																			//í‘œë©´ ë²•ì„ ì´ ì¹´ë©”ë¼ë¥¼ í–¥í•˜ê³  ìˆì„ë•Œ ê°ë²„í¼ì˜ í…ŒìŠ¤íŠ¸ ê²°ê³¼ 
-	depthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;		//í‘œë©´ ë²„í¼ ì‹¤íŒ¨ì‹œ	 (ê¸°ì¡´ ìŠ¤íƒ ì‹¤ ìœ ì§€)
-	depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;	//í‘œë©´ ë²„í¼ ì„±ê³µ , ê¹Šì´ ë²„í¼ ì‹¤íŒ¨ì‹œ (í‘œë©´ ê°’ 1ì¦ê°€)
-	depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;		//ëª¨ë‘ í†µê³¼
-	depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;		//í˜„ í‘œë©´ë²„í¼ë¥¼ ê¸°ì¡´ ë²„í¼ì™€ ë¹„êµ (í•­ìƒ ë¹„êµ)
-																			//í‘œë©´ ë²•ì„ ì´ ì¹´ë©”ë¼ì™€ë©€ì–´ ì ”ì„ë•Œ
+	depthStencilDesc.StencilEnable = true;									//Ç¥¸é ¹öÆÛ ¿©ºÎ
+	depthStencilDesc.StencilReadMask = 0xFF;								//ÀĞ´Âµ¥ ÇÊ¿äÇÑ ÀÏºÎ ½Äº°
+	depthStencilDesc.StencilWriteMask = 0xFF;								//¾²´Âµ¥ ÇÊ¿äÇÑ ÀÏºÎ ½Äº°
+																			//Ç¥¸é ¹ı¼±ÀÌ Ä«¸Ş¶ó¸¦ ÇâÇÏ°í ÀÖÀ»¶§ °¢¹öÆÛÀÇ Å×½ºÆ® °á°ú 
+	depthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;		//Ç¥¸é ¹öÆÛ ½ÇÆĞ½Ã	 (±âÁ¸ ½ºÅÄ½Ç À¯Áö)
+	depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;	//Ç¥¸é ¹öÆÛ ¼º°ø , ±íÀÌ ¹öÆÛ ½ÇÆĞ½Ã (Ç¥¸é °ª 1Áõ°¡)
+	depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;		//¸ğµÎ Åë°ú
+	depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;		//Çö Ç¥¸é¹öÆÛ¸¦ ±âÁ¸ ¹öÆÛ¿Í ºñ±³ (Ç×»ó ºñ±³)
+																			//Ç¥¸é ¹ı¼±ÀÌ Ä«¸Ş¶ó¿Í¸Ö¾î  ’À»¶§
 	depthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
@@ -182,20 +182,20 @@ void D3D::CreateDepthStencilBuffer()
 
 	deviceContext->OMSetDepthStencilState(depthStencilState, 1);
 
-	//ìŠ¤íƒ ì‹¤ ë·° ì´ˆê¸°í™”
+	//½ºÅÄ½Ç ºä ÃÊ±âÈ­
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
 	ZeroMemory(&depthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
-	depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;				//(ê¹Šì´ 24, í‘œë©´ 8, ì§€ì› 32ë¹„íŠ¸ zë²„í¼ í˜•ì‹)
-	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;			//ë¦¬ì†ŒìŠ¤ í…ìŠ¤ì³ëŠ” 2Dë¡œ
-	depthStencilViewDesc.Texture2D.MipSlice = 0;								//í…ìŠ¤ì²˜ ê¹Šì´ í‘œë©´
+	depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;				//(±íÀÌ 24, Ç¥¸é 8, Áö¿ø 32ºñÆ® z¹öÆÛ Çü½Ä)
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;			//¸®¼Ò½º ÅØ½ºÃÄ´Â 2D·Î
+	depthStencilViewDesc.Texture2D.MipSlice = 0;								//ÅØ½ºÃ³ ±íÀÌ Ç¥¸é
 
-																				//ê¹Šì´ í‘œë©´ ìƒì„± 
+																				//±íÀÌ Ç¥¸é »ı¼º 
 	hr = device->CreateDepthStencilView(depthStencilBuffer, &depthStencilViewDesc, &depthStencilView);
 	assert(SUCCEEDED(hr));
 
 	deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
-	//ë ˆìŠ¤í„° ë¼ì´ì¦ˆ ì´ˆê¸°í™” 
+	//·¹½ºÅÍ ¶óÀÌÁî ÃÊ±âÈ­ 
 	D3D11_RASTERIZER_DESC rasterDesc;
 	ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
 	rasterDesc.AntialiasedLineEnable = false;
@@ -214,7 +214,7 @@ void D3D::CreateDepthStencilBuffer()
 
 	deviceContext->RSSetState(rasterizerState);
 
-	//ìŠ¤í…ì‹¤ ì‚¬ìš© ì•ˆí•¨ 
+	//½ºÅÙ½Ç »ç¿ë ¾ÈÇÔ 
 	D3D11_DEPTH_STENCIL_DESC depthDisabledStencilDesc = { 0 };
 	depthDisabledStencilDesc.DepthEnable = false;
 	depthDisabledStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -268,7 +268,7 @@ void D3D::BeginScene(float r, float g, float b, float a)
 {
 	//0~255 , 0 ~ 1.0f
 	D3DXCOLOR color = { r,g,b,a };
-	//í™”ë©´ì˜ ë‚´ìš©ì„ ì§€ìš´ë‹¤.
+	//È­¸éÀÇ ³»¿ëÀ» Áö¿î´Ù.
 	deviceContext->ClearRenderTargetView
 	(
 		renderTargetView,
@@ -276,9 +276,9 @@ void D3D::BeginScene(float r, float g, float b, float a)
 	);
 	deviceContext->ClearDepthStencilView
 	(
-		depthStencilView,   //ì§€ìš°ëŠ” ëŒ€ìƒ
-		D3D11_CLEAR_DEPTH, //ì˜µì…˜
-		1,				   //(depth)ë‹¤ì‹œ ì´ˆê¸°í™” í•´ì£¼ëŠ” ê°’
+		depthStencilView,   //Áö¿ì´Â ´ë»ó
+		D3D11_CLEAR_DEPTH, //¿É¼Ç
+		1,				   //(depth)´Ù½Ã ÃÊ±âÈ­ ÇØÁÖ´Â °ª
 		0					//Stencil
 	);
 
@@ -286,10 +286,10 @@ void D3D::BeginScene(float r, float g, float b, float a)
 
 void D3D::EndScene()
 {
-	//í›„ë©´ë²„í¼ì— ì‘ì„±í•œ ë‚´ìš©ì„ ì „ë©´ë²„í¼ì— ë„˜ê²¨ì¤€ë‹¤.
+	//ÈÄ¸é¹öÆÛ¿¡ ÀÛ¼ºÇÑ ³»¿ëÀ» Àü¸é¹öÆÛ¿¡ ³Ñ°ÜÁØ´Ù.
 	if (isVsync == true)
 		swapChain->Present(1, 0);
 	else
 		swapChain->Present(0, 0);
-
+	
 }

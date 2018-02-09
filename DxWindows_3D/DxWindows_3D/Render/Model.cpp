@@ -2,7 +2,7 @@
 #include "Model.h"
 #include "ColorShader.h"
 #include "TextureShader.h"
-
+#include "../Common/Transform.h"
 
 
 Model::Model(TextureShader * shader)
@@ -11,7 +11,7 @@ Model::Model(TextureShader * shader)
 	CreateIndexBuffer();
 
 	D3DXMatrixIdentity(&world);
-
+	
 	HRESULT hr;
 	hr = D3DX11CreateShaderResourceViewFromFile
 	(
@@ -23,7 +23,6 @@ Model::Model(TextureShader * shader)
 		NULL
 	);
 
-	
 	this->shader = shader;
 	angle = 0.0f;
 }
@@ -42,9 +41,9 @@ void Model::CreateVertexBuffer()
 	Vertex* vertex = new Vertex[vertexCount];
 
 	vertex[0].position = D3DXVECTOR3(-1, 1, 0);
-	vertex[1].position = D3DXVECTOR3(1, 1, 0);
-	vertex[2].position = D3DXVECTOR3(-1, -1, 0);
-	vertex[3].position = D3DXVECTOR3(1, -1, 0);
+	vertex[1].position = D3DXVECTOR3( 1, 1, 0);
+	vertex[2].position = D3DXVECTOR3(-1,-1, 0);
+	vertex[3].position = D3DXVECTOR3( 1,-1, 0);
 
 	vertex[0].uv = D3DXVECTOR2(0,0);
 	vertex[1].uv = D3DXVECTOR2(1,0);
@@ -121,6 +120,7 @@ void Model::Render()
 	(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	view = CAMERA->GetViewMatrix();
 	projection = CAMERA->GetProjectionMatrix();
+
 
 	shader->SetParameters(world, view, projection);
 	DEVICECONTEXT->PSSetShaderResources(0, 1, &texture);

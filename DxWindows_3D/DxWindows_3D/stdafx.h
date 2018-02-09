@@ -1,4 +1,7 @@
 #pragma once
+/////////////////////////////////////////////////////
+//	stdafx.h
+////////////////////////////////////////////////////
 
 #include <Windows.h>
 #include <stdlib.h>
@@ -40,7 +43,9 @@ using namespace std;
 
 #include "./System/Util.h"
 
-#include "./Common/Camera.h"
+#include "./Common/Camera.h";
+
+
 
 using namespace Util;
 
@@ -52,11 +57,11 @@ using namespace Util;
 #define WIN_TITLE L"DxWindow"
 #define WIN_STYLE WS_OVERLAPPEDWINDOW
 
-#define ONE_RAD 0.017453f
+#define ONE_RAD 0.017453f	//라디안 1도
 
-#define SAFE_DELETE(p) {if(p) {delete(p); (p) = NULL;}}
-#define SAFE_RELEASE(p) {if(p) {(p)->Release(); (p) = NULL;}}
-#define SAFE_DELETE_ARRAY(p) {if(p) {delete[](p); (p) = NULL;}}
+#define SAFE_DELETE(p)		 {if(p) {delete(p); (p) = NULL;}}
+#define SAFE_RELEASE(p)		 {if(p) {(p)->Release(); (p) = NULL;}}
+#define SAFE_DELETE_ARRAY(p) {if(p) {delete[](p); (p) = NULL; }}
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInst;
