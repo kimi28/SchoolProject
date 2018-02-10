@@ -146,11 +146,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Manager\SingletonBase.cpp" />
+    <ClCompile Include="System\D3D.cpp" />
     <ClCompile Include="System\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Manager\SingletonBase.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="System\D3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

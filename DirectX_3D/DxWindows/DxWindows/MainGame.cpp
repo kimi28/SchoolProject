@@ -27,6 +27,7 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
+	
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
