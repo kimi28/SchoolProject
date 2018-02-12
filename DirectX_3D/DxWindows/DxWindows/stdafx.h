@@ -31,6 +31,8 @@ using namespace std;
 
 #include "./Manager/SingletonBase.h"
 
+#include "./System/D3D.h"
+
 #define	WINSIZE_X	800
 #define	WINSIZE_Y	800
 #define	WINPOS_X	0

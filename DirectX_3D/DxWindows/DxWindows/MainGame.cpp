@@ -14,6 +14,7 @@ MainGame::~MainGame()
 
 HRESULT MainGame::Init()
 {
+	D3D::GetInstance();
 	return S_OK;
 }
 
@@ -27,7 +28,12 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	
+	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+
+
+
+
+	D3D::GetInstance()->EndScene();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
