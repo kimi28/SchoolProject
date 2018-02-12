@@ -27,7 +27,7 @@ PixelInput ColorVertexShader(VertexInput input)
 	output.position = mul(output.position, view);
 	output.position = mul(output.position, projection);
 
-	output.color = intput.color;
+	output.color = input.color;
 
 	return output;
 }

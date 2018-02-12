@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "MainGame.h"
-
-
+#include "./Render/Model.h"
+#include "./Render/ColorShader.h"
 
 MainGame::MainGame()
 {
 }
-
 
 MainGame::~MainGame()
 {
@@ -15,22 +14,41 @@ MainGame::~MainGame()
 HRESULT MainGame::Init()
 {
 	D3D::GetInstance();
+	FRAME->Init();
+	TWEAKBAR->Init();
+
+	colorShader = new ColorShader();
+	model = new Model(colorShader);
+
+	TWEAKBAR->ChangeDraw();
 	return S_OK;
 }
 
 void MainGame::Release()
 {
+	SAFE_DELETE(model);
+	SAFE_DELETE(colorShader);
+	TWEAKBAR->ReleaseInstance();
+	FRAME->Release();
+	FRAME->ReleaseInstance();
+	D3D::ReleaseInstance();
 }
 
 void MainGame::Update()
 {
+	FRAME->UpdateTime(60.0f);
+
+	double timeDelta = FRAME->GetFrameDeltaSec();
+
+	model->Update(timeDelta);
 }
 
 void MainGame::Render()
 {
 	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
-
+	TWEAKBAR->Render();
+	model->Render();
 
 
 	D3D::GetInstance()->EndScene();
@@ -38,6 +56,7 @@ void MainGame::Render()
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	TWEAKBAR->InputProc(hWnd, msg, wParam, lParam);
 	if (msg == WM_CLOSE || msg == WM_DESTROY)
 	{
 		PostQuitMessage(0);

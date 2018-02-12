@@ -27,6 +27,18 @@
     <ClCompile Include="Manager\SingletonBase.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Render\ColorShader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Frame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="System\TweakBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -39,6 +51,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Manager\SingletonBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\ColorShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Frame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="System\TweakBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,11 +29,16 @@ using namespace std;
 #pragma comment(lib, "d3dx11.lib")
 #pragma comment(lib, "d3dx10.lib")
 
+#include "AntTweakBar.h"
+#pragma comment(lib, "AntTweakBar.lib")
+
 #include "./Manager/SingletonBase.h"
 
 #include "./System/D3D.h"
+#include "./System/Frame.h"
+#include "./System/TweakBar.h"
 
-#define	WINSIZE_X	800
+#define	WINSIZE_X	1280
 #define	WINSIZE_Y	800
 #define	WINPOS_X	0
 #define	WINPOS_Y	0

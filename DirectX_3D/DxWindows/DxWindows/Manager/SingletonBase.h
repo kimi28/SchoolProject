@@ -31,11 +31,8 @@ void SingletonBase<T>::ReleaseInstance()
 {
 	if (instance)
 	{
-		/*
 		delete	instance;
 		instance = NULL;
-		*/
-
-		SAFE_DELETE(instance);
+		//SAFE_DELETE(instance);
 	}
 }

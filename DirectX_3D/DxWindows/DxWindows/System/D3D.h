@@ -45,6 +45,6 @@ public:
 	void EndScene();
 };
 
-#define	DEVICE	D3D::GetDevice()
-#define	DEVICECONTEXT	D3D::GetDeviceContext()
+#define	DEVICE	D3D::GetInstance()->GetDevice()
+#define	DEVICECONTEXT	D3D::GetInstance()->GetDeviceContext()
 

@@ -147,14 +147,22 @@
   <ItemGroup>
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Manager\SingletonBase.cpp" />
+    <ClCompile Include="Render\ColorShader.cpp" />
+    <ClCompile Include="Render\Model.cpp" />
     <ClCompile Include="System\D3D.cpp" />
+    <ClCompile Include="System\Frame.cpp" />
+    <ClCompile Include="System\TweakBar.cpp" />
     <ClCompile Include="System\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Manager\SingletonBase.h" />
+    <ClInclude Include="Render\ColorShader.h" />
+    <ClInclude Include="Render\Model.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\D3D.h" />
+    <ClInclude Include="System\Frame.h" />
+    <ClInclude Include="System\TweakBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\ColorPixel.hlsl">
