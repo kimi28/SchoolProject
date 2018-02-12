@@ -42,4 +42,8 @@
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\ColorPixel.hlsl" />
+    <None Include="Shader\ColorVertex.hlsl" />
+  </ItemGroup>
 </Project>

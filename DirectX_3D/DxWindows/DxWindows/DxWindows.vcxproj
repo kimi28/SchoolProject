@@ -156,6 +156,14 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\D3D.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\ColorPixel.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\ColorVertex.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
