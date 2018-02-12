@@ -39,6 +39,9 @@
     <ClCompile Include="System\TweakBar.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="System\Input.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -63,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="System\TweakBar.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Input.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

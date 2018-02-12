@@ -151,6 +151,7 @@
     <ClCompile Include="Render\Model.cpp" />
     <ClCompile Include="System\D3D.cpp" />
     <ClCompile Include="System\Frame.cpp" />
+    <ClCompile Include="System\Input.cpp" />
     <ClCompile Include="System\TweakBar.cpp" />
     <ClCompile Include="System\WinMain.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\D3D.h" />
     <ClInclude Include="System\Frame.h" />
+    <ClInclude Include="System\Input.h" />
     <ClInclude Include="System\TweakBar.h" />
   </ItemGroup>
   <ItemGroup>
