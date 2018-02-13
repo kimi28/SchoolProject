@@ -1,0 +1,39 @@
+#pragma once
+class ColorShader;
+class Cube
+{
+private:
+	D3DXMATRIX world, view, projection;
+	D3D11_VIEWPORT viewport;
+
+	ColorShader* shader;
+
+	struct Vertex
+	{
+		D3DXVECTOR3 position;
+		D3DXCOLOR	color;
+	};
+
+	ID3D11Buffer* vertexBuffer;
+	ID3D11Buffer* indexBuffer;
+
+	UINT vertexCount;
+	UINT indexCount;
+
+	D3DXVECTOR3 angle;
+	D3DXVECTOR3 position;
+
+	ID3D11RasterizerState* wireFrameRender;
+
+public:
+	Cube(ColorShader* shader);
+	~Cube();
+
+	void CreateVertexBuffer();
+	void CreateIndexBuffer();
+	void CreateRenderState();
+
+	void Update(float timeDelta);
+	void Render();
+};
+

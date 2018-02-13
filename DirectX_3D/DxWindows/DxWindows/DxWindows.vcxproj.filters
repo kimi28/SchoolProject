@@ -42,6 +42,9 @@
     <ClCompile Include="System\Input.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Render\Cube.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -69,6 +72,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="System\Input.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Cube.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

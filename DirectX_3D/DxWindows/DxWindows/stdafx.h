@@ -37,6 +37,7 @@ using namespace std;
 #include "./System/D3D.h"
 #include "./System/Frame.h"
 #include "./System/TweakBar.h"
+#include "./System/Input.h"
 
 #define	WINSIZE_X	1280
 #define	WINSIZE_Y	800
