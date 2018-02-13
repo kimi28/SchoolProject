@@ -64,7 +64,7 @@ void Model::CreateVertexBuffer()
 	vertex[0].color = D3DXCOLOR(1, 0, 0, 1);
 	vertex[1].color = D3DXCOLOR(0, 1, 0, 1);
 	vertex[2].color = D3DXCOLOR(0, 0, 1, 1);
-	vertex[3].color = D3DXCOLOR(1, 1, 0, 1);
+	vertex[3].color = D3DXCOLOR(0, 0, 0, 1);
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -112,7 +112,7 @@ void Model::CreateIndexBuffer()
 
 void Model::Update(float timeDelta)
 {
-	angle += 90.0f * ONE_RAD * timeDelta;
+	/*angle += 90.0f * ONE_RAD * timeDelta;
 
 	D3DXMATRIX matRotate;
 	D3DXMatrixRotationY(&matRotate, angle);
@@ -120,7 +120,7 @@ void Model::Update(float timeDelta)
 	this->world = matRotate;
 
 	this->world._41 = 2;
-	this->world._42 = -2;
+	this->world._42 = -2;*/
 }
 
 void Model::Render()

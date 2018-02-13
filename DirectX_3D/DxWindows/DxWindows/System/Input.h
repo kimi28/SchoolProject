@@ -20,3 +20,5 @@ public:
 	bool GetKeyUp(int VKey);
 };
 
+
+#define INPUT Input::GetInstance()

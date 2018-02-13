@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MainGame.h"
 #include "./Render/Model.h"
+#include "./Render/Cube.h"
 #include "./Render/ColorShader.h"
 
 MainGame::MainGame()
@@ -18,7 +19,7 @@ HRESULT MainGame::Init()
 	TWEAKBAR->Init();
 
 	colorShader = new ColorShader();
-	model = new Model(colorShader);
+	model = new Cube(colorShader);
 
 	TWEAKBAR->ChangeDraw();
 	return S_OK;

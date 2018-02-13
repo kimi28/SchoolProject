@@ -39,8 +39,8 @@ using namespace std;
 #include "./System/TweakBar.h"
 #include "./System/Input.h"
 
-#define	WINSIZE_X	1280
-#define	WINSIZE_Y	800
+#define	WINSIZE_X	800
+#define	WINSIZE_Y	600
 #define	WINPOS_X	0
 #define	WINPOS_Y	0
 #define	WIN_CLASS	L"DxWindow"

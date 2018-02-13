@@ -71,15 +71,24 @@ void Cube::CreateVertexBuffer()
 	vertex[6].position = D3DXVECTOR3(-1, -1, 1);
 	vertex[7].position = D3DXVECTOR3(1, -1, 1);
 
-	D3DXCOLOR color = D3DXCOLOR(1, 1, 1, 1);
-	for (int index = 0; index < 8; index++)
-	{
-		color.r -= 0.1f;
-		color.g -= 0.1f;
-		color.b -= 0.1f;
+	vertex[0].color = D3DXCOLOR(1, 0, 0, 1);
+	vertex[1].color = D3DXCOLOR(0, 1, 0, 1);
+	vertex[2].color = D3DXCOLOR(0, 0, 1, 1);
+	vertex[3].color = D3DXCOLOR(1, 1, 0, 1);
+	vertex[4].color = D3DXCOLOR(1, 0, 1, 1);
+	vertex[5].color = D3DXCOLOR(0, 1, 1, 1);
+	vertex[6].color = D3DXCOLOR(1, 0, 1, 1);
+	vertex[7].color = D3DXCOLOR(0, 1, 1, 1);
 
-		vertex[index].color = color;
-	}
+	//D3DXCOLOR color = D3DXCOLOR(1, 0, 1, 1);
+	//for (int index = 0; index < 8; index++)
+	//{
+	//	/*color.r -= 0.1f;
+	//	color.g -= 0.1f;
+	//	color.b -= 0.1f;*/
+
+	//	vertex[index].color = color;
+	//}
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DEFAULT;
@@ -160,12 +169,79 @@ void Cube::CreateIndexBuffer()
 
 void Cube::CreateRenderState()
 {
+	D3D11_RASTERIZER_DESC rasterizerBuffer;
+	ZeroMemory(&rasterizerBuffer, sizeof(D3D11_RASTERIZER_DESC));
+	rasterizerBuffer.FillMode = D3D11_FILL_WIREFRAME;
+	rasterizerBuffer.CullMode = D3D11_CULL_BACK;
+	rasterizerBuffer.DepthClipEnable = true;
+
+	HRESULT hr = DEVICE->CreateRasterizerState
+	(
+		&rasterizerBuffer,
+		&wireFrameRender
+	);
+	assert(SUCCEEDED(hr));
+
 }
 
 void Cube::Update(float timeDelta)
 {
+	D3DXMATRIX matRotX;
+	D3DXMATRIX matRotY;
+	D3DXMATRIX matRotZ;
+	D3DXMATRIX matTrans;
+
+	D3DXMatrixTranslation
+	(
+		&matTrans,
+		position.x,
+		position.y,
+		position.z
+	);
+
+	if (INPUT->GetKey('A'))
+		angle.y += 0.1f;
+	if (INPUT->GetKey('D'))
+		angle.y -= 0.1f;
+	if (INPUT->GetKey('W'))
+		angle.x += 0.1f;
+	if (INPUT->GetKey('S'))
+		angle.x -= 0.1f;
+	if (INPUT->GetKey('Q'))
+		angle.z += 0.1f;
+	if (INPUT->GetKey('E'))
+		angle.z -= 0.1f;
+
+	if (INPUT->GetKey(VK_RIGHT))
+		view._41 += 0.1f;
+	if (INPUT->GetKey(VK_LEFT))
+		view._41 -= 0.1f;
+	if (INPUT->GetKey(VK_UP))
+		view._43 -= 0.1f;
+	if (INPUT->GetKey(VK_DOWN))
+		view._43 += 0.1f;
+
+	D3DXMatrixRotationX(&matRotX, angle.x);
+	D3DXMatrixRotationY(&matRotY, angle.y);
+	D3DXMatrixRotationZ(&matRotZ, angle.z);
+
+	this->world = matRotX * matRotY* matRotZ* matTrans;
+
 }
 
 void Cube::Render()
 {
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+
+	DEVICECONTEXT->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+	DEVICECONTEXT->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	DEVICECONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DEVICECONTEXT->RSSetState(wireFrameRender);
+
+	shader->SetParameters(world, view, projection);
+
+	shader->Render();
+
+	DEVICECONTEXT->DrawIndexed(indexCount, 0, 0);
 }
