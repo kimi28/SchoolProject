@@ -156,6 +156,7 @@
     <ClCompile Include="System\Frame.cpp" />
     <ClCompile Include="System\Input.cpp" />
     <ClCompile Include="System\TweakBar.cpp" />
+    <ClCompile Include="System\Util.cpp" />
     <ClCompile Include="System\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="System\Frame.h" />
     <ClInclude Include="System\Input.h" />
     <ClInclude Include="System\TweakBar.h" />
+    <ClInclude Include="System\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\ColorPixel.hlsl">

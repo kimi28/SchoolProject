@@ -38,6 +38,11 @@ using namespace std;
 #include "./System/Frame.h"
 #include "./System/TweakBar.h"
 #include "./System/Input.h"
+#include "./System/Util.h"
+
+#include "./Common/Camera.h"
+
+using namespace Util;
 
 #define	WINSIZE_X	800
 #define	WINSIZE_Y	600

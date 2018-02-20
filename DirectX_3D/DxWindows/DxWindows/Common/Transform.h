@@ -53,11 +53,20 @@ public:
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(D3DXVECTOR3 pos);
 
-	void MovePositionSelf(float dx, float dy, float dz);
-	void MovePositionSelf(D3DXVECTOR3 delta);
-
-	void MovePositionLocal(float dx, float dy, float dz);
 	void MovePositionLocal(D3DXVECTOR3 delta);
+
+	void RotateWorld(float angleX, float angleY, float angleZ);
+
+	void UpdateTransform();
+
+	D3DXMATRIX GetFinalMatrix();
+
+	D3DXVECTOR3 GetWorldPosition() const;
+	D3DXVECTOR3 GetLocalPosition() const;
+
+	void GetUnitAxies(D3DXVECTOR3* vecArr) const;
+
+	void DefaultControl(float timeDelta);
 
 
 };

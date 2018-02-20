@@ -17,6 +17,7 @@ HRESULT MainGame::Init()
 	D3D::GetInstance();
 	FRAME->Init();
 	TWEAKBAR->Init();
+	CAMERA->GetInstance();
 
 	colorShader = new ColorShader();
 	model = new Cube(colorShader);
@@ -29,6 +30,7 @@ void MainGame::Release()
 {
 	SAFE_DELETE(model);
 	SAFE_DELETE(colorShader);
+	CAMERA->ReleaseInstance();
 	TWEAKBAR->ReleaseInstance();
 	FRAME->Release();
 	FRAME->ReleaseInstance();
@@ -41,17 +43,18 @@ void MainGame::Update()
 
 	double timeDelta = FRAME->GetFrameDeltaSec();
 
-	model->Update(timeDelta);
+	//model->Update(timeDelta);
+	CAMERA->DefaultControl(timeDelta);
+	CAMERA->Updatematrix();
 }
 
 void MainGame::Render()
 {
 	D3D::GetInstance()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
-	TWEAKBAR->Render();
 	model->Render();
 
-
+	TWEAKBAR->Render();
 	D3D::GetInstance()->EndScene();
 }
 
