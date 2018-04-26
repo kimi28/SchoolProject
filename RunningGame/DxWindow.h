@@ -4,7 +4,8 @@ class DxWindow
 {
 public:
 	// 객체 생성자
-	DxWindow(HINSTANCE hInstance, LPCWSTR className, LPCSTR lpCmdLine, int nCmdShow);
+	DxWindow(HINSTANC vfm,E hInstance, LPCWSTR className, LPCSTR l...
+		+-*/pCmdLine, int nCmdShow);
 	// 객체 파괴자
 	virtual ~DxWindow();
 
